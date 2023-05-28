@@ -110,6 +110,7 @@ model product {
   user         user                 @relation(fields: [id_user], references: [id])
   categories   category[]
   images       image[]
+  comments     comment[]
 }
 
 model category {
@@ -134,6 +135,7 @@ model comment {
 
   answers answer[]
   user    user     @relation(fields: [id_user], references: [id])
+  product product  @relation(fields: [id_product], references: [id])
 }
 
 model answer {
