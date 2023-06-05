@@ -24,6 +24,7 @@ model user {
   comments        comment[]
   transactions    transaction_header[]
   roles           user_role[]
+  answers         answer[]
 }
 
 model user_role {
@@ -51,7 +52,7 @@ model adress {
   district    String
   direction   String
   postal_code String
-  phone       Int    @unique
+  phone       Int
 
   transactions transaction_header[]
   user         user                 @relation(fields: [id_user], references: [id])
@@ -76,9 +77,9 @@ model transaction_header {
   id_adress         Int
   total             Decimal
   created_at        DateTime
-  state             String
+  payed             Boolean
 
-  transactions   transaction_detail[]
+  details        transaction_detail[]
   user           user                 @relation(fields: [id_user], references: [id])
   payment_method payment_method       @relation(fields: [id_payment_method], references: [id])
   adress         adress               @relation(fields: [id_adress], references: [id])
@@ -107,12 +108,12 @@ model type {
 }
 
 model product {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   id_user  Int
   id_type  Int
   name     String
   quantity Int
-  state    String
+  price    Decimal
 
   transactions transaction_detail[]
   type         type                 @relation(fields: [id_type], references: [id])
@@ -160,8 +161,10 @@ model comment {
 model answer {
   id         Int      @id @default(autoincrement())
   id_comment Int
+  id_user    Int
   text       String
   created_at DateTime
 
   comment comment @relation(fields: [id_comment], references: [id])
+  user    user    @relation(fields: [id_user], references: [id])
 }
