@@ -64,7 +64,7 @@ CREATE TABLE `transaction_header` (
     `id_adress` INTEGER NOT NULL,
     `total` DECIMAL(65, 30) NOT NULL,
     `created_at` DATETIME(3) NOT NULL,
-    `state` VARCHAR(191) NOT NULL,
+    `payed` BOOLEAN NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -99,7 +99,7 @@ CREATE TABLE `product` (
     `id_type` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `quantity` INTEGER NOT NULL,
-    `state` VARCHAR(191) NOT NULL,
+    `price` DECIMAL(65, 30) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -144,6 +144,7 @@ CREATE TABLE `comment` (
 CREATE TABLE `answer` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_comment` INTEGER NOT NULL,
+    `id_user` INTEGER NOT NULL,
     `text` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL,
 
@@ -200,3 +201,6 @@ ALTER TABLE `comment` ADD CONSTRAINT `comment_id_product_fkey` FOREIGN KEY (`id_
 
 -- AddForeignKey
 ALTER TABLE `answer` ADD CONSTRAINT `answer_id_comment_fkey` FOREIGN KEY (`id_comment`) REFERENCES `comment`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `answer` ADD CONSTRAINT `answer_id_user_fkey` FOREIGN KEY (`id_user`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -3,6 +3,7 @@ import { categories } from "./seeds/categories";
 import { payment_methods } from "./seeds/payment_methods";
 import { roles } from "./seeds/roles";
 import { types } from "./seeds/types";
+import { images } from "./seeds/images";
 
 const prisma = new PrismaClient();
 
@@ -158,6 +159,11 @@ const main = async () => {
     },
   });
 
+   // IMAGES
+   await prisma.image.createMany({
+    data: images,
+  });
+  
   // TRANSACTION HEADER
   await prisma.transaction_header.create({
     data: {
