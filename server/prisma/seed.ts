@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import fs from "fs";
 import { categories } from "./seeds/categories";
+import { images } from "./seeds/images";
 import { payment_methods } from "./seeds/payment_methods";
 import { roles } from "./seeds/roles";
 import { types } from "./seeds/types";
-import { images } from "./seeds/images";
 
 const prisma = new PrismaClient();
 
@@ -21,6 +22,7 @@ const main = async () => {
       phone: 85713150,
       email: "lusuarezag@est.utn.ac.cr",
       password: "123456",
+      image: fs.readFileSync("IMAGES/Naruto_Partie_I.jpg"),
       roles: {
         createMany: {
           data: [{ id_role: 1 }],
@@ -36,6 +38,7 @@ const main = async () => {
       phone: 62515242,
       email: "malopezsa@est.utn.ac.cr",
       password: "123456",
+      image: fs.readFileSync("IMAGES/bella.jpg"),
       company_name: "Netflix",
       roles: {
         createMany: {
@@ -51,6 +54,7 @@ const main = async () => {
       name: "Carlo Bonilla",
       phone: 82345678,
       email: "cabonillamo@est.utn.ac.cr",
+      image: fs.readFileSync("IMAGES/potato.jpg"),
       password: "123456",
       roles: {
         createMany: {
@@ -159,11 +163,11 @@ const main = async () => {
     },
   });
 
-   // IMAGES
-   await prisma.image.createMany({
+  // IMAGES
+  await prisma.image.createMany({
     data: images,
   });
-  
+
   // TRANSACTION HEADER
   await prisma.transaction_header.create({
     data: {
@@ -205,6 +209,7 @@ const main = async () => {
       id_product: 2,
       quantity: 1,
       subtotal: 900,
+      arrivalDate: new Date(),
       client_rating: 5,
       client_feedback: "Excelent service",
     },

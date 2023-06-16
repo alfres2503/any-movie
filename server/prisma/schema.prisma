@@ -17,6 +17,7 @@ model user {
   email        String  @unique
   password     String
   company_name String?
+  image        Bytes?
 
   payment_methods payment_method[]
   adress          adress[]
@@ -86,11 +87,12 @@ model transaction_header {
 }
 
 model transaction_detail {
-  id         Int     @id @default(autoincrement())
-  id_header  Int
-  id_product Int
-  quantity   Int
-  subtotal   Decimal
+  id          Int       @id @default(autoincrement())
+  id_header   Int
+  id_product  Int
+  quantity    Int
+  subtotal    Decimal
+  arrivalDate DateTime?
 
   client_rating   Int?
   seller_rating   Int?
