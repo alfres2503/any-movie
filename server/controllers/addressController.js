@@ -2,18 +2,16 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-//Obtener listado
 module.exports.get = async (request, response, next) => {
-  const users = await prisma.user.findMany();
+  const address = await prisma.address.findMany();
 
-  response.json(users);
+  response.json(address);
 };
 
-//Obtener por Id
 module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);
-  const users = await prisma.user.findUnique({
+  const address = await prisma.address.findUnique({
     where: { id: id },
   });
-  response.json(users);
+  response.json(address);
 };

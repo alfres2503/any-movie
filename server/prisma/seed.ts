@@ -64,9 +64,9 @@ const main = async () => {
     },
   });
 
-  // ADRESS
+  // ADDRESS
 
-  await prisma.adress.create({
+  await prisma.address.create({
     data: {
       id_user: 118310145,
       province: "San José",
@@ -78,7 +78,7 @@ const main = async () => {
     },
   });
 
-  await prisma.adress.create({
+  await prisma.address.create({
     data: {
       id_user: 604780838,
       province: "Alajuela",
@@ -90,7 +90,7 @@ const main = async () => {
     },
   });
 
-  await prisma.adress.create({
+  await prisma.address.create({
     data: {
       id_user: 604780838,
       province: "Puntarenas",
@@ -173,7 +173,7 @@ const main = async () => {
     data: {
       id_user: 604780838,
       id_payment_method: 2,
-      id_adress: 2,
+      id_address: 2,
       total: 1017,
       created_at: new Date(),
       payed: true,
@@ -184,7 +184,7 @@ const main = async () => {
     data: {
       id_user: 118310145,
       id_payment_method: 1,
-      id_adress: 1,
+      id_address: 1,
       total: 159.5,
       created_at: new Date(),
       payed: false,
@@ -195,7 +195,7 @@ const main = async () => {
     data: {
       id_user: 604780838,
       id_payment_method: 3,
-      id_adress: 3,
+      id_address: 3,
       total: 1130,
       created_at: new Date(),
       payed: true,

@@ -9,11 +9,7 @@ const logger = require("morgan");
 const app = express();
 const prism = new PrismaClient();
 
-// Import Routes
-const userRoutes = require("./routes/user.routes");
-
 // Config
-
 const port = process.env.PORT || 3000;
 
 dotEnv.config();
@@ -25,10 +21,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-app.use("/users", userRoutes);
+app.use("/users", require("./routes/user.routes"));
+app.use("/transactions", require("./routes/transaction.routes"));
+app.use("/products", require("./routes/product.routes"));
+app.use("/address", require("./routes/address.routes"));
+app.use("/answers", require("./routes/answer.routes"));
+app.use("/categories", require("./routes/category.routes"));
+app.use("/comments", require("./routes/comment.routes"));
+app.use("/paymentMethods", require("./routes/paymentMethod.routes"));
+app.use("/types", require("./routes/type.routes"));
 
 // Server
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
-  console.log("Presione CTRL-C para deternerlo\n");
+  console.log("Presione CTRL-C para detenerlo\n");
 });

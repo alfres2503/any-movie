@@ -20,7 +20,7 @@ model user {
   image        Bytes?
 
   payment_methods payment_method[]
-  adress          adress[]
+  address         address[]
   products        product[]
   comments        comment[]
   transactions    transaction_header[]
@@ -45,7 +45,7 @@ model role {
   users user_role[]
 }
 
-model adress {
+model address {
   id          Int    @id @default(autoincrement())
   id_user     Int
   province    String
@@ -75,7 +75,7 @@ model transaction_header {
   id                Int      @id @default(autoincrement())
   id_user           Int
   id_payment_method Int
-  id_adress         Int
+  id_address        Int
   total             Decimal
   created_at        DateTime
   payed             Boolean
@@ -83,7 +83,7 @@ model transaction_header {
   details        transaction_detail[]
   user           user                 @relation(fields: [id_user], references: [id])
   payment_method payment_method       @relation(fields: [id_payment_method], references: [id])
-  adress         adress               @relation(fields: [id_adress], references: [id])
+  address        address              @relation(fields: [id_address], references: [id])
 }
 
 model transaction_detail {
