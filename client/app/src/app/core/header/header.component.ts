@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   isAuth: boolean;
   currentUser: any;
 
@@ -15,5 +16,9 @@ export class HeaderComponent {
       name: 'Ingeniero Suárez',
     };
     this.currentUser = user;
+  }
+
+  toggleSidebar() {
+    this.toggleSidebarForMe.emit();
   }
 }

@@ -11,9 +11,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgIf } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
+  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, SidenavComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,7 +27,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSidenavModule,
     NgIf,
     MatButtonModule,
+    MatBadgeModule
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent, SidenavComponent],
 })
 export class CoreModule {}

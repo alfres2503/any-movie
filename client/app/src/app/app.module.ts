@@ -8,6 +8,9 @@ import { CoreModule } from './core/core.module';
 import { ShareModule } from './share/share.module';
 import { HomeModule } from './home/home.module';
 import { UserModule } from './user/user.module';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +21,7 @@ import { UserModule } from './user/user.module';
     ShareModule,
     HomeModule,
     UserModule,
+    MatSidenavModule, NgIf, MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],
