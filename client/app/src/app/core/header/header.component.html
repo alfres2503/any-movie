@@ -1,0 +1,30 @@
+<mat-toolbar color="">
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="margin-left: 1rem">AnyMovie</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>search</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>messages</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon">
+    <mat-icon>notifications</mat-icon>
+  </button>
+  <!-- Account circle icon and user name -->
+  <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

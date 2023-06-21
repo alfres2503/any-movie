@@ -4,38 +4,6 @@
 
 //COLORES
 $my-primary-color: (
-  50 : #e0f4ef,
-  100 : #b3e3d8,
-  200 : #80d1be,
-  300 : #4dbfa3,
-  400 : #26b190,
-  500 : #00a37c,
-  600 : #009b74,
-  700 : #009169,
-  800 : #00885f,
-  900 : #00774c,
-  A100 : #a5ffd9,
-  A200 : #72ffc3,
-  A400 : #3fffae,
-  A700 : #25ffa3,
-  contrast: (
-      50 : #000000,
-      100 : #000000,
-      200 : #000000,
-      300 : #000000,
-      400 : #000000,
-      500 : #ffffff,
-      600 : #ffffff,
-      700 : #ffffff,
-      800 : #ffffff,
-      900 : #ffffff,
-      A100 : #000000,
-      A200 : #000000,
-      A400 : #000000,
-      A700 : #000000,
-  )
-);
-$my-accent-color: (
   50 : #ede6f2,
   100 : #d1c0de,
   200 : #b396c8,
@@ -65,6 +33,70 @@ $my-accent-color: (
       A200 : #000000,
       A400 : #ffffff,
       A700 : #ffffff,
+  )
+);
+// $my-primary-color: (
+//   50 : #e0f4ef,
+//   100 : #b3e3d8,
+//   200 : #80d1be,
+//   300 : #4dbfa3,
+//   400 : #26b190,
+//   500 : #00a37c,
+//   600 : #009b74,
+//   700 : #009169,
+//   800 : #00885f,
+//   900 : #00774c,
+//   A100 : #a5ffd9,
+//   A200 : #72ffc3,
+//   A400 : #3fffae,
+//   A700 : #25ffa3,
+//   contrast: (
+//       50 : #000000,
+//       100 : #000000,
+//       200 : #000000,
+//       300 : #000000,
+//       400 : #000000,
+//       500 : #ffffff,
+//       600 : #ffffff,
+//       700 : #ffffff,
+//       800 : #ffffff,
+//       900 : #ffffff,
+//       A100 : #000000,
+//       A200 : #000000,
+//       A400 : #000000,
+//       A700 : #000000,
+//   )
+// );
+$my-accent-color: (
+  50 : #e0f4ef,
+  100 : #b3e3d8,
+  200 : #80d1be,
+  300 : #4dbfa3,
+  400 : #26b190,
+  500 : #00a37c,
+  600 : #009b74,
+  700 : #009169,
+  800 : #00885f,
+  900 : #00774c,
+  A100 : #a5ffd9,
+  A200 : #72ffc3,
+  A400 : #3fffae,
+  A700 : #25ffa3,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
   )
 );
 
@@ -107,7 +139,7 @@ $my-primary: mat.define-palette($my-primary-color);
 $my-accent: mat.define-palette($my-accent-color);
 $my-warn: mat.define-palette($my-warn-color);
 
-$my-theme: mat.define-light-theme(
+$my-theme: mat.define-dark-theme(
   (
     color: (
       primary: $my-primary,
