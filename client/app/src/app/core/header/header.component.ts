@@ -13,7 +13,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.isAuth = true;
     let user = {
-      name: 'Ingeniero Suárez',
+      name: 'Pala',
     };
     this.currentUser = user;
   }

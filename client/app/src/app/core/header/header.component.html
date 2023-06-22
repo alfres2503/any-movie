@@ -7,16 +7,15 @@
     <span class="example-spacer"></span>
 
     <button mat-icon-button>
-      <mat-icon matBadge="15" matBadgeColor="accent">messages</mat-icon>
+      <mat-icon matBadge="5" matBadgeColor="accent">messages</mat-icon>
     </button>
 
     <button mat-icon-button>
-      <mat-icon>notifications</mat-icon>
+      <mat-icon matBadge="3" matBadgeColor="primary">notifications</mat-icon>
     </button>
 
     <div class="row me-2 ms-auto">
       <ul>
-        <li></li>
         <li>
           <button
             mat-button
@@ -28,7 +27,7 @@
               class="user-image me-1 p-1"
               width="40"
             />
-            User name
+            {{ currentUser.name }}
             <mat-icon class="user-image-icon ms-1"
               >keyboard_arrow_down</mat-icon
             >

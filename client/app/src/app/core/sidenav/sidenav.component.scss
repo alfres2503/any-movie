@@ -1,0 +1,38 @@
+mat-list {
+  padding: 1rem;
+}
+
+.logo {
+  text-align: center;
+  padding: 2.6rem1rem;
+  img {
+    width: 15rem;
+  }
+}
+
+.mat-icon {
+  vertical-align: bottom;
+  margin-right: 1rem;
+}
+
+.mat-divider {
+  border-top-width: 0.5px;
+  border-color: #b3b3b3;
+}
+
+a[mat-list-item] {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  &:hover {
+    border-radius: 5px;
+    background: #363636 !important;
+  }
+  margin-bottom: 4px;
+}
+
+.list-item-active {
+  color: #363636 !important;
+  // background: #363636 !important;
+  border-radius: 5px;
+}

@@ -1,1 +1,102 @@
-<p>sidenav works!</p>
+<mat-list>
+  <div class="logo py-4">
+    <img src="../../../assets/AnyMovieLogo.svg" alt="Logo AnyMovie" />
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item routerLink="/home" routerLinkActive="list-item-active">
+    <mat-icon>home</mat-icon>
+    Home
+  </a>
+
+  <a
+    mat-list-item
+    routerLink=""
+    routerLinkActive="list-item-active"
+    [matMenuTriggerFor]="menuM"
+  >
+    <mat-icon>movies</mat-icon>
+    Products
+  </a>
+
+  <a
+    mat-list-item
+    routerLink=""
+    routerLinkActive="list-item-active"
+    [matMenuTriggerFor]="menuO"
+  >
+    <mat-icon>assignment_turned_in</mat-icon>
+    Orders
+  </a>
+
+  <a mat-list-item routerLink="" routerLinkActive="list-item-active">
+    <mat-icon>person_pin_circle</mat-icon>
+    Sellers
+  </a>
+
+  <a
+    mat-list-item
+    routerLink=""
+    routerLinkActive="list-item-active"
+    [matMenuTriggerFor]="menuR"
+  >
+    <mat-icon>import_contacts</mat-icon>
+    Reports
+  </a>
+
+  <mat-menu #menuM="matMenu">
+    <button mat-menu-item>
+      <mat-icon>apps</mat-icon>
+      Grid
+    </button>
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      Maintenance
+    </button>
+  </mat-menu>
+
+  <mat-menu #menuO="matMenu">
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      All Orders
+    </button>
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      Review
+    </button>
+  </mat-menu>
+
+  <mat-menu #menuR="matMenu">
+    <!-- Admin -->
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Sells by day
+    </button>
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Top 5 Products per month
+    </button>
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Top 5 Sellers
+    </button>
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Top 3 Worst Sellers
+    </button>
+    <!-- Seller -->
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Most sold product
+    </button>
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Best Client
+    </button>
+    <button mat-menu-item>
+      <mat-icon>movies</mat-icon>
+      Ratings Report
+    </button>
+  </mat-menu>
+</mat-list>

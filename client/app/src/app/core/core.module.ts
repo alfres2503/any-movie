@@ -12,10 +12,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgIf } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, SidenavComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    SidenavComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -27,7 +33,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatSidenavModule,
     NgIf,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatListModule,
   ],
   exports: [HeaderComponent, FooterComponent, SidenavComponent],
 })

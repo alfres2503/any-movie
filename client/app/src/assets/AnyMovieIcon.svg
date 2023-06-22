@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 399.81 399.81">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Degradado_sin_nombre_6-2);
+      }
+
+      .cls-2 {
+        fill: url(#Degradado_sin_nombre_6);
+      }
+
+      .cls-3 {
+        fill: url(#Degradado_sin_nombre_6-7);
+      }
+
+      .cls-4 {
+        fill: url(#Degradado_sin_nombre_6-9);
+      }
+
+      .cls-5 {
+        fill: url(#Degradado_sin_nombre_6-6);
+      }
+
+      .cls-6 {
+        fill: url(#Degradado_sin_nombre_6-3);
+      }
+
+      .cls-7 {
+        fill: url(#Degradado_sin_nombre_6-4);
+      }
+
+      .cls-8 {
+        fill: url(#Degradado_sin_nombre_6-5);
+      }
+
+      .cls-9 {
+        fill: url(#Degradado_sin_nombre_6-8);
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_6" data-name="Degradado sin nombre 6" x1="67.2" y1="-2.2" x2="630.39" y2="855.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#662d91"/>
+      <stop offset="1" stop-color="#29abe2"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_6-2" data-name="Degradado sin nombre 6" x1="67.2" y1="-2.2" x2="630.39" y2="855.5" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-3" data-name="Degradado sin nombre 6" x1="67.2" y1="-2.2" x2="630.39" y2="855.5" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-4" data-name="Degradado sin nombre 6" x1="89.34" y1="-16.74" x2="652.53" y2="840.96" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-5" data-name="Degradado sin nombre 6" x1="169.49" y1="-69.37" x2="732.68" y2="788.33" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-6" data-name="Degradado sin nombre 6" x1="133.53" y1="-45.76" x2="696.72" y2="811.95" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-7" data-name="Degradado sin nombre 6" x1="58.66" y1="3.4" x2="621.85" y2="861.11" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-8" data-name="Degradado sin nombre 6" x1="-26.53" y1="59.34" x2="536.67" y2="917.04" xlink:href="#Degradado_sin_nombre_6"/>
+    <linearGradient id="Degradado_sin_nombre_6-9" data-name="Degradado sin nombre 6" x1="4.55" y1="38.93" x2="567.74" y2="896.64" xlink:href="#Degradado_sin_nombre_6"/>
+  </defs>
+  <path class="cls-2" d="m199.91,399.81C89.68,399.81,0,310.13,0,199.91S89.68,0,199.91,0s199.91,89.68,199.91,199.91-89.68,199.91-199.91,199.91Zm0-370.56C105.81,29.25,29.25,105.81,29.25,199.91s76.56,170.65,170.65,170.65,170.65-76.56,170.65-170.65S294,29.25,199.91,29.25Z"/>
+  <g>
+    <path class="cls-1" d="m197.47,235.66c0-16.16,13.1-29.25,29.25-29.25,7.57,0,14.41,2.95,19.6,7.67,1.38-4.51,2.34-9.21,2.34-14.17,0-26.93-21.83-48.76-48.76-48.76s-48.76,21.83-48.76,48.76,21.83,48.76,48.76,48.76c.24,0,.46-.07.7-.07-1.94-3.91-3.14-8.26-3.14-12.93Z"/>
+    <path class="cls-6" d="m199.91,249.88c-27.56,0-49.98-22.42-49.98-49.98s22.42-49.98,49.98-49.98,49.98,22.42,49.98,49.98c0,4.57-.76,9.19-2.4,14.53-.12.4-.44.71-.84.82-.4.11-.83,0-1.14-.28-5.22-4.74-11.88-7.35-18.78-7.35-15.46,0-28.04,12.58-28.04,28.04,0,4.19,1.01,8.37,3.01,12.39.19.38.17.82-.05,1.18-.22.36-.6.58-1.02.59-.36.05-.54.07-.72.07Zm0-97.52c-26.21,0-47.54,21.33-47.54,47.54s20.69,46.9,46.36,47.52c-1.64-3.84-2.48-7.79-2.48-11.77,0-16.8,13.67-30.47,30.47-30.47,6.87,0,13.53,2.38,18.96,6.74,1.2-4.35,1.77-8.21,1.77-12.02,0-26.21-21.33-47.54-47.54-47.54Z"/>
+  </g>
+  <path class="cls-7" d="m235.91,98.92l-24.08-45.83c-.77-1.48-2.25-2.46-3.91-2.6-2.6-.21-64.08-4.66-115.46,47.26-1.39,1.4-1.79,3.49-1.03,5.3.76,1.82,2.53,3,4.5,3h135.66c1.71,0,3.29-.9,4.17-2.35.89-1.46.94-3.28.14-4.79Z"/>
+  <path class="cls-8" d="m334.4,124.86c-31.61-59.1-97.2-70.59-99.98-71.05-1.86-.29-3.69.47-4.78,1.99-1.08,1.53-1.19,3.53-.29,5.17l63.53,115.43c.81,1.47,2.32,2.42,4,2.51.09,0,.18,0,.27,0,1.58,0,3.07-.77,3.99-2.07l32.94-46.89c1.06-1.51,1.18-3.48.31-5.1Z"/>
+  <path class="cls-5" d="m346.13,154.83c-.61-1.7-2.11-2.93-3.9-3.19-1.79-.28-3.58.5-4.64,1.97l-78.83,109.06c-1.07,1.48-1.22,3.44-.4,5.07.83,1.63,2.5,2.66,4.33,2.67l69.35.28h.02c1.76,0,3.39-.95,4.25-2.49,30.42-54.28,10.68-110.99,9.82-113.37Z"/>
+  <path class="cls-3" d="m323.82,286.4c-.84-1.6-2.5-2.61-4.31-2.62l-136.15-.39h-.01c-1.67,0-3.21.85-4.11,2.25-.9,1.41-1.01,3.18-.31,4.69l27.67,59.14c.81,1.72,2.53,2.81,4.42,2.81.1,0,.2,0,.3,0,72.38-4.42,110.61-58.55,112.2-60.85,1.03-1.49,1.15-3.42.31-5.03Z"/>
+  <path class="cls-9" d="m187.46,345.57l-69.46-134.98c-.81-1.58-2.42-2.59-4.19-2.64-1.9,0-3.44.87-4.34,2.39l-37.33,63.01c-.92,1.55-.91,3.48.03,5.01,39.67,65.38,107.52,73.95,110.39,74.28.19.02.38.03.56.03,1.59,0,3.09-.78,4.01-2.1,1.02-1.48,1.15-3.4.33-5.01Z"/>
+  <path class="cls-4" d="m144.19,125.03c-.85-1.58-2.5-2.56-4.29-2.56h-63.56c-1.7,0-3.27.88-4.16,2.33-38.87,63.38-14.97,120-13.93,122.38.71,1.64,2.28,2.76,4.06,2.91.14.01.27.02.41.02,1.64,0,3.18-.82,4.08-2.2l77.17-117.89c.98-1.5,1.06-3.41.21-4.99Z"/>
+</svg>

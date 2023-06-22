@@ -1,18 +1,12 @@
 <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
 
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer
-    #drawer
-    class="example-sidenav"
-    mode="side"
-    [opened]="sideBarOpen"
-  >
+<mat-drawer-container class="example-container" autosize hasBackdrop="false">
+  <mat-drawer #drawer mode="over" [opened]="sideBarOpen">
     <app-sidenav></app-sidenav>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <main>
     <router-outlet></router-outlet>
-  </div>
+    <!-- <app-footer></app-footer> -->
+  </main>
 </mat-drawer-container>
-
-<!-- <app-footer></app-footer> -->
