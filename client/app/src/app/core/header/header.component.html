@@ -1,49 +1,35 @@
 <mat-toolbar>
-  <mat-toolbar-row class="justify-between">
-    <button mat-icon-button (click)="toggleSidebar()">
-      <mat-icon>menu</mat-icon>
+  <button mat-icon-button (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="example-spacer"></div>
+
+  <button mat-icon-button>
+    <mat-icon matBadge="5" matBadgeColor="accent">messages</mat-icon>
+  </button>
+
+  <button mat-icon-button>
+    <mat-icon matBadge="3" matBadgeColor="primary">notifications</mat-icon>
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="menu" class="user">
+    <img
+      src="https://pm1.aminoapps.com/6428/d6afdea8c7f7d537d28cec917e37529d50e81d5e_hq.jpg"
+      class="user-image me-1"
+    />
+    <span>{{ currentUser.name }}</span>
+    <mat-icon class="user-image-icon me-1">keyboard_arrow_down</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      Settings
     </button>
-
-    <span class="example-spacer"></span>
-
-    <button mat-icon-button>
-      <mat-icon matBadge="5" matBadgeColor="accent">messages</mat-icon>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
     </button>
-
-    <button mat-icon-button>
-      <mat-icon matBadge="3" matBadgeColor="primary">notifications</mat-icon>
-    </button>
-
-    <div class="row me-2 ms-auto">
-      <ul>
-        <li>
-          <button
-            mat-button
-            [matMenuTriggerFor]="menu"
-            class="user mt-3 d-flex align-items-center"
-          >
-            <img
-              src="https://pm1.aminoapps.com/6428/d6afdea8c7f7d537d28cec917e37529d50e81d5e_hq.jpg"
-              class="user-image me-1 p-1"
-              width="40"
-            />
-            {{ currentUser.name }}
-            <mat-icon class="user-image-icon ms-1"
-              >keyboard_arrow_down</mat-icon
-            >
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>settings</mat-icon>
-              Settings
-            </button>
-            <button mat-menu-item>
-              <mat-icon>exit_to_app</mat-icon>
-              Logout
-            </button>
-          </mat-menu>
-        </li>
-      </ul>
-    </div>
-  </mat-toolbar-row>
+  </mat-menu>
 </mat-toolbar>

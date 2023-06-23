@@ -1,5 +1,5 @@
 <mat-list>
-  <div class="logo py-4">
+  <div class="logo">
     <img src="../../../assets/AnyMovieLogo.svg" alt="Logo AnyMovie" />
   </div>
 
@@ -46,7 +46,7 @@
   </a>
 
   <mat-menu #menuM="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item routerLink="/products">
       <mat-icon>apps</mat-icon>
       Grid
     </button>
@@ -70,32 +70,32 @@
   <mat-menu #menuR="matMenu">
     <!-- Admin -->
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>timeline</mat-icon>
       Sells by day
     </button>
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>bar_chart</mat-icon>
       Top 5 Products per month
     </button>
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>people_alt</mat-icon>
       Top 5 Sellers
     </button>
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>thumb_down_alt</mat-icon>
       Top 3 Worst Sellers
     </button>
     <!-- Seller -->
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>shopping_cart</mat-icon>
       Most sold product
     </button>
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>person</mat-icon>
       Best Client
     </button>
     <button mat-menu-item>
-      <mat-icon>movies</mat-icon>
+      <mat-icon>star</mat-icon>
       Ratings Report
     </button>
   </mat-menu>

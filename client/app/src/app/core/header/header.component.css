@@ -6,26 +6,35 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-
-ul li {
-  list-style: none;
-}
-
-button {
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
 .user {
-  font-size: 14px;
-
-
-
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-left: 1.2rem;
+  height: 50px;
 }
 
 .user-image {
-  border-radius:50%;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.user .user-image-icon {
+  order: 2;
+}
+
+.user span {
+  order: 1;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 600px) {
+
+  .user .user-image-icon {
+    margin-left: 0;
+  }
 }

@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatBadgeModule,
     MatListModule,
+    MatFormFieldModule,
   ],
   exports: [HeaderComponent, FooterComponent, SidenavComponent],
 })
