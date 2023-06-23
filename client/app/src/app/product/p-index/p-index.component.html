@@ -3,9 +3,10 @@
     <mat-grid-tile *ngFor="let item of datos">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>{{ item.name }} </mat-card-title>
+          <mat-card-title> {{ item.name }} </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
+          <img [src]="item.images[0]" alt="Product Image" width="15rem">
           <div>{{ item.price | currency : "USD" }}</div>
         </mat-card-content>
         <mat-divider inset></mat-divider>

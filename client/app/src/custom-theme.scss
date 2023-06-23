@@ -151,3 +151,7 @@ $my-theme: mat.define-dark-theme(
 );
 
 @include mat.all-component-themes($my-theme);
+
+body {
+  background-color: red; 
+}

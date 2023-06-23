@@ -1,7 +1,7 @@
 <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
 
 <mat-drawer-container class="example-container" autosize hasBackdrop="false">
-  <mat-drawer #drawer [mode]="sideBarMode" [opened]="sideBarOpen">
+  <mat-drawer class="sidenav-container" #drawer [mode]="sideBarMode" [opened]="sideBarOpen">
     <app-sidenav></app-sidenav>
   </mat-drawer>
 

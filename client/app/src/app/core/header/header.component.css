@@ -1,5 +1,7 @@
 mat-toolbar {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 38px;
+  background-color: #0000004d;
+    backdrop-filter: saturate(180%) blur(10px);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 38px;
 }
 
 .example-spacer {
