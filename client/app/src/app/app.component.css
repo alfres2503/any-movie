@@ -1,9 +1,9 @@
 .example-container {
-    height: calc(100vh - 64px);
-  }
+  height: 100%;
+}
 
-  .sidenav-container {
-    background-color: #0000004d;
-    backdrop-filter: saturate(180%) blur(10px);
-    box-shadow: 0px 1px 10px 0px rgba( 31, 38, 135, 0.1 );
-  }
+.sidenav-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: saturate(180%) blur(10px);
+  box-shadow: 0px 1px 10px 0px rgba(31, 38, 135, 0.1);
+}

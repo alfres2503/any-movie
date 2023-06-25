@@ -110,12 +110,13 @@ model type {
 }
 
 model product {
-  id       Int     @id @default(autoincrement())
-  id_user  Int
-  id_type  Int
-  name     String
-  quantity Int
-  price    Decimal
+  id          Int     @id @default(autoincrement())
+  id_user     Int
+  id_type     Int
+  name        String
+  description String
+  quantity    Int
+  price       Decimal
 
   transactions transaction_detail[]
   type         type                 @relation(fields: [id_type], references: [id])

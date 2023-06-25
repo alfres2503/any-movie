@@ -9,24 +9,31 @@ import { MatDrawerMode } from '@angular/material/sidenav';
 })
 export class AppComponent {
   title = 'AnyMovie';
-  sideBarMode: MatDrawerMode = 'side';
-  sideBarOpen = true;
+  // sideBarMode: MatDrawerMode = 'side';
+  sideBarOpen = false;
 
-  // El breakpointObserver es un servicio que permite observar los cambios en el tamaño de la pantalla
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.breakpointObserver
-      .observe([Breakpoints.Handset])
-      .subscribe((result) => {
-        if (result.matches) {
-          this.sideBarMode = 'over';
-          this.sideBarOpen = false;
-        } else {
-          this.sideBarMode = 'side';
-        }
-      });
+    // this.observeBreakpoints();
   }
 
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }
+
+  // observeBreakpoints() {
+  //   this.breakpointObserver
+  //     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+  //     .subscribe((result) => {
+  //       if (result.breakpoints[Breakpoints.XSmall]) {
+  //         this.sideBarMode = 'over';
+  //         this.sideBarOpen = false;
+  //       } else if (result.breakpoints[Breakpoints.Small]) {
+  //         this.sideBarMode = 'over';
+  //       } else if (result.breakpoints[Breakpoints.Medium]) {
+  //         this.sideBarMode = 'over';
+  //       } else {
+  //         this.sideBarMode = 'side';
+  //       }
+  //     });
+  // }
 }

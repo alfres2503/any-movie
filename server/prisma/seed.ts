@@ -123,6 +123,8 @@ const main = async () => {
       id_user: 118310145,
       id_type: 1,
       name: "Twilight (Includes book)",
+      description:
+        "Bella Swan goes to live with her father, in the town of Forks, where she meets Edward, an attractive and mysterious boy with a big secret: he is a vampire. But the boy's family keeps a peculiarity: it does not feed on human blood.",
       quantity: 1,
       price: 150,
       categories: {
@@ -138,6 +140,8 @@ const main = async () => {
       id_user: 118310145,
       id_type: 2,
       name: "Breaking Bad Collection",
+      description:
+        "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family's future.",
       quantity: 1,
       price: 900,
       categories: {
@@ -153,6 +157,8 @@ const main = async () => {
       id_user: 118310145,
       id_type: 3,
       name: "Quincy (Special Edition)",
+      description:
+        "An intimate look at Quincy Jones over his six-decade career in the entertainment business. The film seamlessly threads personal vérité moments with private archival footage to reveal a legendary life like no other.",
       quantity: 3,
       price: 850,
       categories: {

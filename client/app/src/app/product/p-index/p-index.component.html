@@ -1,12 +1,40 @@
 <div class="grid-container">
-  <mat-grid-list [cols]="3" rowHeight="12em" gutterSize="10px">
-    <mat-grid-tile *ngFor="let item of datos">
+  <mat-grid-list [cols]="gridCols" rowHeight="300px" gutterSize="10px">
+    <mat-grid-tile *ngFor="let item of data">
+      <mat-card class="product">
+        <img
+          mat-card-image
+          [src]="
+            sanitize(
+              'data:image/jpg;base64, ' +
+                arrayBufferToBase64(item.images[0].image.data)
+            )
+          "
+          alt="photo"
+        />
+        <mat-card-title>{{ item.name }}</mat-card-title>
+
+        <mat-card-actions style="gap: 0.5rem">
+          <button mat-raised-button color="primary">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Add to cart
+          </button>
+          <button mat-raised-button color="accent">
+            <mat-icon>info</mat-icon>
+            Details
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <!-- <mat-grid-list [cols]="3" rowHeight="12em" gutterSize="10px">
+    <mat-grid-tile *ngFor="let item of data">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title> {{ item.name }} </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <img [src]="item.images[0]" alt="Product Image" width="15rem">
+          <img [src]="item.images[0]" alt="Product Image" width="15rem" />
           <div>{{ item.price | currency : "USD" }}</div>
         </mat-card-content>
         <mat-divider inset></mat-divider>
@@ -32,5 +60,5 @@
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
 </div>

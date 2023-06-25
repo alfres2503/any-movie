@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 //Obtener listado
 module.exports.get = async (request, response, next) => {
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    include: {
+      images: true,
+    },
+  });
   response.json(products);
 };
 
