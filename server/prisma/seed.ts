@@ -126,7 +126,7 @@ const main = async () => {
       description:
         "Bella Swan goes to live with her father, in the town of Forks, where she meets Edward, an attractive and mysterious boy with a big secret: he is a vampire. But the boy's family keeps a peculiarity: it does not feed on human blood.",
       quantity: 1,
-      price: 150,
+      price: 14.99,
       categories: {
         createMany: {
           data: [{ id_category: 3 }, { id_category: 4 }],
@@ -143,7 +143,7 @@ const main = async () => {
       description:
         "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family's future.",
       quantity: 1,
-      price: 900,
+      price: 99.99,
       categories: {
         createMany: {
           data: [{ id_category: 1 }, { id_category: 3 }],
@@ -160,10 +160,27 @@ const main = async () => {
       description:
         "An intimate look at Quincy Jones over his six-decade career in the entertainment business. The film seamlessly threads personal vérité moments with private archival footage to reveal a legendary life like no other.",
       quantity: 3,
-      price: 850,
+      price: 16.99,
       categories: {
         createMany: {
           data: [{ id_category: 7 }, { id_category: 3 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 118310145,
+      id_type: 1,
+      name: "Top Gun: Maverick (Blu-Ray)",
+      description:
+        "After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground him.",
+      quantity: 5,
+      price: 19.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }],
         },
       },
     },

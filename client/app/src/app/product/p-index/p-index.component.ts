@@ -33,6 +33,7 @@ export class PIndexComponent {
       });
   }
 
+  // metodo para cambiar la cantidad de columnas en el grid segun el tamaño de la pantalla
   observeBreakpoints() {
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
@@ -49,17 +50,15 @@ export class PIndexComponent {
       });
   }
 
-  arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
+  getImageUrl(image) {
+    let binary = '';
+    const bytes = new Uint8Array(image);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
-    return window.btoa(binary);
-  }
-
-  sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+    const base64Image = window.btoa(binary);
+    const imageUrl = 'data:image/jpeg;base64,' + base64Image;
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 }

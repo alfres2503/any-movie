@@ -4,16 +4,16 @@
       <mat-card class="product">
         <img
           mat-card-image
-          [src]="
-            sanitize(
-              'data:image/jpg;base64, ' +
-                arrayBufferToBase64(item.images[0].image.data)
-            )
-          "
+          [src]="getImageUrl(item.images[0].image.data)"
           alt="photo"
         />
         <mat-card-title>{{ item.name }}</mat-card-title>
 
+        <mat-card-content>
+          <p>{{ item.price | currency : "USD" }}</p>
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
         <mat-card-actions style="gap: 0.5rem">
           <button mat-raised-button color="primary">
             <mat-icon>add_shopping_cart</mat-icon>

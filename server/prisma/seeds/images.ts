@@ -17,9 +17,17 @@ export const images = [
     id_product: 3,
     image: fs.readFileSync("IMAGES/prod3img1.jpg"),
   },
+  // {
+  //   id_product: 3,
+  //   image: fs.readFileSync("IMAGES/prod3img2.jpg"),
+  // },
   {
-    id_product: 3,
-    image: fs.readFileSync("IMAGES/prod3img2.jpg"),
+    id_product: 4,
+    image: fs.readFileSync("IMAGES/prod4img1.jpg"),
+  },
+  {
+    id_product: 4,
+    image: fs.readFileSync("IMAGES/prod4img2.jpg"),
   },
 ];
 
