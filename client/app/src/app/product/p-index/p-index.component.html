@@ -1,6 +1,9 @@
 <div class="grid-container">
+  aba
   <mat-grid-list [cols]="gridCols" rowHeight="300px" gutterSize="10px">
+    bebeb
     <mat-grid-tile *ngFor="let item of data">
+      bibib
       <mat-card class="product">
         <img
           mat-card-image
@@ -19,7 +22,7 @@
             <mat-icon>add_shopping_cart</mat-icon>
             Add to cart
           </button>
-          <button mat-raised-button color="accent">
+          <button mat-raised-button color="accent" (click)="productDetail(item.id)">
             <mat-icon>info</mat-icon>
             Details
           </button>

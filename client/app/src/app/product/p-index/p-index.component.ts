@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-p-index',
   templateUrl: './p-index.component.html',
@@ -17,7 +19,8 @@ export class PIndexComponent {
   constructor(
     private gService: GenericService,
     private breakpointObserver: BreakpointObserver,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.listProduct();
     this.observeBreakpoints();
@@ -60,5 +63,9 @@ export class PIndexComponent {
     const base64Image = window.btoa(binary);
     const imageUrl = 'data:image/jpeg;base64,' + base64Image;
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+  
+  productDetail(id:number){
+    this.router.navigate(['/products', id]);
   }
 }

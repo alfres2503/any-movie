@@ -7,9 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { PDetailComponent } from './p-detail/p-detail.component';
 
 @NgModule({
-  declarations: [PIndexComponent],
+  declarations: [PIndexComponent, PDetailComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -19,6 +20,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatDividerModule,
   ],
-  exports: [PIndexComponent],
+  exports: [
+    PIndexComponent,
+    PDetailComponent
+  ],
 })
 export class ProductModule {}
