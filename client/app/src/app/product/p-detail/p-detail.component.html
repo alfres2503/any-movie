@@ -1,16 +1,85 @@
+<!--
+  ARREGLAR
+    foto del user
+    estrellas del rating
+-->
 
-<mat-card class="dashboard-card" *ngIf="datos"  >
-    <mat-card-header>
-      <mat-card-title>
-        {{datos.name }}
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-      <p><b>Descripción: </b>{{datos.description}}</p>
-      <p><b>Precio: </b>{{datos.price | currency:'USD'}}</p>
-      <p><b>Géneros: </b></p>
-      <ul *ngIf="datos.categories">
-         <li *ngFor="let item of datos.categories"> {{item.description}}</li>
-      </ul>
-    </mat-card-content>
-  </mat-card>
+<mat-card class="dashboard-card" *ngIf="datos" style="margin: 5%">
+  <div class="container-title">
+    <h2>{{ datos.name }}</h2>
+  </div>
+
+  <main style="margin: 0 10% 5%" >
+    <div class="container-img">
+        <img
+        mat-card-image
+        [src]="getImageUrl(datos.images[selectedProductIndex].image.data)"
+        alt="Product Image"
+      />
+      <mat-grid-list cols="5" gutterSize="10" rowHeight="3:1" >
+        <mat-grid-tile *ngFor="let item of datos.images; let i=index;" (click)="changeIndex(i)" style="padding: 1rem; border-radius: 2%; border: 1px solid rgb(41, 41, 41);">
+          <img
+            mat-card-image
+            [src]="getImageUrl(item.image.data)"
+            alt="Product Image"
+          />
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div class="container-info-product">
+      <div class="container-price">{{ datos.price | currency : "USD" }}</div>
+      <mat-divider></mat-divider>
+      <div class="container-description">
+        <div class="title-description" (click)="toggleDescription()">
+          <h4>Description</h4>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        <div class="text-description" [hidden]="isDescriptionHidden">
+          <p>{{ datos.description }}</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="container-rating">
+        <div class="title-rating" (click)="toggleRating()">
+          <h4>Rating</h4>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        <div class="stars-review" [hidden]="isRatingHidden">
+          <mat-icon color="accent">star</mat-icon>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <button
+        mat-raised-button
+        color="primary"
+        style="width: 50%; margin: 5% 25%"
+      >
+        <mat-icon>add_shopping_cart</mat-icon>
+        Add to cart
+      </button>
+    </div>
+  </main>
+
+  <section class="container-reviews" style="margin: 0 5% 5%" >
+    <h3>Reviews <mat-icon> rate_review</mat-icon></h3>
+    <div *ngFor="let item of datos.transactions">
+      <div class="card-list-reviews" *ngIf="item.client_feedback!=null">
+        <div class="container-img-review" >
+          <img
+            [src]="getImageUrl(item.header.user.image)"
+            class="user-image me-1"
+          />
+        </div>
+        <div class="container-info-review" >
+          <div class="user-review">
+            <h4>{{item.header.user.name}}</h4>
+          </div>
+          <div class="text-reviews">
+            <p>{{item.client_feedback}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+</mat-card>

@@ -4,34 +4,37 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 
+
 @Component({
   selector: 'app-p-detail',
   templateUrl: './p-detail.component.html',
-  styleUrls: ['./p-detail.component.css']
+  styleUrls: ['./p-detail.component.css'],
 })
-
 export class PDetailComponent {
-  datos:any;
-  destroy$:Subject<boolean>=new Subject<boolean>();
+  datos: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor( private gService: GenericService,
-    private route:ActivatedRoute,
-    private sanitizer: DomSanitizer,
-    ){
-      let id=this.route.snapshot.paramMap.get('id');
-      if(!isNaN(Number(id))){
-        this.getProduct(Number(id));
-      }
+  gridCols: number = 2;
+
+  constructor(
+    private gService: GenericService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {
+    let id = this.route.snapshot.paramMap.get('id');
+    if (!isNaN(Number(id))) {
+      this.getProduct(Number(id));
+    }
   }
 
-  getProduct(id:any){
+  getProduct(id: any) {
     this.gService
-    .get('products',id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((data:any)=>{
-      console.log(data);
-      this.datos=data;
-    });
+      .get('products', id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        console.log(data);
+        this.datos = data;
+      });
   }
 
   getImageUrl(image) {
@@ -49,5 +52,26 @@ export class PDetailComponent {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  //toggle
+  // --titles
+  isDescriptionHidden: boolean = true;
+  isRatingHidden: boolean = true;
+
+  // --functions
+  toggleDescription(): void {
+    this.isDescriptionHidden = !this.isDescriptionHidden;
+  }
+
+  toggleRating(): void {
+    this.isRatingHidden = !this.isRatingHidden;
+  }
+
+  //images
+  selectedProductIndex = 0;
+
+  changeIndex(index){
+this.selectedProductIndex = index;
   }
 }
