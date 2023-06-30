@@ -5,7 +5,7 @@ const router = express.Router();
 const productController = require("../controllers/productController");
 
 //Rutas
-//locahost:3000/orden/
+//locahost:3000/product/
 
 router.get("/", productController.get);
 

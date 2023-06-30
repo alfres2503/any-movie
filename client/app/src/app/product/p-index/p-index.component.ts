@@ -28,7 +28,7 @@ export class PIndexComponent {
 
   listProduct() {
     this.gService
-      .list('products/')
+      .list('products/') 
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         console.log(apiData);
