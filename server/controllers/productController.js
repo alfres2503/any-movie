@@ -36,10 +36,13 @@ module.exports.getById = async (request, response, next) => {
 module.exports.getBySellerId = async (request, response, next) => {
   let seller_id = parseInt(request.params.id);
   const products = await prisma.product.findMany({
-    orderby:{
-      name: 'asc',
-    },
+    // orderby:{
+    //   name: 'asc',
+    // },
     where: { id_user: seller_id },
+    include: {
+      images: true,
+    },
   });
   response.json(products);
 };

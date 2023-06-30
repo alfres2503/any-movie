@@ -1,89 +1,86 @@
-<p>bbabababab</p>
+<section style="padding: 1rem">
+  <div class="head">
+    <h1>Products</h1>
+    <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+  </div>
 
-<!--
-  <mat-card class="full-width">
-  
-  <mat-card-title> Your Products </mat-card-title>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    matSort
+    (matSortChange)="announceSortChange($event)"
+  >
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Image</th>
+      <td mat-cell *matCellDef="let element">
+        <img
+          [src]="getImageUrl(element.images[0].image.data)"
+          alt="Product Image"
+        />
+      </td>
+    </ng-container>
 
-  <mat-card-content>
-    
-    <div class="mat-elevation-z8" *ngIf="dataSource">
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        class="full-width-table"
-        matSort
-        aria-label="Elements"
+    <ng-container matColumnDef="name">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by name"
       >
-        <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
-          <td mat-cell *matCellDef="let row">
-            <img
-              mat-card-image
-              [src]="getImageUrl(row.images[0].image.data)"
-              alt="photo"
-            />
-          </td>
-        </ng-container>
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
-          <td mat-cell *matCellDef="let row">{{ row.price }}</td>
-        </ng-container>
-
-        
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let row">
-            <button
-              mat-mini-fab
-              matTooltip="Update Product"
-              aria-label="Update Product"
-              color="primary"
-            >
-              <mat-icon class="mat-18">edit</mat-icon>
-            </button>
-            <button
-              mat-mini-fab
-              color="accent"
-              matTooltip="Product Detail"
-              aria-label="Product Detail"
-              color="accent"
-              (click)="detail(row.id)"
-            >
-              <mat-icon class="mat-18">info</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-
-      <mat-paginator
-        #paginator
-        [length]="dataSource?.data?.length"
-        [pageIndex]="0"
-        [pageSize]="3"
-        [pageSizeOptions]="[3, 5, 10]"
-        aria-label="Select a Page"
+    <ng-container matColumnDef="price">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by price"
       >
-      </mat-paginator>
-    </div>
-    
-  </mat-card-content>
+        Price
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.price | currency }}</td>
+    </ng-container>
 
-  <a
-    mat-fab
-    matTooltip="Create Product"
-    aria-label="Create Product"
-    color="primary"
+    <!-- Actions column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-fab
+          matTooltip="Edit Product"
+          aria-label="Edit Product"
+          color="accent"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-fab
+          matTooltip="Delete Product"
+          aria-label="Delete Product"
+          color="warn"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 15]"
+    showFirstLastButtons
+  ></mat-paginator>
+
+  <!-- <a
+  mat-fab
+  matTooltip="Create Product"
+  aria-label="Create Product"
+  color="primary"
   >New Product <mat-icon>add</mat-icon>
-  </a>
-</mat-card>
--->
+</a> -->
+</section>

@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-//import { ProductSellerDataSource, ProductSellerItem, } from './product-seller-datasource';
+import { MatSort, Sort } from '@angular/material/sort';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-p-maintenance',
@@ -14,65 +14,74 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./p-maintenance.component.css'],
 })
 export class PMaintenanceComponent {
-  datos: any;
+  data: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  //@ViewChild(MatTable) table!: MatTable<VideojuegoAllItem>;
+  @ViewChild(MatSort) sort: MatSort;
+
+  displayedColumns = ['image', 'name', 'price', 'actions'];
   dataSource = new MatTableDataSource<any>();
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['image', 'name', 'price', 'actions'];
-
-  constructor(private router:Router,
-    private route:ActivatedRoute,
-    private gService:GenericService,
-    private sanitizer:DomSanitizer,
-    ) {
-    
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private gService: GenericService,
+    private sanitizer: DomSanitizer,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {
+    this.checkProductSellerById();
   }
 
-  ngAfterViewInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
-    if (!isNaN(Number(id))) {
-      this.productSeller(Number(id));
-    }
+  // Lifecycle hooks
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
-  productSeller(id:number){
-    //localhost:3000/products
-    this.gService.get('products/seller', id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data:any)=>{
-        console.log(data);
-        this.datos=data;
-        this.dataSource = new MatTableDataSource(this.datos);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;        
-      });   
-  }
-
+  // Public methods
   detail(id: number) {
     this.router.navigate(['/products', id], {
       relativeTo: this.route,
     });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   getImageUrl(image) {
     let binary = '';
     const bytes = new Uint8Array(image);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
+
+    for (let i = 0; i < bytes.byteLength; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
-    const base64Image = window.btoa(binary);
-    const imageUrl = 'data:image/jpeg;base64,' + base64Image;
+    const imageUrl = 'data:image/jpeg;base64,' + window.btoa(binary);
+
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+
+  // Private methods
+  checkProductSellerById(): void {
+    let id = this.route.snapshot.paramMap.get('id');
+    if (!isNaN(Number(id))) this.productSeller(Number(id));
+  }
+
+  productSeller(id: number) {
+    this.gService
+      .get('products/seller', id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((apiData: any) => {
+        this.data = apiData;
+        this.dataSource = new MatTableDataSource(this.data);
+
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }

@@ -9,6 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { PDetailComponent } from './p-detail/p-detail.component';
 import { PMaintenanceComponent } from './p-maintenance/p-maintenance.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [PIndexComponent, PDetailComponent, PMaintenanceComponent],
@@ -20,11 +24,11 @@ import { PMaintenanceComponent } from './p-maintenance/p-maintenance.component';
     MatCardModule,
     MatIconModule,
     MatDividerModule,
+    BrowserModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
-  exports: [
-    PIndexComponent,
-    PDetailComponent,
-    PMaintenanceComponent
-  ],
+  exports: [PIndexComponent, PDetailComponent, PMaintenanceComponent],
 })
 export class ProductModule {}
