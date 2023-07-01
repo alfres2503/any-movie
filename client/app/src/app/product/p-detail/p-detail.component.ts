@@ -8,7 +8,7 @@ import { GenericService } from 'src/app/share/generic.service';
 @Component({
   selector: 'app-p-detail',
   templateUrl: './p-detail.component.html',
-  styleUrls: ['./p-detail.component.scss'],
+  styleUrls: ['./p-detail.component.css'],
 })
 export class PDetailComponent {
   data: any;

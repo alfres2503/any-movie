@@ -1,7 +1,7 @@
 main {
   display: flex;
   gap: 3rem;
-  margin: 0 3rem 3rem;
+  margin: 0 3rem 10rem;
 }
 
 .mat-h2 {
@@ -9,8 +9,20 @@ main {
   text-align: center;
 }
 
-/*CAROUSSEL*/
+/*
+la forma que encontré es así pero no es muy resposive de mi parte
 
+.carousel-item{
+  height: 25rem;
+}
+
+.carousel-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+*/
 
 /* Info product */
 .container-info-product {
