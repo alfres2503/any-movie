@@ -1,6 +1,3 @@
-.grid-container {
-  margin: 10px;
-}
 /* .dashboard-card {
   position: absolute;
   top: 15px;
@@ -16,6 +13,10 @@
 .dashboard-card-content {
   text-align: center;
 } */
+
+.typeChips {
+  margin: 0rem 0rem 0.5rem 0.7rem;
+}
 
 mat-card-title {
   margin: 0.5rem 1rem 0;

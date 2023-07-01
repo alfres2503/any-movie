@@ -1,7 +1,7 @@
-<section style="padding: 1rem">
+<section>
   <div class="head">
-    <h1>Products</h1>
-    <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+    <h1>My Products</h1>
+    <!-- <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button> -->
   </div>
 
   <table
@@ -53,7 +53,7 @@
           mat-fab
           matTooltip="Edit Product"
           aria-label="Edit Product"
-          color="accent"
+          color="primary"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -61,9 +61,10 @@
           mat-fab
           matTooltip="Delete Product"
           aria-label="Delete Product"
-          color="warn"
+          color="accent"
+          (click)="detail(element.id)"
         >
-          <mat-icon>delete</mat-icon>
+          <mat-icon>info</mat-icon>
         </button>
       </td>
     </ng-container>
@@ -75,12 +76,4 @@
     [pageSizeOptions]="[5, 10, 15]"
     showFirstLastButtons
   ></mat-paginator>
-
-  <!-- <a
-  mat-fab
-  matTooltip="Create Product"
-  aria-label="Create Product"
-  color="primary"
-  >New Product <mat-icon>add</mat-icon>
-</a> -->
 </section>

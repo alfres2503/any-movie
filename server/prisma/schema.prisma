@@ -114,7 +114,7 @@ model product {
   id_user     Int
   id_type     Int
   name        String
-  description String
+  description String  @db.LongText
   quantity    Int
   price       Decimal
 

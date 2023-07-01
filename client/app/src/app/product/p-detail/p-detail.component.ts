@@ -1,17 +1,18 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 
-
 @Component({
   selector: 'app-p-detail',
   templateUrl: './p-detail.component.html',
-  styleUrls: ['./p-detail.component.css'],
+  styleUrls: ['./p-detail.component.scss'],
 })
 export class PDetailComponent {
-  datos: any;
+  data: any;
+  comments: any[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   gridCols: number = 2;
@@ -24,6 +25,7 @@ export class PDetailComponent {
     let id = this.route.snapshot.paramMap.get('id');
     if (!isNaN(Number(id))) {
       this.getProduct(Number(id));
+      this.getComments(Number(id));
     }
   }
 
@@ -31,9 +33,19 @@ export class PDetailComponent {
     this.gService
       .get('products', id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data: any) => {
-        console.log(data);
-        this.datos = data;
+      .subscribe((apiData: any) => {
+        console.log(apiData);
+        this.data = apiData;
+      });
+  }
+
+  getComments(id: any) {
+    this.gService
+      .get('comments/product', id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((apiData: any) => {
+        console.log(apiData);
+        this.comments = apiData;
       });
   }
 
@@ -71,7 +83,7 @@ export class PDetailComponent {
   //images
   selectedProductIndex = 0;
 
-  changeIndex(index){
-this.selectedProductIndex = index;
+  changeIndex(index) {
+    this.selectedProductIndex = index;
   }
 }

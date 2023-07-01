@@ -15,3 +15,16 @@ module.exports.getById = async (request, response, next) => {
   });
   response.json(comments);
 };
+
+//Obtener por Id de producto
+module.exports.getByProductId = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  const comments = await prisma.comment.findMany({
+    where: { id_product: id },
+    include: {
+      answers: true,
+      user: true,
+    },
+  });
+  response.json(comments);
+};

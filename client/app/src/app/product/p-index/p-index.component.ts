@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class PIndexComponent {
   data: any;
+  types: any;
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   gridCols: number = 3;
@@ -23,16 +25,27 @@ export class PIndexComponent {
     private router: Router
   ) {
     this.listProduct();
+    this.listTypes();
     this.observeBreakpoints();
   }
 
   listProduct() {
     this.gService
-      .list('products/') 
+      .list('products/')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((apiData: any) => {
+        //console.log(apiData);
+        this.data = apiData;
+      });
+  }
+
+  listTypes() {
+    this.gService
+      .list('types/')
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         console.log(apiData);
-        this.data = apiData;
+        this.types = apiData;
       });
   }
 
@@ -64,8 +77,8 @@ export class PIndexComponent {
     const imageUrl = 'data:image/jpeg;base64,' + base64Image;
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
-  
-  productDetail(id:number){
+
+  productDetail(id: number) {
     this.router.navigate(['/products', id]);
   }
 }

@@ -11,4 +11,6 @@ router.get("/", commentController.get);
 
 router.get("/:id", commentController.getById);
 
+router.get("/product/:id", commentController.getByProductId);
+
 module.exports = router;

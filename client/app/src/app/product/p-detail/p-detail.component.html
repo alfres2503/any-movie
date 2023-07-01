@@ -4,30 +4,44 @@
     estrellas del rating
 -->
 
-<mat-card class="dashboard-card" *ngIf="datos" style="margin: 5%">
-  <div class="container-title">
-    <h2>{{ datos.name }}</h2>
-  </div>
-
-  <main style="margin: 0 10% 5%" >
+<mat-card *ngIf="data">
+  <h2 class="mat-h2">{{ data.name }}</h2>
+  <main>
+    <!-- Gallery -->
     <div class="container-img">
-        <img
-        mat-card-image
-        [src]="getImageUrl(datos.images[selectedProductIndex].image.data)"
-        alt="Product Image"
-      />
-      <mat-grid-list cols="5" gutterSize="10" rowHeight="3:1" >
-        <mat-grid-tile *ngFor="let item of datos.images; let i=index;" (click)="changeIndex(i)" style="padding: 1rem; border-radius: 2%; border: 1px solid rgb(41, 41, 41);">
-          <img
-            mat-card-image
-            [src]="getImageUrl(item.image.data)"
-            alt="Product Image"
-          />
-        </mat-grid-tile>
-      </mat-grid-list>
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active" *ngFor="let item of data.images">
+            <img
+              mat-card-image
+              [src]="getImageUrl(item.image.data)"
+              alt="Product Image"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
+    <!-- Information -->
     <div class="container-info-product">
-      <div class="container-price">{{ datos.price | currency : "USD" }}</div>
+      <div class="container-price">{{ data.price | currency : "USD" }}</div>
       <mat-divider></mat-divider>
       <div class="container-description">
         <div class="title-description" (click)="toggleDescription()">
@@ -35,7 +49,7 @@
           <mat-icon>keyboard_arrow_down</mat-icon>
         </div>
         <div class="text-description" [hidden]="isDescriptionHidden">
-          <p>{{ datos.description }}</p>
+          <p>{{ data.description }}</p>
         </div>
       </div>
       <mat-divider></mat-divider>
@@ -55,31 +69,36 @@
         style="width: 50%; margin: 5% 25%"
       >
         <mat-icon>add_shopping_cart</mat-icon>
-        Add to cart
+        <p>Add to cart</p>
       </button>
     </div>
   </main>
 
-  <section class="container-reviews" style="margin: 0 5% 5%" >
-    <h3>Reviews <mat-icon> rate_review</mat-icon></h3>
-    <div *ngFor="let item of datos.transactions">
-      <div class="card-list-reviews" *ngIf="item.client_feedback!=null">
-        <div class="container-img-review" >
+  <section class="container-reviews">
+    <h3><mat-icon> rate_review</mat-icon> Comments</h3>
+    <div *ngIf="comments.length == 0">
+      <h4>No comments yet</h4>
+    </div>
+    <div *ngFor="let item of comments">
+      <div class="card-list-reviews" *ngIf="comments.length > 0">
+        <div class="container-img-review">
           <img
-            [src]="getImageUrl(item.header.user.image)"
+            [src]="getImageUrl(item.user.image.data)"
             class="user-image me-1"
           />
         </div>
-        <div class="container-info-review" >
+        <div class="container-info-review">
           <div class="user-review">
-            <h4>{{item.header.user.name}}</h4>
+            <h4>{{ item.user.name }}</h4>
           </div>
           <div class="text-reviews">
-            <p>{{item.client_feedback}}</p>
+            <p>{{ item.text }}</p>
+          </div>
+          <div class="text-reviews">
+            <p>{{ item.created_at | date : "MMM d, y, h:mm a" }}</p>
           </div>
         </div>
       </div>
     </div>
-    
   </section>
 </mat-card>
