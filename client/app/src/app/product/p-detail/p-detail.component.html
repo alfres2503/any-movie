@@ -1,15 +1,14 @@
-<!--
-  ARREGLAR
-    foto del user
-    estrellas del rating
--->
-
 <mat-card *ngIf="data">
   <h2 class="mat-h2">{{ data.name }}</h2>
-  <main class="row">
-    <div class="col col-6 container-img carousel slide" id="carouselExample">
+
+  <main>
+    <div class="col-6 container-img carousel slide" id="carouselExample">
       <div class="carousel-inner">
-        <div class="carousel-item active" *ngFor="let item of data.images">
+        <div
+          class="carousel-item"
+          *ngFor="let item of data.images; let i = index"
+          [ngClass]="{ active: i === 0 }"
+        >
           <img
             class="d-block w-100"
             mat-card-image
@@ -18,34 +17,43 @@
           />
         </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div *ngIf="data.images.length > 1">
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
-    <div class="col col-6 container-info-product">
+
+    <div class="col-6 container-info-product">
       <div class="container-price">{{ data.price | currency : "USD" }}</div>
       <mat-divider></mat-divider>
       <div class="container-description">
         <div class="title-description" (click)="toggleDescription()">
           <h4>Description</h4>
-          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-icon>{{
+            isDescriptionHidden ? "keyboard_arrow_down" : "keyboard_arrow_up"
+          }}</mat-icon>
         </div>
-        <div class="text-description" [hidden]="isDescriptionHidden">
+        <div
+          class="text-description"
+          [@slideInOut]="isDescriptionHidden ? 'out' : 'in'"
+          [hidden]="isDescriptionHidden"
+        >
           <p>{{ data.description }}</p>
         </div>
       </div>
@@ -53,9 +61,15 @@
       <div class="container-rating">
         <div class="title-rating" (click)="toggleRating()">
           <h4>Rating</h4>
-          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-icon>{{
+            isRatingHidden ? "keyboard_arrow_down" : "keyboard_arrow_up"
+          }}</mat-icon>
         </div>
-        <div class="stars-review" [hidden]="isRatingHidden">
+        <div
+          class="stars-review"
+          [@slideInOut]="isRatingHidden ? 'out' : 'in'"
+          [hidden]="isRatingHidden"
+        >
           <mat-icon color="accent">star</mat-icon>
         </div>
       </div>
@@ -63,6 +77,7 @@
       <button
         mat-raised-button
         color="primary"
+        class="btn-add-cart"
         style="width: 50%; margin: 5% 25%"
       >
         <mat-icon>add_shopping_cart</mat-icon>
@@ -72,7 +87,7 @@
   </main>
 
   <section class="container-reviews">
-    <h3><mat-icon> rate_review</mat-icon> Comments</h3>
+    <h3><mat-icon class="mat-icon-adjust"> rate_review</mat-icon> Comments</h3>
     <div *ngIf="comments.length == 0">
       <h5>No comments yet</h5>
     </div>
@@ -91,8 +106,38 @@
           <div class="text-reviews">
             <p>{{ item.text }}</p>
           </div>
-          <div class="text-reviews">
-            <p>{{ item.created_at | date : "MMM d, y, h:mm a" }}</p>
+          <section class="d-flex">
+            <div class="text-reviews">
+              <p>{{ item.created_at | date : "MMM d, y, h:mm a" }}</p>
+            </div>
+            <div class="text-reviews mx-3">
+              <a style="font-weight: 500; text-decoration: underline">Reply</a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- Answers section -->
+      <div *ngIf="item.answers.length > 0">
+        <div
+          class="card-list-reviews answers"
+          *ngFor="let answer of item.answers"
+        >
+          <div class="container-img-review">
+            <img
+              [src]="getImageUrl(answer.user.image.data)"
+              class="user-image me-1"
+            />
+          </div>
+          <div class="container-info-review">
+            <div class="user-review">
+              <h5>{{ answer.user.name }}</h5>
+            </div>
+            <div class="text-reviews">
+              <p>{{ answer.text }}</p>
+            </div>
+            <div class="text-reviews">
+              <p>{{ answer.created_at | date : "MMM d, y, h:mm a" }}</p>
+            </div>
           </div>
         </div>
       </div>

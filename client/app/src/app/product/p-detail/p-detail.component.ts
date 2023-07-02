@@ -1,5 +1,12 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,6 +16,26 @@ import { GenericService } from 'src/app/share/generic.service';
   selector: 'app-p-detail',
   templateUrl: './p-detail.component.html',
   styleUrls: ['./p-detail.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      state(
+        'in',
+        style({
+          height: '*',
+          opacity: 1,
+        })
+      ),
+      state(
+        'out',
+        style({
+          height: '0',
+          opacity: 0,
+        })
+      ),
+      transition('in => out', animate('300ms ease-in-out')),
+      transition('out => in', animate('300ms ease-in-out')),
+    ]),
+  ],
 })
 export class PDetailComponent {
   data: any;
@@ -74,10 +101,12 @@ export class PDetailComponent {
   // --functions
   toggleDescription(): void {
     this.isDescriptionHidden = !this.isDescriptionHidden;
+    this.isRatingHidden = true;
   }
 
   toggleRating(): void {
     this.isRatingHidden = !this.isRatingHidden;
+    this.isDescriptionHidden = true;
   }
 
   //images

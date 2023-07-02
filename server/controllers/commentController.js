@@ -22,7 +22,11 @@ module.exports.getByProductId = async (request, response, next) => {
   const comments = await prisma.comment.findMany({
     where: { id_product: id },
     include: {
-      answers: true,
+      answers: {
+        include: {
+          user: true,
+        },
+      },
       user: true,
     },
   });
