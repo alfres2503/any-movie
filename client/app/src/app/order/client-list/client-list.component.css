@@ -1,0 +1,18 @@
+.head {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+table button {
+  margin: 0.5rem;
+}
+
+.payed {
+  color: #00a37c;
+}
+
+.not-payed {
+  color: #c72020;
+}

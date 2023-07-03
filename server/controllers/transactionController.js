@@ -31,7 +31,11 @@ module.exports.getByUserId = async (request, response, next) => {
       details: true,
     },
   });
-  response.json(transaction);
+  const transactionWithDetailsLength = transaction.map((t) => ({
+    ...t,
+    detailsLength: t.details.length,
+  }));
+  response.json(transactionWithDetailsLength);
 };
 
 module.exports.getBySellerId = async (request, response, next) => {

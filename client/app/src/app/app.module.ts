@@ -13,6 +13,7 @@ import { NgIf } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductModule } from './product/product.module';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { ProductModule } from './product/product.module';
     MatButtonModule,
     ToastrModule.forRoot(),
     ProductModule,
+    OrderModule,
     HttpClientModule,
 
     // AppRoutingModule tiene que estar de ultimo
