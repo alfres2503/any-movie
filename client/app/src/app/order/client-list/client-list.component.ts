@@ -1,5 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 
 @Component({
   selector: 'app-client-list',
@@ -33,7 +35,8 @@ export class ClientListComponent {
     private router: Router,
     private route: ActivatedRoute,
     private gService: GenericService,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private dialog: MatDialog
   ) {
     this.checkOrdersById();
   }
@@ -46,9 +49,12 @@ export class ClientListComponent {
 
   // Public methods
   detail(id: number) {
-    this.router.navigate(['/orders', id], {
-      relativeTo: this.route,
-    });
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { id: id };
+
+    this.dialog.open(OrderDialogComponent, dialogConfig);
   }
 
   // Private methods
@@ -64,8 +70,6 @@ export class ClientListComponent {
       .subscribe((apiData: any) => {
         this.data = apiData;
         this.dataSource = new MatTableDataSource(this.data);
-
-        console.log(this.data);
 
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

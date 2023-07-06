@@ -14,9 +14,16 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 
 @NgModule({
-  declarations: [ClientListComponent],
+  declarations: [
+    ClientListComponent,
+    OrderDetailComponent,
+    OrderDialogComponent,
+  ],
   imports: [
     CommonModule,
     OrderRoutingModule,
@@ -30,7 +37,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSortModule,
     MatPaginatorModule,
     MatChipsModule,
+    MatDialogModule,
   ],
-  exports: [ClientListComponent],
+  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent],
 })
 export class OrderModule {}

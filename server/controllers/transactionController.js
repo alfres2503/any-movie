@@ -17,7 +17,12 @@ module.exports.getById = async (request, response, next) => {
   const transaction = await prisma.transaction_header.findUnique({
     where: { id: id },
     include: {
-      details: true,
+      payment_method: true,
+      details: {
+        include: {
+          product: true,
+        },
+      },
     },
   });
   response.json(transaction);
