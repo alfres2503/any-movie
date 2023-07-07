@@ -17,12 +17,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { SellerListComponent } from './seller-list/seller-list.component';
 
 @NgModule({
   declarations: [
     ClientListComponent,
     OrderDetailComponent,
     OrderDialogComponent,
+    SellerListComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,6 @@ import { OrderDialogComponent } from './order-dialog/order-dialog.component';
     MatChipsModule,
     MatDialogModule,
   ],
-  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent],
+  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent, SellerListComponent],
 })
 export class OrderModule {}

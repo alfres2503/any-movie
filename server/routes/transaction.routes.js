@@ -5,7 +5,7 @@ const router = express.Router();
 const transactionController = require("../controllers/transactionController");
 
 //Rutas
-//locahost:3000/orden/
+//locahost:3000/transactions/
 
 router.get("/", transactionController.get);
 

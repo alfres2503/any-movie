@@ -1,0 +1,11 @@
+.head {
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  table button {
+    margin: 0.5rem;
+  }
+  
