@@ -64,6 +64,22 @@ const main = async () => {
     },
   });
 
+  await prisma.user.create({
+    data: {
+      id: 208290538,
+      name: "Aníbal Alpízar",
+      phone: 71699681,
+      email: "analpizarca@est.utn.ac.cr",
+      image: fs.readFileSync("IMAGES/anibal.jpg"),
+      password: "123456",
+      roles: {
+        createMany: {
+          data: [{ id_role: 3 }],
+        },
+      },
+    },
+  });
+
   // ADDRESS
 
   await prisma.address.create({
@@ -99,6 +115,18 @@ const main = async () => {
       direction: "3rd Street, 2nd Avenue, 1st House",
       postal_code: "20501",
       phone: 82345678,
+    },
+  });
+
+  await prisma.address.create({
+    data: {
+      id_user: 208290538,
+      province: "Alajuela",
+      canton: "Alajuela",
+      district: "Rio 2",
+      direction: "3rd Street, 2nd Avenue, 1st House",
+      postal_code: "20501",
+      phone: 71699681,
     },
   });
 
@@ -186,6 +214,23 @@ const main = async () => {
     },
   });
 
+  await prisma.product.create({
+    data: {
+      id_user: 208290538,
+      id_type: 3,
+      name: "Oppenheimer: Pre-sell",
+      description:
+        "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.",
+      quantity: 2,
+      price: 29.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }],
+        },
+      },
+    },
+  });
+
   // IMAGES
   await prisma.image.createMany({
     data: images,
@@ -220,6 +265,17 @@ const main = async () => {
       id_payment_method: 3,
       id_address: 3,
       total: 1130,
+      created_at: new Date(),
+      payed: true,
+    },
+  });
+
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 604780838,
+      id_payment_method: 3,
+      id_address: 3,
+      total: 29.99,
       created_at: new Date(),
       payed: true,
     },
@@ -269,6 +325,15 @@ const main = async () => {
     },
   });
 
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 4,
+      id_product: 5,
+      quantity: 1,
+      subtotal: 29.99,
+    },
+  });
+
   // COMMENTS
   await prisma.comment.create({
     data: {
@@ -294,6 +359,15 @@ const main = async () => {
       id_product: 2,
       text: "Is it good? I want to buy it",
       created_at: new Date("2023-03-02 14:30:00"),
+    },
+  });
+
+  await prisma.comment.create({
+    data: {
+      id_user: 118710756,
+      id_product: 5,
+      text: "How do you have it before the cinemas?",
+      created_at: new Date(),
     },
   });
 

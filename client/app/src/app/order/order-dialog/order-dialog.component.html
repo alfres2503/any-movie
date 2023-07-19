@@ -9,6 +9,11 @@
         Payment Method: {{ data.payment_method.provider }},
         {{ data.payment_method.type }}
       </p>
+
+      <p class="">
+        Address: {{ data.address.province }}, {{ data.address.canton }},
+        {{ data.address.district }}
+      </p>
       <table
         mat-table
         [dataSource]="tableDataSource"

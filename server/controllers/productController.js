@@ -18,6 +18,11 @@ module.exports.getById = async (request, response, next) => {
     where: { id: id },
     include: {
       images: true,
+      categories: {
+        select: {
+          category:true,
+        },
+      },
       transactions: {
         select: {
           client_feedback: true,

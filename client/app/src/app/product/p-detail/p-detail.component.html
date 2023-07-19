@@ -60,7 +60,7 @@
       <mat-divider></mat-divider>
       <div class="container-rating">
         <div class="title-rating" (click)="toggleRating()">
-          <h4>Rating</h4>
+          <h4>Genres</h4>
           <mat-icon>{{
             isRatingHidden ? "keyboard_arrow_down" : "keyboard_arrow_up"
           }}</mat-icon>
@@ -70,7 +70,11 @@
           [@slideInOut]="isRatingHidden ? 'out' : 'in'"
           [hidden]="isRatingHidden"
         >
-          <mat-icon color="accent">star</mat-icon>
+          <mat-chip-listbox>
+            <mat-chip-option *ngFor="let item of data.categories" disabled>{{
+              item.category.description
+            }}</mat-chip-option>
+          </mat-chip-listbox>
         </div>
       </div>
       <mat-divider></mat-divider>

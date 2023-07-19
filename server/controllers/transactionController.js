@@ -18,6 +18,7 @@ module.exports.getById = async (request, response, next) => {
     where: { id: id },
     include: {
       payment_method: true,
+      address: true,
       details: {
         include: {
           product: true,
