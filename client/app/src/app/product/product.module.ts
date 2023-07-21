@@ -14,9 +14,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { PFormComponent } from './p-form/p-form.component';
 
 @NgModule({
-  declarations: [PIndexComponent, PDetailComponent, PMaintenanceComponent],
+  declarations: [PIndexComponent, PDetailComponent, PMaintenanceComponent, PFormComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -31,6 +32,6 @@ import { MatChipsModule } from '@angular/material/chips';
     MatPaginatorModule,
     MatChipsModule,
   ],
-  exports: [PIndexComponent, PDetailComponent, PMaintenanceComponent],
+  exports: [PIndexComponent, PDetailComponent, PMaintenanceComponent, PFormComponent],
 })
 export class ProductModule {}
