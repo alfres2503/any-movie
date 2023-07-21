@@ -46,6 +46,12 @@ export class PMaintenanceComponent {
     });
   }
 
+  update(id: number) {
+    this.router.navigate(['/products/update', id], {
+      relativeTo: this.route,
+    });
+  }
+
   getImageUrl(image) {
     let binary = '';
     const bytes = new Uint8Array(image);

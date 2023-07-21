@@ -1,7 +1,9 @@
 <section>
   <div class="head">
     <h1>My Products</h1>
-    <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+    <button mat-mini-fab color="primary" routerLink="/products/create">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 
   <mat-divider style="margin: 10px 0"></mat-divider>
@@ -61,6 +63,7 @@
           matTooltip="Edit Product"
           aria-label="Edit Product"
           color="primary"
+          (click)="update(element.id)"
         >
           <mat-icon>edit</mat-icon>
         </button>
