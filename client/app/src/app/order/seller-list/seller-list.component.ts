@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -15,9 +15,11 @@ import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
   templateUrl: './seller-list.component.html',
   styleUrls: ['./seller-list.component.css']
 })
-export class SellerListComponent {
+export class SellerListComponent implements AfterViewInit {
   data: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -29,8 +31,7 @@ export class SellerListComponent {
     'client_feedback',
     'actions',
   ];
-  dataSource = new MatTableDataSource<any>();
-
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -39,6 +40,10 @@ export class SellerListComponent {
     private dialog: MatDialog
   ) {
     this.checkOrdersById();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   // Lifecycle hooks

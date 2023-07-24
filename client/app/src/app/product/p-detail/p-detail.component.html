@@ -1,5 +1,8 @@
 <mat-card *ngIf="data">
-  <h2 class="mat-h2">{{ data.name }}</h2>
+  <div class="titles">
+    <h2 class="mat-h2">{{ data.name }}</h2>
+    <h5 class="mat-h4">{{ data.type.description }}</h5>
+  </div>
 
   <main>
     <div class="col-6 container-img carousel slide" id="carouselExample">
@@ -70,14 +73,41 @@
           [@slideInOut]="isRatingHidden ? 'out' : 'in'"
           [hidden]="isRatingHidden"
         >
-          <mat-chip-listbox>
-            <mat-chip-option *ngFor="let item of data.categories" disabled>{{
+          
+          <mat-chip-set >
+            <mat-chip *ngFor="let item of data.categories"> {{
               item.category.description
-            }}</mat-chip-option>
-          </mat-chip-listbox>
+            }} </mat-chip>
+          </mat-chip-set>
         </div>
       </div>
       <mat-divider></mat-divider>
+      <div class="container-seller">
+        <div class="title-seller" (click)="toggleSeller()">
+          <h4>Seller</h4>
+          <mat-icon>{{
+            isSellerHidden ? "keyboard_arrow_down" : "keyboard_arrow_up"
+          }}</mat-icon>
+        </div>
+        <div
+          class="stars-review"
+          [@slideInOut]="isSellerHidden ? 'out' : 'in'"
+          [hidden]="isSellerHidden"
+        >
+          
+          <p>{{ data.user.name }}, from {{ data.user.company_name }}
+          </p>
+          
+          <p>Contact
+            <br>
+            Email: {{ data.user.email }}  |  Phone: {{ data.user.phone }}
+          </p>
+          <p>Adress: {{ data.user.address[0].province }}, {{ data.user.address[0].canton }}
+          </p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
       <button
         mat-raised-button
         color="primary"

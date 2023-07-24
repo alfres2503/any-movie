@@ -58,30 +58,5 @@ module.exports.getBySellerId = async (request, response, next) => {
     },
   });
 
-  /*select: {
-    product: true,
-    count: {
-      select: {
-        id: true,
-      },
-      where: {
-        product: {
-          id_user: id,
-        },
-      },
-    },
-  },
-  where: {
-    product: {
-      id_user: id,
-    },
-  },
-  groupBy: {
-    product: {
-      id: true,
-    },
-  },
-});*/
-
   response.json(transaction);
 };

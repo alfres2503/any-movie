@@ -97,16 +97,25 @@ export class PDetailComponent {
   // --titles
   isDescriptionHidden: boolean = true;
   isRatingHidden: boolean = true;
+  isSellerHidden: boolean = true;
 
   // --functions
   toggleDescription(): void {
     this.isDescriptionHidden = !this.isDescriptionHidden;
     this.isRatingHidden = true;
+    this.isSellerHidden = true;
   }
 
   toggleRating(): void {
     this.isRatingHidden = !this.isRatingHidden;
+    this.isSellerHidden = true;
     this.isDescriptionHidden = true;
+  }
+
+  toggleSeller(): void {
+    this.isSellerHidden = !this.isSellerHidden;
+    this.isDescriptionHidden = true;
+    this.isRatingHidden = true;
   }
 
   //images

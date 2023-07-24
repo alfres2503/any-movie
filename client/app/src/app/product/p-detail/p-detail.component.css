@@ -4,9 +4,13 @@ main {
   margin: 0 3rem 5rem;
 }
 
-.mat-h2 {
+.titles {
   margin: 2rem 0;
   text-align: center;
+}
+
+.titles h5 {
+  color: grey;
 }
 
 #carouselExample {
@@ -49,14 +53,16 @@ main {
 }
 
 .container-description,
-.container-rating {
+.container-rating,
+.container-seller {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
 }
 
 .title-description,
-.title-rating {
+.title-rating,
+.title-seller {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,6 +74,7 @@ main {
 
 .title-description h4,
 .title-rating h4,
+.title-seller h4,
 .user-review {
   font-weight: bold;
   font-size: 14px;

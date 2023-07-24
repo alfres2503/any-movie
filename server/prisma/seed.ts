@@ -243,7 +243,7 @@ const main = async () => {
       id_payment_method: 2,
       id_address: 2,
       total: 1017,
-      created_at: new Date(),
+      created_at: new Date("2023-03-01 11:00:00"),
       payed: true,
     },
   });
@@ -254,7 +254,7 @@ const main = async () => {
       id_payment_method: 1,
       id_address: 1,
       total: 159.5,
-      created_at: new Date(),
+      created_at: new Date("2023-02-01 11:00:00"),
       payed: false,
     },
   });
@@ -265,7 +265,7 @@ const main = async () => {
       id_payment_method: 3,
       id_address: 3,
       total: 1130,
-      created_at: new Date(),
+      created_at: new Date("2023-03-13 11:00:00"),
       payed: true,
     },
   });

@@ -23,6 +23,12 @@ module.exports.getById = async (request, response, next) => {
           category:true,
         },
       },
+      type:true,
+      user: {
+        include:{
+          address:true,
+        },
+      },
       transactions: {
         select: {
           client_feedback: true,
