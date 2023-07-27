@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
@@ -14,4 +14,17 @@ module.exports.getById = async (request, response, next) => {
     where: { id: id },
   });
   response.json(answer);
+};
+
+//Crear un comentario
+module.exports.create = async (request, response, next) => {
+  const newAnswer = await prisma.answer.create({
+    data: {
+      id_comment: request.body.id_comment,
+      id_user: request.body.id_user,
+      text: request.body.text,
+      created_at: new Date(),
+    },
+  });
+  response.json(newAnswer);
 };

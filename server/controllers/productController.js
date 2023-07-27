@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 //Obtener listado
@@ -20,13 +20,13 @@ module.exports.getById = async (request, response, next) => {
       images: true,
       categories: {
         select: {
-          category:true,
+          category: true,
         },
       },
-      type:true,
+      type: true,
       user: {
-        include:{
-          address:true,
+        include: {
+          address: true,
         },
       },
       transactions: {
@@ -57,3 +57,26 @@ module.exports.getBySellerId = async (request, response, next) => {
   });
   response.json(products);
 };
+
+//Crear un producto
+module.exports.create = async (request, response, next) => {
+  const newProduct = await prisma.product.create({
+    data: {
+      id_type: request.body.id_type,
+      id_user: request.body.id_user,
+      name: request.body.name,
+      description: request.body.description,
+      quantity: request.body.quantity,
+      price: request.body.price,
+    },
+  });
+  response.json(newProduct);
+};
+
+// id          Int     @id @default(autoincrement())
+//   id_user     Int
+//   id_type     Int
+//   name        String
+//   description String  @db.LongText
+//   quantity    Int
+//   price       Decimal

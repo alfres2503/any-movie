@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 //Obtener listado
@@ -31,4 +31,17 @@ module.exports.getByProductId = async (request, response, next) => {
     },
   });
   response.json(comments);
+};
+
+//Crear un comentario
+module.exports.create = async (request, response, next) => {
+  const newComment = await prisma.comment.create({
+    data: {
+      id_product: request.body.id_product,
+      id_user: request.body.id_user,
+      text: request.body.text,
+      created_at: new Date(),
+    },
+  });
+  response.json(newComment);
 };
