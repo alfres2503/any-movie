@@ -34,10 +34,3 @@ export const images = [
     image: fs.readFileSync("IMAGES/prod5img1.jpg"),
   },
 ];
-
-/* model image {
-id         Int     @id @default(autoincrement())
-id_product Int
-image      Bytes
-product    product @relation(fields: [id_product], references: [id])
-}*/

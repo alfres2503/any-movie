@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 //Obtener listado
@@ -66,17 +66,54 @@ module.exports.create = async (request, response, next) => {
       id_user: request.body.id_user,
       name: request.body.name,
       description: request.body.description,
-      quantity: request.body.quantity,
-      price: request.body.price,
+      quantity: parseInt(request.body.quantity),
+      price: parseFloat(request.body.price),
+      categories: {
+        createMany: {
+          data: request.body.categories,
+        },
+      },
+      // images: {
+      //   create: {
+      //     data: request.body.images[0].data, // pass the image data as a buffer
+      //   },
+      // },
     },
   });
   response.json(newProduct);
 };
 
-// id          Int     @id @default(autoincrement())
-//   id_user     Int
-//   id_type     Int
-//   name        String
-//   description String  @db.LongText
-//   quantity    Int
-//   price       Decimal
+//Actualizar un producto
+// module.exports.update = async (request, response, next) => {
+//   let videojuego = request.body;
+//   let idVideojuego = parseInt(request.params.id);
+
+//   const videojuegoViejo = await prisma.videojuego.findUnique({
+//     where: { id: idVideojuego },
+//     include: {
+//       generos: {
+//         select: {
+//           id: true,
+//         },
+//       },
+//     },
+//   });
+
+//   const newVideojuego = await prisma.videojuego.update({
+//     where: {
+//       id: idVideojuego,
+//     },
+//     data: {
+//       nombre: videojuego.nombre,
+//       descripcion: videojuego.descripcion,
+//       precio: videojuego.precio,
+//       publicar: videojuego.publicar,
+//       generos: {
+//         //Generos tiene que ser {id:valor}
+//         disconnect: videojuegoViejo.generos,
+//         connect: videojuego.generos,
+//       },
+//     },
+//   });
+//   response.json(newVideojuego);
+// };

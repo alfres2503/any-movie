@@ -15,9 +15,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { PFormComponent } from './p-form/p-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [PIndexComponent, PDetailComponent, PMaintenanceComponent, PFormComponent],
+  declarations: [
+    PIndexComponent,
+    PDetailComponent,
+    PMaintenanceComponent,
+    PFormComponent,
+  ],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -31,7 +40,16 @@ import { PFormComponent } from './p-form/p-form.component';
     MatSortModule,
     MatPaginatorModule,
     MatChipsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
-  exports: [PIndexComponent, PDetailComponent, PMaintenanceComponent, PFormComponent],
+  exports: [
+    PIndexComponent,
+    PDetailComponent,
+    PMaintenanceComponent,
+    PFormComponent,
+  ],
 })
 export class ProductModule {}

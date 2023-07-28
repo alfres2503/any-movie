@@ -1,1 +1,116 @@
-<h1>Hola {{ isCreate ? "create" : "update" }}</h1>
+<h1>{{ isCreate ? "Create" : "Update" }}</h1>
+
+<form
+  [formGroup]="productForm"
+  novalidate
+  (ngSubmit)="isCreate ? createProduct() : updateProduct()"
+>
+  <input type="hidden" formControlName="id" />
+  <input type="hidden" formControlName="id_user" />
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>{{ titleForm }} Product</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="name"
+              maxlength="20"
+              placeholder="Name"
+            />
+            <mat-hint align="end"> / 20</mat-hint>
+            <mat-error *ngIf="errorHandling('name', 'required')">
+              Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('name', 'minlength')">
+              Name must have <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+            <mat-hint align="end"> / 100</mat-hint>
+            <mat-error *ngIf="errorHandling('description', 'required')">
+              Description is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Price" formControlName="price" />
+            <mat-error *ngIf="errorHandling('price', 'required')">
+              Price is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field class="col">
+          <input matInput placeholder="Quantity" formControlName="quantity" />
+          <mat-error *ngIf="errorHandling('quantity', 'required')">
+            Quantity is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="col" *ngIf="types">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Type" formControlName="id_type">
+              <mat-option *ngFor="let t of types" [value]="t.id">
+                {{ t.description }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Type is <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col" *ngIf="categories">
+          <mat-form-field class="full-width">
+            <mat-select
+              placeholder="Categories"
+              formControlName="categories"
+              multiple
+            >
+              <mat-option *ngFor="let c of categories" [value]="c.id">
+                {{ c.description }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Categories are <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput hidden />
+            <input type="file" (change)="getImages($event)" multiple />
+            <mat-error> Images are <strong>required</strong> </mat-error>
+          </mat-form-field>
+
+          <div *ngIf="images">
+            <!-- <img *ngFor="let image of preview" height="100px" [src]="image" /> -->
+            <img
+              *ngFor="let image of images"
+              height="100px"
+              [src]="getImageUrl(image.data)"
+            />
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" type="submit">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
