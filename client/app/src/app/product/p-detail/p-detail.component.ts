@@ -8,9 +8,10 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GenericService } from 'src/app/share/generic.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-p-detail',
@@ -44,16 +45,28 @@ export class PDetailComponent {
 
   gridCols: number = 2;
 
+  commentForm: FormGroup;
+  productAnswer: any;
+
+  id: number;
+
   constructor(
     private gService: GenericService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private formBuilder: FormBuilder,   
+    private router: Router,
   ) {
+    this.reactiveForm(); 
+
     let id = this.route.snapshot.paramMap.get('id');
-    if (!isNaN(Number(id))) {
-      this.getProduct(Number(id));
-      this.getComments(Number(id));
+    this.id = +id
+    if (!isNaN(Number(this.id))) {
+      this.getProduct(Number(this.id));
+      this.getComments(Number(this.id));
+      
     }
+    console.log(this.id)
   }
 
   getProduct(id: any) {
@@ -64,6 +77,18 @@ export class PDetailComponent {
         console.log(apiData);
         this.data = apiData;
       });
+  }
+
+  reactiveForm() {
+    this.commentForm = this.formBuilder.group({
+      id: [null, null],
+      id_product: [this.id, null],
+      id_user: [118310145, null],
+      text: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
+    });
   }
 
   getComments(id: any) {
@@ -124,4 +149,26 @@ export class PDetailComponent {
   changeIndex(index) {
     this.selectedProductIndex = index;
   }
+
+  //form
+  createComment(){ 
+    console.log(this.id)
+    console.log(this.commentForm.value);
+
+    //API create action, sending the complete info
+    // this.gService
+    //   .create('comments', this.commentForm.value)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((data: any) => {
+    //     //get answer
+    //     this.productAnswer = data;
+    //     this.router.navigate(['/products/'+ this.id], {
+    //       queryParams: { create: 'true' },
+    //     });
+    //   });
+  }
+
+  public errorHandling = (control: string, error: string) => {
+    return this.commentForm.controls[control].hasError(error);
+  };
 }

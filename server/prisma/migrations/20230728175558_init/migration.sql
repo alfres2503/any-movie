@@ -127,7 +127,7 @@ CREATE TABLE `category` (
 CREATE TABLE `image` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_product` INTEGER NOT NULL,
-    `image` LONGBLOB NOT NULL,
+    `image` LONGTEXT NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
