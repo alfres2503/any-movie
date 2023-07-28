@@ -9,7 +9,7 @@
     <mat-card class="product">
       <img
         mat-card-image
-        [src]="getImageUrl(item.images[0].image.data)"
+        [src]="'data:image/jpeg;base64,' + item.images[0].image"
         alt="photo"
       />
       <mat-card-title>{{ item.name }}</mat-card-title>

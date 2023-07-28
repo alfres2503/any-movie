@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GenericService } from 'src/app/share/generic.service';
-import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-p-form',
@@ -125,38 +124,14 @@ export class PFormComponent implements OnInit {
 
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
-        const readerBuffer = new FileReader();
-        readerBuffer.readAsArrayBuffer(files[i]);
-        //reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(files[i]);
 
-        // reader.onload = () => {
-        //   this.preview.push(reader.result);
-        // };
-
-        readerBuffer.onload = () => {
-          const buffer = Buffer.from(readerBuffer.result as ArrayBuffer);
-          const imageData = {
-            type: 'Buffer',
-            data: Array.from(buffer),
-          };
-          this.images.push(imageData);
+        reader.onload = () => {
+          this.images.push(reader.result);
         };
       }
       console.log(this.images);
-      // console.log(this.preview);
     }
-  }
-
-  getImageUrl(image) {
-    let binary = '';
-    const bytes = new Uint8Array(image);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    const base64Image = window.btoa(binary);
-    const imageUrl = 'data:image/jpeg;base64,' + base64Image;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   ngOnDestroy() {
@@ -169,8 +144,8 @@ export class PFormComponent implements OnInit {
     let cateFormat: any = this.productForm
       .get('categories')
       .value.map((x) => ({ ['id_category']: x }));
-    this.productForm.patchValue({ categories: cateFormat });
 
+    this.productForm.patchValue({ categories: cateFormat });
     this.productForm.patchValue({ images: this.images });
 
     console.log(this.productForm.value);

@@ -15,7 +15,7 @@
           <img
             class="d-block w-100"
             mat-card-image
-            [src]="getImageUrl(item.image.data)"
+            [src]="'data:image/jpeg;base64,' + item.image"
             alt="Product Image"
           />
         </div>
@@ -73,11 +73,10 @@
           [@slideInOut]="isRatingHidden ? 'out' : 'in'"
           [hidden]="isRatingHidden"
         >
-          
-          <mat-chip-set >
-            <mat-chip *ngFor="let item of data.categories"> {{
-              item.category.description
-            }} </mat-chip>
+          <mat-chip-set>
+            <mat-chip *ngFor="let item of data.categories">
+              {{ item.category.description }}
+            </mat-chip>
           </mat-chip-set>
         </div>
       </div>
@@ -94,15 +93,16 @@
           [@slideInOut]="isSellerHidden ? 'out' : 'in'"
           [hidden]="isSellerHidden"
         >
-          
-          <p>{{ data.user.name }}, from {{ data.user.company_name }}
+          <p>{{ data.user.name }}, from {{ data.user.company_name }}</p>
+
+          <p>
+            Contact
+            <br />
+            Email: {{ data.user.email }} | Phone: {{ data.user.phone }}
           </p>
-          
-          <p>Contact
-            <br>
-            Email: {{ data.user.email }}  |  Phone: {{ data.user.phone }}
-          </p>
-          <p>Adress: {{ data.user.address[0].province }}, {{ data.user.address[0].canton }}
+          <p>
+            Adress: {{ data.user.address[0].province }},
+            {{ data.user.address[0].canton }}
           </p>
         </div>
       </div>

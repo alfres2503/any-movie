@@ -145,7 +145,7 @@ model category {
 model image {
   id         Int     @id @default(autoincrement())
   id_product Int
-  image      Bytes
+  image      String  @db.LongText
   product    product @relation(fields: [id_product], references: [id])
 }
 

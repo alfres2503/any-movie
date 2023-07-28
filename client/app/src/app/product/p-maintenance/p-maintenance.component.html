@@ -24,7 +24,7 @@
       <th mat-header-cell *matHeaderCellDef>Image</th>
       <td mat-cell *matCellDef="let element">
         <img
-          [src]="getImageUrl(element.images[0].image.data)"
+          [src]="'data:image/jpeg;base64,' + element.images[0].image"
           alt="Product Image"
         />
       </td>

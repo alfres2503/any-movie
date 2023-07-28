@@ -236,6 +236,15 @@ const main = async () => {
     data: images,
   });
 
+  await prisma.image.create({
+    data: {
+      id_product: 5,
+      image: Buffer.from(fs.readFileSync("IMAGES/prod5img1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
   // TRANSACTION HEADER
   await prisma.transaction_header.create({
     data: {

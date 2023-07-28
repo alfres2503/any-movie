@@ -100,11 +100,7 @@
 
           <div *ngIf="images">
             <!-- <img *ngFor="let image of preview" height="100px" [src]="image" /> -->
-            <img
-              *ngFor="let image of images"
-              height="100px"
-              [src]="getImageUrl(image.data)"
-            />
+            <img *ngFor="let image of images" height="100px" [src]="image" />
           </div>
         </div>
       </div>
