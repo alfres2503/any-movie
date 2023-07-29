@@ -36,7 +36,7 @@ main {
   padding: 1rem;
   background: #2b2b2b46;
   border-radius: 1%;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
 }
 
 .container-price {
@@ -102,7 +102,7 @@ main {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
   vertical-align: middle;
   margin-right: 10px;
 }
@@ -121,8 +121,9 @@ main {
   gap: 25px;
   padding: 1rem;
   background: #2b2b2b46;
-  border-bottom: 1px solid #0000005e;
-
+  /* border-bottom: 1px solid #0000005e; */
+  border-radius: 5px;
+  margin: 0.5rem 0;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -169,6 +170,10 @@ main {
   .container-img-review img {
     width: 50px;
     height: 50px;
+  }
+
+  #addCommentPic {
+    display: none;
   }
 }
 

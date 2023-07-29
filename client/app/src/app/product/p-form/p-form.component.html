@@ -100,7 +100,13 @@
 
           <div *ngIf="images">
             <!-- <img *ngFor="let image of preview" height="100px" [src]="image" /> -->
-            <img *ngFor="let image of images" height="100px" [src]="image" />
+            <img
+              *ngFor="let image of images"
+              height="100px"
+              [src]="isCreate ? image : 'data:image/jpeg;base64,' + image.image"
+              style="border-radius: 5px; margin: 0 0.5rem 0 0"
+            />
+            <!-- <h1>{{ isCreate ? "Create" : "Update" }}</h1> -->
           </div>
         </div>
       </div>

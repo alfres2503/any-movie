@@ -78,7 +78,7 @@ module.exports.create = async (request, response, next) => {
   response.json(newProduct);
 
   for (let i = 0; i < request.body.images.length; i++) {
-    await prisma.image.create({
+    await prisma.image.createMany({
       data: {
         id_product: newProduct.id,
         image: request.body.images[i].split(",")[1],
@@ -88,36 +88,40 @@ module.exports.create = async (request, response, next) => {
 };
 
 //Actualizar un producto
-// module.exports.update = async (request, response, next) => {
-//   let videojuego = request.body;
-//   let idVideojuego = parseInt(request.params.id);
+module.exports.update = async (request, response, next) => {
+  let idProduct = parseInt(request.params.id);
 
-//   const videojuegoViejo = await prisma.videojuego.findUnique({
-//     where: { id: idVideojuego },
-//     include: {
-//       generos: {
-//         select: {
-//           id: true,
-//         },
-//       },
-//     },
-//   });
+  const oldProduct = await prisma.product.findUnique({
+    where: { id: idProduct },
+    include: {
+      categories: {
+        select: {
+          category: true,
+        },
+      },
+    },
+  });
 
-//   const newVideojuego = await prisma.videojuego.update({
-//     where: {
-//       id: idVideojuego,
-//     },
-//     data: {
-//       nombre: videojuego.nombre,
-//       descripcion: videojuego.descripcion,
-//       precio: videojuego.precio,
-//       publicar: videojuego.publicar,
-//       generos: {
-//         //Generos tiene que ser {id:valor}
-//         disconnect: videojuegoViejo.generos,
-//         connect: videojuego.generos,
-//       },
-//     },
-//   });
-//   response.json(newVideojuego);
-// };
+  const newProduct = await prisma.product.update({
+    where: {
+      id: idProduct,
+    },
+    data: {
+      id_type: request.body.id_type,
+      id_user: request.body.id_user,
+      name: request.body.name,
+      description: request.body.description,
+      quantity: parseInt(request.body.quantity),
+      price: parseFloat(request.body.price),
+      categories: {
+        deleteMany: {
+          id_product: idProduct,
+        },
+        createMany: {
+          data: request.body.categories,
+        },
+      },
+    },
+  });
+  response.json(newProduct);
+};

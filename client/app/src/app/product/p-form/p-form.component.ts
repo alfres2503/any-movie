@@ -50,10 +50,12 @@ export class PFormComponent implements OnInit {
         this.titleForm = 'Edit';
 
         this.gService
-          .get('products', this.idProduct)
+          .get('products/', this.idProduct)
           .pipe(takeUntil(this.destroy$))
           .subscribe((apiData: any) => {
             this.productInfo = apiData;
+
+            console.log(apiData);
 
             this.productForm.setValue({
               id: this.productInfo.id,
@@ -61,12 +63,15 @@ export class PFormComponent implements OnInit {
               description: this.productInfo.description,
               quantity: this.productInfo.quantity,
               price: this.productInfo.price,
-              id_type: this.productInfo.type.map(({ id }) => id),
-              categories: this.productInfo.categories.map(({ id }) => id),
-              //images:this.productInfo.images.map(({id}) => id),
+              id_user: this.productInfo.id_user,
+              id_type: this.productInfo.id_type,
+              categories: this.productInfo.categories.map((c) => c.category.id),
+              images: this.productInfo.images,
             });
+            // console.log(this.productForm.value.images);
 
-            console.log(this.productInfo);
+            this.images = this.productForm.value.images;
+            console.log(this.images);
           });
       }
     });
@@ -111,7 +116,6 @@ export class PFormComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         this.types = apiData;
-        console.log(apiData);
       });
   }
 
@@ -121,16 +125,13 @@ export class PFormComponent implements OnInit {
 
     if (event.target.files) {
       const files = event.target.files;
-
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.readAsDataURL(files[i]);
-
         reader.onload = () => {
           this.images.push(reader.result);
         };
       }
-      console.log(this.images);
     }
   }
 
@@ -163,6 +164,30 @@ export class PFormComponent implements OnInit {
       });
   }
 
+  updateProduct(): void {
+    this.submitted = true;
+
+    if (this.productForm.invalid) return;
+
+    let cateFormat: any = this.productForm
+      .get('categories')
+      .value.map((c) => ({ ['id_category']: c }));
+
+    this.productForm.patchValue({ categories: cateFormat });
+
+    console.log(this.productForm.value);
+
+    this.gService
+      .update('products', this.productForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        this.productAnswer = data;
+        this.router.navigate(['/products'], {
+          queryParams: { create: 'true' },
+        });
+      });
+  }
+
   onReset() {
     this.submitted = false;
     this.productForm.reset();
@@ -171,6 +196,4 @@ export class PFormComponent implements OnInit {
   onBack() {
     this.router.navigate(['/products/']);
   }
-
-  updateProduct(): void {}
 }

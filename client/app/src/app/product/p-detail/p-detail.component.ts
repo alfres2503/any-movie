@@ -54,19 +54,18 @@ export class PDetailComponent {
     private gService: GenericService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private formBuilder: FormBuilder,   
-    private router: Router,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
-    this.reactiveForm(); 
+    this.reactiveForm();
 
     let id = this.route.snapshot.paramMap.get('id');
-    this.id = +id
+    this.id = +id;
     if (!isNaN(Number(this.id))) {
       this.getProduct(Number(this.id));
       this.getComments(Number(this.id));
-      
     }
-    console.log(this.id)
+    console.log(this.id);
   }
 
   getProduct(id: any) {
@@ -151,21 +150,26 @@ export class PDetailComponent {
   }
 
   //form
-  createComment(){ 
-    console.log(this.id)
+  createComment() {
+    this.commentForm.value.id_product = this.id;
+
     console.log(this.commentForm.value);
 
     //API create action, sending the complete info
-    // this.gService
-    //   .create('comments', this.commentForm.value)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((data: any) => {
-    //     //get answer
-    //     this.productAnswer = data;
-    //     this.router.navigate(['/products/'+ this.id], {
-    //       queryParams: { create: 'true' },
-    //     });
-    //   });
+    this.gService
+      .create('comments', this.commentForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        //get answer
+        this.productAnswer = data;
+
+        // reload the page
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/products/' + this.id]);
+          });
+      });
   }
 
   public errorHandling = (control: string, error: string) => {

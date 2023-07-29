@@ -122,40 +122,6 @@
 
   <section class="container-reviews">
     <h3><mat-icon class="mat-icon-adjust"> rate_review</mat-icon> Comments</h3>
-    <div class="card-list-reviews">
-      <form [formGroup]="commentForm" novalidate (ngSubmit)="createComment()">
-        <input type="hidden" formControlName="id" />
-        <input type="hidden" formControlName="id_product" />
-        <input type="hidden" formControlName="id_user" />
-
-        
-          <mat-card-content>
-            <div class="row">
-              <div class="col container-img-review">
-                <img [src]="" class="user-image me-1" />
-              </div>
-              <div class="col">
-                <mat-form-field class="full-width">
-                  <mat-label>Create a new comment... </mat-label>
-                  <textarea formControlName="text" matInput></textarea>
-                  <mat-error *ngIf="errorHandling('text', 'required')">
-                    Content is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-card-actions>
-            <button mat-raised-button color="accent" type="submit">
-              <mat-icon>send</mat-icon>
-            </button>
-          </mat-card-actions>
-              </div>
-            </div>
-          </mat-card-content>
-          
-        
-      </form>
-    </div>
     <div *ngFor="let item of comments">
       <div class="card-list-reviews" *ngIf="comments.length > 0">
         <div class="container-img-review">
@@ -207,5 +173,39 @@
         </div>
       </div>
     </div>
+
+    <form
+      [formGroup]="commentForm"
+      novalidate
+      (ngSubmit)="createComment()"
+      class="mt-5"
+    >
+      <input type="hidden" formControlName="id" />
+      <input type="hidden" formControlName="id_product" />
+      <input type="hidden" formControlName="id_user" />
+
+      <mat-card-content>
+        <div class="d-flex gap-3">
+          <div class="container-img-review" id="addCommentPic">
+            <img
+              src="https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg"
+              class="user-image col-1 container-img-review"
+            />
+          </div>
+          <div class="w-100">
+            <mat-form-field appearance="outline" color="accent" class="w-100">
+              <mat-label>Write a comment... </mat-label>
+              <input formControlName="text" matInput />
+              <button mat-icon-button matSuffix type="submit">
+                <mat-icon>send</mat-icon>
+              </button>
+              <mat-error *ngIf="errorHandling('text', 'required')">
+                Content is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </form>
   </section>
 </mat-card>
