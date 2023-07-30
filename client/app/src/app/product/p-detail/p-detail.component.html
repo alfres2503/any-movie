@@ -207,7 +207,8 @@
         <div class="w-100">
           <mat-form-field appearance="outline" color="accent" class="w-100">
             <mat-label>Write a comment... </mat-label>
-            <input formControlName="text" matInput />
+            <input formControlName="text" matInput maxlength="191" />
+            <mat-hint align="end"> / 191</mat-hint>
             <button mat-icon-button matSuffix type="submit">
               <mat-icon>send</mat-icon>
             </button>

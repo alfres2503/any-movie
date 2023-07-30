@@ -88,7 +88,11 @@ export class PDetailComponent {
       id_user: [118310145, null],
       text: [
         null,
-        Validators.compose([Validators.required, Validators.minLength(3)]),
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(191),
+        ]),
       ],
     });
   }

@@ -34,6 +34,8 @@ export class PFormComponent implements OnInit {
   submitted = false;
   productAnswer: any;
 
+  img: any;
+
   constructor(
     private activeRouter: ActivatedRoute,
     private gService: GenericService,
@@ -137,7 +139,6 @@ export class PFormComponent implements OnInit {
 
   getImages(event): any {
     this.images = [];
-    this.preview = [];
 
     if (event.target.files) {
       const files = event.target.files;
@@ -145,7 +146,22 @@ export class PFormComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL(files[i]);
         reader.onload = () => {
-          this.images.push(reader.result);
+          // Comprimir imagenes para que no crashee el server
+          if (!this.img) this.img = new Image();
+
+          this.img.src = reader.result as string;
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const img = new Image();
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            const dataURL = canvas.toDataURL('image/jpeg', 0.5);
+            // console.log(dataURL);
+            this.images.push(dataURL);
+          };
+          img.src = reader.result as string;
         };
       }
     }
