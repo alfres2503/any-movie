@@ -19,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AnswerFormComponent } from './answer-form/answer-form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PDetailComponent,
     PMaintenanceComponent,
     PFormComponent,
+    AnswerFormComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatChipsModule,
     MatFormFieldModule,
+    MatDialogModule,
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -50,6 +54,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PDetailComponent,
     PMaintenanceComponent,
     PFormComponent,
+    AnswerFormComponent,
   ],
 })
 export class ProductModule {}

@@ -72,6 +72,7 @@ const main = async () => {
       email: "analpizarca@est.utn.ac.cr",
       image: fs.readFileSync("IMAGES/anibal.jpg"),
       password: "123456",
+      company_name: "HBO",
       roles: {
         createMany: {
           data: [{ id_role: 3 }],
@@ -330,7 +331,7 @@ const main = async () => {
       client_rating: 4,
       client_feedback: "Good service, but the product was a little bit late",
       seller_rating: 5,
-      seller_feedback: "Excelent client, we hope to see you soon",
+      seller_feedback: "Excellent client, we hope to see you soon",
     },
   });
 
@@ -340,6 +341,10 @@ const main = async () => {
       id_product: 5,
       quantity: 1,
       subtotal: 29.99,
+      client_rating: 3,
+      client_feedback: "Good service, but the product quality is bad",
+      seller_rating: 5,
+      seller_feedback: "Excellent client",
     },
   });
 

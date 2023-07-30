@@ -120,6 +120,7 @@
     </div>
   </main>
 
+  <!-- Comments -->
   <section class="container-reviews">
     <h3><mat-icon class="mat-icon-adjust"> rate_review</mat-icon> Comments</h3>
     <div *ngFor="let item of comments">
@@ -137,13 +138,17 @@
           <div class="text-reviews">
             <p>{{ item.text }}</p>
           </div>
-          <section class="d-flex">
-            <div class="text-reviews">
+          <section class="d-flex align-content-center">
+            <div class="text-reviews mt-2">
               <p>{{ item.created_at | date : "MMM d, y, h:mm a" }}</p>
             </div>
-            <div class="text-reviews mx-3">
-              <a style="font-weight: 500; text-decoration: underline">Reply</a>
-            </div>
+            <button
+              mat-stroked-button
+              class="ms-3"
+              (click)="answerDialog(item)"
+            >
+              Reply
+            </button>
           </section>
         </div>
       </div>
@@ -160,8 +165,15 @@
             />
           </div>
           <div class="container-info-review">
-            <div class="user-review">
+            <div class="user-review d-flex">
               <h5>{{ answer.user.name }}</h5>
+              <h5
+                *ngIf="answer.user.id === data.user.id"
+                class="ms-2 mt-1"
+                style="font-size: 1rem; color: #7e7e7e"
+              >
+                (Seller)
+              </h5>
             </div>
             <div class="text-reviews">
               <p>{{ answer.text }}</p>
@@ -174,6 +186,7 @@
       </div>
     </div>
 
+    <!-- Add comment -->
     <form
       [formGroup]="commentForm"
       novalidate
@@ -184,28 +197,26 @@
       <input type="hidden" formControlName="id_product" />
       <input type="hidden" formControlName="id_user" />
 
-      <mat-card-content>
-        <div class="d-flex gap-3">
-          <div class="container-img-review" id="addCommentPic">
-            <img
-              src="https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg"
-              class="user-image col-1 container-img-review"
-            />
-          </div>
-          <div class="w-100">
-            <mat-form-field appearance="outline" color="accent" class="w-100">
-              <mat-label>Write a comment... </mat-label>
-              <input formControlName="text" matInput />
-              <button mat-icon-button matSuffix type="submit">
-                <mat-icon>send</mat-icon>
-              </button>
-              <mat-error *ngIf="errorHandling('text', 'required')">
-                Content is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+      <div class="d-flex gap-3">
+        <div class="container-img-review" id="addCommentPic">
+          <img
+            src="https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg"
+            class="user-image col-1 container-img-review"
+          />
         </div>
-      </mat-card-content>
+        <div class="w-100">
+          <mat-form-field appearance="outline" color="accent" class="w-100">
+            <mat-label>Write a comment... </mat-label>
+            <input formControlName="text" matInput />
+            <button mat-icon-button matSuffix type="submit">
+              <mat-icon>send</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('text', 'required')">
+              Content is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
     </form>
   </section>
 </mat-card>

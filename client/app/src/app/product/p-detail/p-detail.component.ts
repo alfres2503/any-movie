@@ -12,6 +12,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GenericService } from 'src/app/share/generic.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AnswerFormComponent } from '../answer-form/answer-form.component';
 
 @Component({
   selector: 'app-p-detail',
@@ -55,7 +57,8 @@ export class PDetailComponent {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.reactiveForm();
 
@@ -175,4 +178,14 @@ export class PDetailComponent {
   public errorHandling = (control: string, error: string) => {
     return this.commentForm.controls[control].hasError(error);
   };
+
+  answerDialog(comment: any): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { comment: comment };
+    dialogConfig.width = '90vw';
+
+    this.dialog.open(AnswerFormComponent, dialogConfig);
+  }
 }

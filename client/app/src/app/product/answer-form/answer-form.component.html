@@ -1,0 +1,38 @@
+<div class="content">
+  <h2 mat-dialog-title>Reply to {{ dataDialog.comment.user.name }}</h2>
+
+  <form [formGroup]="answerForm" novalidate (ngSubmit)="createAnswer()">
+    <mat-dialog-content>
+      <input type="hidden" formControlName="id" />
+      <input type="hidden" formControlName="id_comment" />
+      <input type="hidden" formControlName="id_user" />
+      <mat-form-field appearance="outline" class="w-100" color="accent">
+        <textarea
+          matInput
+          placeholder="Message"
+          rows="5"
+          formControlName="text"
+        ></textarea>
+        <mat-error *ngIf="errorHandling('text', 'required')">
+          Content is <strong>required (at least 3 characters)</strong>
+        </mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="d-flex justify-content-end px-4">
+      <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        [mat-dialog-close]="true"
+      >
+        <mat-icon class="close-icon">reply</mat-icon>
+        Reply
+      </button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">
+        <mat-icon class="close-icon">close</mat-icon>
+        Close
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

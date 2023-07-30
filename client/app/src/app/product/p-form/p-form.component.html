@@ -15,13 +15,14 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
             <input
               matInput
               formControlName="name"
-              maxlength="20"
+              maxlength="50"
               placeholder="Name"
             />
-            <mat-hint align="end"> / 20</mat-hint>
+            <mat-hint align="end"> / 50</mat-hint>
             <mat-error *ngIf="errorHandling('name', 'required')">
               Name is <strong>required</strong>
             </mat-error>
@@ -35,7 +36,14 @@
         <div class="col">
           <mat-form-field class="full-width">
             <mat-label>Description</mat-label>
-            <textarea formControlName="description" matInput></textarea>
+            <textarea
+              formControlName="description"
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="6"
+            ></textarea>
             <mat-hint align="end"> / 100</mat-hint>
             <mat-error *ngIf="errorHandling('description', 'required')">
               Description is <strong>required</strong>
@@ -47,6 +55,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Price</mat-label>
             <input matInput placeholder="Price" formControlName="price" />
             <mat-error *ngIf="errorHandling('price', 'required')">
               Price is <strong>required</strong>
@@ -55,6 +64,7 @@
         </div>
 
         <mat-form-field class="col">
+          <mat-label>Quantity</mat-label>
           <input matInput placeholder="Quantity" formControlName="quantity" />
           <mat-error *ngIf="errorHandling('quantity', 'required')">
             Quantity is <strong>required</strong>
@@ -92,10 +102,13 @@
 
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" *ngIf="isCreate">
             <input matInput hidden />
             <input type="file" (change)="getImages($event)" multiple />
-            <mat-error> Images are <strong>required</strong> </mat-error>
+            <mat-hint>
+              Select at least 2 images, we recommend panoramic format, you will
+              not be able to modify them later</mat-hint
+            >
           </mat-form-field>
 
           <div *ngIf="images">

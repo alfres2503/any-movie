@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -77,6 +82,14 @@ export class PFormComponent implements OnInit {
     });
   }
 
+  isNumber(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (isNaN(value)) {
+      return { notANumber: true };
+    }
+    return null;
+  }
+
   //Create Form
   reactiveForm() {
     this.productForm = this.formBuilder.group({
@@ -86,7 +99,10 @@ export class PFormComponent implements OnInit {
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
-      description: [null, Validators.required],
+      description: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(20)]),
+      ],
       quantity: [null, Validators.required],
       price: [null, Validators.required],
       id_type: [null, Validators.required],
@@ -149,8 +165,6 @@ export class PFormComponent implements OnInit {
     this.productForm.patchValue({ categories: cateFormat });
     this.productForm.patchValue({ images: this.images });
 
-    console.log(this.productForm.value);
-
     //API create action, sending the complete info
     this.gService
       .create('products', this.productForm.value)
@@ -167,15 +181,18 @@ export class PFormComponent implements OnInit {
   updateProduct(): void {
     this.submitted = true;
 
-    if (this.productForm.invalid) return;
+    if (
+      this.productForm.invalid ||
+      this.productForm.value.description.trim().length === 0 ||
+      this.productForm.value.name.trim().length === 0
+    )
+      return;
 
     let cateFormat: any = this.productForm
       .get('categories')
       .value.map((c) => ({ ['id_category']: c }));
 
     this.productForm.patchValue({ categories: cateFormat });
-
-    console.log(this.productForm.value);
 
     this.gService
       .update('products', this.productForm.value)

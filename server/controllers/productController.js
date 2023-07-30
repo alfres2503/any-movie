@@ -75,16 +75,17 @@ module.exports.create = async (request, response, next) => {
       },
     },
   });
-  response.json(newProduct);
 
   for (let i = 0; i < request.body.images.length; i++) {
-    await prisma.image.createMany({
+    await prisma.image.create({
       data: {
         id_product: newProduct.id,
         image: request.body.images[i].split(",")[1],
       },
     });
   }
+
+  response.json(newProduct);
 };
 
 //Actualizar un producto
