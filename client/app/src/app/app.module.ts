@@ -14,9 +14,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
+import { ULoginComponent } from './u-login/u-login.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ULoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
