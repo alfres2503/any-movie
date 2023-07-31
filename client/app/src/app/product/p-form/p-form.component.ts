@@ -62,8 +62,6 @@ export class PFormComponent implements OnInit {
           .subscribe((apiData: any) => {
             this.productInfo = apiData;
 
-            console.log(apiData);
-
             this.productForm.setValue({
               id: this.productInfo.id,
               name: this.productInfo.name,
@@ -159,12 +157,20 @@ export class PFormComponent implements OnInit {
             ctx.drawImage(img, 0, 0);
             const dataURL = canvas.toDataURL('image/jpeg', 0.5);
             // console.log(dataURL);
-            this.images.push(dataURL);
+            if (!this.isCreate) {
+              // If in update mode, push an object with the image property
+              this.images.push({ image: dataURL.split(',')[1] });
+            } else {
+              // If not in update mode, push the base64 string directly
+              this.images.push(dataURL);
+            }
           };
           img.src = reader.result as string;
         };
       }
     }
+
+    console.log(this.images);
   }
 
   ngOnDestroy() {
@@ -209,6 +215,7 @@ export class PFormComponent implements OnInit {
       .value.map((c) => ({ ['id_category']: c }));
 
     this.productForm.patchValue({ categories: cateFormat });
+    this.productForm.patchValue({ images: this.images });
 
     this.gService
       .update('products', this.productForm.value)

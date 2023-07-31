@@ -122,7 +122,22 @@ module.exports.update = async (request, response, next) => {
           data: request.body.categories,
         },
       },
+      images: {
+        deleteMany: {
+          id_product: idProduct,
+        },
+      },
     },
   });
+
+  for (let i = 0; i < request.body.images.length; i++) {
+    await prisma.image.create({
+      data: {
+        id_product: idProduct,
+        image: request.body.images[i].image,
+      },
+    });
+  }
+
   response.json(newProduct);
 };

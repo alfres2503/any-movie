@@ -102,24 +102,27 @@
 
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" *ngIf="isCreate">
+          <mat-form-field class="full-width">
             <input matInput hidden />
             <input type="file" (change)="getImages($event)" multiple />
             <mat-hint>
-              Select at least 2 images, we recommend panoramic format, you will
-              not be able to modify them later</mat-hint
+              Select at least 2 images, use panoramic format<span
+                *ngIf="!isCreate"
+                >, new images will overwrite existing ones</span
+              ></mat-hint
             >
           </mat-form-field>
 
-          <div *ngIf="images">
-            <!-- <img *ngFor="let image of preview" height="100px" [src]="image" /> -->
-            <img
-              *ngFor="let image of images"
-              height="100px"
-              [src]="isCreate ? image : 'data:image/jpeg;base64,' + image.image"
-              style="border-radius: 5px; margin: 0 0.5rem 0 0"
-            />
-            <!-- <h1>{{ isCreate ? "Create" : "Update" }}</h1> -->
+          <div *ngIf="images" class="mt-3 d-lg-flex d-md-flex">
+            <div *ngFor="let image of images">
+              <img
+                height="100px"
+                [src]="
+                  isCreate ? image : 'data:image/jpeg;base64,' + image.image
+                "
+                style="border-radius: 5px; margin: 0.5rem"
+              />
+            </div>
           </div>
         </div>
       </div>
