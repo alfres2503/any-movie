@@ -1,55 +1,131 @@
 const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 
-// //Obtener listado
-// module.exports.get = async (request, response, next) => {
-//   let listRoles = [];
+module.exports.create = async (request, response, next) => {
+  let salt = bcrypt.genSaltSync(10);
+  let hash = bcrypt.hashSync(request.body.password, salt);
 
-//   for (let element in Role) {
-//     switch (element) {
-//       case Role.ADMIN:
-//         listRoles.unshift({
-//           ["id"]: element,
-//           ["name"]: "Administrador",
-//         });
-//         break;
-//       case Role.USER:
-//         listRoles.unshift({
-//           ["id"]: element,
-//           ["nombre"]: "Usuario",
-//         });
-//         break;
-//       default:
-//         listRoles.unshift({ ["id"]: Role.USER, ["nombre"]: "Usuario" });
-//         break;
-//     }
-//   }
+  const user = await prisma.user.create({
+    data: {
+      id: parseInt(request.body.id),
+      name: request.body.name,
+      phone: parseInt(request.body.phone),
+      email: request.body.email,
+      password: hash,
+      company_name: request.body.company_name,
+      image: request.body.image,
+      payment_methods: {
+        createMany: {
+          data: request.body.payment_methods,
+        },
+      },
+      address: {
+        createMany: {
+          data: request.body.address,
+        },
+      },
+      roles: {
+        createMany: {
+          data: request.body.roles,
+        },
+      },
+    },
+  });
 
-//   response.json(listRoles);
-// };
+  response.status(200).json({
+    status: true,
+    message: "User registered",
+    data: user,
+  });
+};
 
-// //Obtener por Id
-// module.exports.getById = async (request, response, next) => {
-//   let id = request.params.id;
+module.exports.update = async (request, response, next) => {
+  const Email = request.body.email;
 
-//   let nombre = "";
+  let salt = bcrypt.genSaltSync(10);
+  let hash;
 
-//   switch (Role[id]) {
-//     case Role.ADMIN:
-//       nombre = "Administrador";
-//       break;
-//     case Role.USER:
-//       nombre = "Usuario";
-//       break;
-//     default:
-//       nombre = "Usuario";
-//       break;
-//   }
+  if (request.body.newPassword) {
+    hash = bcrypt.hashSync(request.body.newPassword, salt);
+  } else {
+    hash = bcrypt.hashSync(request.body.password, salt);
+  }
 
-//   let rol = { ["id"]: Role[id], ["nombre"]: nombre };
-//   response.json(rol);
-// };
+  const oldUser = await prisma.user.findUnique({
+    where: { email: Email },
+    include: {
+      roles: true,
+    },
+  });
+
+  const checkPassword = bcrypt.compare(request.body.password, oldUser.password);
+
+  if (checkPassword === false) {
+    response.status(401).send({
+      success: false,
+      message: "Incorrect password",
+    });
+  } else {
+    const newUser = await prisma.user.update({
+      where: {
+        email: Email,
+      },
+      data: {
+        name: request.body.name,
+        phone: request.body.phone,
+        email: request.body.email,
+        password: hash,
+        company_name: request.body.company_name,
+        image: request.body.image,
+      },
+    });
+  }
+};
+
+module.exports.login = async (request, response, next) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: request.body.email,
+    },
+  });
+
+  if (!user) {
+    response.status(401).send({
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  const checkPassword = bcrypt.compare(request.body.password, user.password);
+
+  if (checkPassword === false) {
+    response.status(401).send({
+      success: false,
+      message: "Incorrect password",
+    });
+  } else {
+    const payload = {
+      email: user.email,
+      roles: user.roles,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+
+    response.json({
+      success: true,
+      message: "Login successful",
+      data: {
+        user: user,
+        token,
+      },
+    });
+  }
+};
 
 //Obtener listado
 module.exports.get = async (request, response, next) => {
