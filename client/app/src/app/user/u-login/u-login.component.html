@@ -1,0 +1,55 @@
+<form [formGroup]="loginForm" novalidate>
+  <main>
+    <div class="text-center">
+      <img src="../../../assets/AnyMovieIcon.svg" width="100" />
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Email"
+              formControlName="email"
+            />
+            <mat-error *ngIf="errorHandling('email', 'required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('email', 'email')">
+              Verify the email <strong>format</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('password', 'required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="submitForm()">
+        Login
+      </button>
+    </div>
+  </main>
+</form>

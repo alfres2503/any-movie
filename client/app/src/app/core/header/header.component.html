@@ -17,20 +17,27 @@
     <mat-icon matBadge="5" matBadgeColor="warn">messages</mat-icon>
   </button>
 
-  <button mat-button [matMenuTriggerFor]="menu" class="user">
+  <button mat-button [matMenuTriggerFor]="menu" class="user" *ngIf="isAuth">
     <img
-      src="https://pm1.aminoapps.com/6428/d6afdea8c7f7d537d28cec917e37529d50e81d5e_hq.jpg"
-      class="user-image me-1"
+      [src]="
+        currentUser.user.image != null
+          ? 'data:image/jpeg;base64,' + currentUser.user.image
+          : 'https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg'
+      "
+      class="user-image me-2"
     />
-    <span>{{ currentUser.name }}</span>
+    <span>{{ currentUser.user.name }}</span>
     <mat-icon class="user-image-icon me-1">keyboard_arrow_down</mat-icon>
   </button>
+
+  <button mat-button routerLink="logIn" *ngIf="!isAuth">Log In</button>
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item>
       <mat-icon>settings</mat-icon>
       Settings
     </button>
+
     <button mat-menu-item>
       <mat-icon>exit_to_app</mat-icon>
       Logout

@@ -101,7 +101,7 @@
             Email: {{ data.user.email }} | Phone: {{ data.user.phone }}
           </p>
           <p>
-            Adress: {{ data.user.address[0].province }},
+            Address: {{ data.user.address[0].province }},
             {{ data.user.address[0].canton }}
           </p>
         </div>
@@ -127,7 +127,7 @@
       <div class="card-list-reviews" *ngIf="comments.length > 0">
         <div class="container-img-review">
           <img
-            [src]="getImageUrl(item.user.image.data)"
+            [src]="'data:image/jpeg;base64,' + item.user.image"
             class="user-image me-1"
           />
         </div>
@@ -160,7 +160,7 @@
         >
           <div class="container-img-review">
             <img
-              [src]="getImageUrl(answer.user.image.data)"
+              [src]="'data:image/jpeg;base64,' +answer.user.image"
               class="user-image me-1"
             />
           </div>

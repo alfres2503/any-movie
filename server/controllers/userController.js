@@ -48,11 +48,11 @@ module.exports.update = async (request, response, next) => {
   let salt = bcrypt.genSaltSync(10);
   let hash;
 
-  if (request.body.newPassword) {
+  if (request.body.newPassword) 
     hash = bcrypt.hashSync(request.body.newPassword, salt);
-  } else {
+  else 
     hash = bcrypt.hashSync(request.body.password, salt);
-  }
+  
 
   const oldUser = await prisma.user.findUnique({
     where: { email: Email },
@@ -61,9 +61,9 @@ module.exports.update = async (request, response, next) => {
     },
   });
 
-  const checkPassword = bcrypt.compare(request.body.password, oldUser.password);
+  const checkPassword = await bcrypt.compare(request.body.password, oldUser.password);
 
-  if (checkPassword === false) {
+  if (!checkPassword) {
     response.status(401).send({
       success: false,
       message: "Incorrect password",
@@ -92,20 +92,22 @@ module.exports.login = async (request, response, next) => {
     },
   });
 
-  if (!user) {
+  if (user == null || !user) {
     response.status(401).send({
       success: false,
       message: "User not found",
     });
+
+    return;
   }
 
-  const checkPassword = bcrypt.compare(request.body.password, user.password);
+  const checkPassword = await bcrypt.compare(request.body.password, user.password);
 
-  if (checkPassword === false) {
+  if (!checkPassword) {
     response.status(401).send({
       success: false,
       message: "Incorrect password",
-    });
+    });  
   } else {
     const payload = {
       email: user.email,

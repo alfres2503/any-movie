@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import * as bcrypt from 'bcrypt';
 import fs from "fs";
 import { categories } from "./seeds/categories";
 import { images } from "./seeds/images";
@@ -15,14 +16,18 @@ const main = async () => {
 
   // USER
 
+  let salt = bcrypt.genSaltSync(10);
+
   await prisma.user.create({
     data: {
       id: 118710756,
       name: "Alfredo Suárez",
       phone: 85713150,
       email: "lusuarezag@est.utn.ac.cr",
-      password: "123456",
-      image: fs.readFileSync("IMAGES/Naruto_Partie_I.jpg"),
+      password: bcrypt.hashSync("123456", salt),
+      image: Buffer.from(fs.readFileSync("IMAGES/Naruto_Partie_I.jpg")).toString(
+        "base64"
+      ),
       roles: {
         createMany: {
           data: [{ id_role: 1 }],
@@ -37,8 +42,10 @@ const main = async () => {
       name: "Paula López",
       phone: 62515242,
       email: "malopezsa@est.utn.ac.cr",
-      password: "123456",
-      image: fs.readFileSync("IMAGES/bella.jpg"),
+      password: bcrypt.hashSync("123456", salt),
+      image: Buffer.from(fs.readFileSync("IMAGES/bella.jpg")).toString(
+        "base64"
+      ),
       company_name: "Netflix",
       roles: {
         createMany: {
@@ -54,8 +61,10 @@ const main = async () => {
       name: "Carlo Bonilla",
       phone: 82345678,
       email: "cabonillamo@est.utn.ac.cr",
-      image: fs.readFileSync("IMAGES/potato.jpg"),
-      password: "123456",
+      image: Buffer.from(fs.readFileSync("IMAGES/potato.jpg")).toString(
+        "base64"
+      ),
+      password: bcrypt.hashSync("123456", salt),
       roles: {
         createMany: {
           data: [{ id_role: 2 }],
@@ -70,8 +79,10 @@ const main = async () => {
       name: "Aníbal Alpízar",
       phone: 71699681,
       email: "analpizarca@est.utn.ac.cr",
-      image: fs.readFileSync("IMAGES/anibal.jpg"),
-      password: "123456",
+      image: Buffer.from(fs.readFileSync("IMAGES/anibal.jpg")).toString(
+        "base64"
+      ),
+      password: bcrypt.hashSync("123456", salt),
       company_name: "HBO",
       roles: {
         createMany: {

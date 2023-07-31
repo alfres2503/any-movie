@@ -68,7 +68,6 @@ export class PDetailComponent {
       this.getProduct(Number(this.id));
       this.getComments(Number(this.id));
     }
-    console.log(this.id);
   }
 
   getProduct(id: any) {
@@ -102,21 +101,8 @@ export class PDetailComponent {
       .get('comments/product', id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        console.log(apiData);
         this.comments = apiData;
       });
-  }
-
-  getImageUrl(image) {
-    let binary = '';
-    const bytes = new Uint8Array(image);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    const base64Image = window.btoa(binary);
-    const imageUrl = 'data:image/jpeg;base64,' + base64Image;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   ngOnDestroy() {

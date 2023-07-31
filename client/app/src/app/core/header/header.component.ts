@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CartService } from 'src/app/share/cart.service';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +13,33 @@ export class HeaderComponent {
   isAuth: boolean;
   currentUser: any;
 
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private authService: AuthenticationService
+  ) {
+    //this.qtyItems = this.cartService.quantityItems();
+  }
+
   ngOnInit(): void {
-    this.isAuth = true;
-    let user = {
-      name: 'Pala',
-    };
-    this.currentUser = user;
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.isAuthenticated.subscribe(
+      (valor) => (this.isAuth = valor)
+    );
+
+    console.log(this.currentUser);
   }
 
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
+  }
+
+  login() {
+    this.router.navigate(['user/login']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['user/login']);
   }
 }

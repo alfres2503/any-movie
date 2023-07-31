@@ -17,7 +17,7 @@ model user {
   email        String  @unique
   password     String
   company_name String?
-  image        Bytes?
+  image        String? @db.LongText
 
   payment_methods payment_method[]
   address         address[]
