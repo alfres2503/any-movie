@@ -73,6 +73,9 @@ export class ClientListComponent {
 
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+        console.log(this.data);
+        console.log(this.dataSource);
       });
   }
 

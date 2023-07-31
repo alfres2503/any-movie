@@ -35,11 +35,11 @@ export class HeaderComponent {
   }
 
   login() {
-    this.router.navigate(['user/login']);
+    this.router.navigate(['logIn']);
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['user/login']);
+    this.router.navigate(['logIn']);
   }
 }

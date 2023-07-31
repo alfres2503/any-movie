@@ -79,8 +79,6 @@ export class ULoginComponent {
   };
 
   submitForm() {
-    console.log(this.loginForm);
-
     this.makeSubmit = true;
     if (this.loginForm.invalid) {
       return;

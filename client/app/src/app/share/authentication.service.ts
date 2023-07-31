@@ -55,10 +55,13 @@ export class AuthenticationService {
         localStorage.setItem('currentUser', JSON.stringify(user.data));
         this.authenticated.next(true);
         this.currentUserSubject.next(user.data);
+
+        console.log(user);
         return user;
       })
     );
   }
+
   //Logout de usuario autentificado
   logout() {
     let usuario = this.currentUserSubject.value;

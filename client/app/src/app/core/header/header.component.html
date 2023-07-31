@@ -5,15 +5,15 @@
 
   <div class="example-spacer"></div>
 
-  <button mat-icon-button>
+  <button mat-icon-button *ngIf="isAuth">
     <mat-icon matBadge="0" matBadgeColor="primary">shopping_cart</mat-icon>
   </button>
 
-  <button mat-icon-button>
+  <button mat-icon-button *ngIf="isAuth">
     <mat-icon matBadge="3" matBadgeColor="accent">notifications</mat-icon>
   </button>
 
-  <button mat-icon-button>
+  <button mat-icon-button *ngIf="isAuth">
     <mat-icon matBadge="5" matBadgeColor="warn">messages</mat-icon>
   </button>
 
@@ -37,8 +37,7 @@
       <mat-icon>settings</mat-icon>
       Settings
     </button>
-
-    <button mat-menu-item>
+    <button mat-menu-item (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
     </button>

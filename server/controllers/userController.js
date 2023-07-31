@@ -90,6 +90,9 @@ module.exports.login = async (request, response, next) => {
     where: {
       email: request.body.email,
     },
+    include: {
+      roles: true,
+    }
   });
 
   if (user == null || !user) {

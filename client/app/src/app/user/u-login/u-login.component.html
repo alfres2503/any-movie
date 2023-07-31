@@ -1,55 +1,66 @@
 <form [formGroup]="loginForm" novalidate>
-  <main>
-    <div class="text-center">
-      <img src="../../../assets/AnyMovieIcon.svg" width="100" />
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              type="text"
-              placeholder="Email"
-              formControlName="email"
-            />
-            <mat-error *ngIf="errorHandling('email', 'required')">
-              Email is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="errorHandling('email', 'email')">
-              Verify the email <strong>format</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              placeholder="Password"
-              formControlName="password"
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="hide = !hide"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button>
-            <mat-error *ngIf="errorHandling('password', 'required')">
-              Password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
+  <div class="text-center w-50 mx-auto mt-5">
+    <img src="../../../assets/AnyMovieIcon.svg" width="130" />
+    <h1 class="h3 my-3 fw-normal">AnyMovie</h1>
 
-      <button mat-raised-button color="primary" (click)="submitForm()">
-        Login
-      </button>
+    <div class="w-100">
+      <mat-form-field class="w-100" appearance="outline">
+        <input
+          matInput
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="errorHandling('email', 'required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="errorHandling('email', 'email')">
+          Verify the email <strong>format</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
-  </main>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="w-100" appearance="outline">
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="errorHandling('password', 'required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submitForm()"
+      class="bigger-button my-2"
+    >
+      Log In
+    </button>
+
+    <mat-divider class="my-3"></mat-divider>
+
+    <p>
+      Don't have an account?
+      <button mat-stroked-button class="ms-2" routerLink="/signIn">
+        Sign In
+      </button>
+    </p>
+  </div>
 </form>
