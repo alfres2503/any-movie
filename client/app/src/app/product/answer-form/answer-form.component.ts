@@ -67,14 +67,14 @@ export class AnswerFormComponent implements OnInit {
         //get answer
         this.apiAnswer = data;
 
-        // reload the page
-        this.router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate([
-              '/products/' + this.dataDialog.comment.id_product,
-            ]);
-          });
+        // this.router
+        //   .navigateByUrl('/', { skipLocationChange: true })
+        //   .then(() => {
+        //     this.router.navigate([
+        //       '/products/' + this.dataDialog.comment.id_product,
+        //     ]);
+        //   });
+        this.dialogRef.close();
       });
   }
 }

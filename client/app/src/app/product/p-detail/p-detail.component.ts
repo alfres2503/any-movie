@@ -177,12 +177,8 @@ export class PDetailComponent {
         //get answer
         this.productAnswer = data;
 
-        // reload the page
-        this.router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate(['/products/' + this.id]);
-          });
+        this.getComments(this.id);
+        this.commentForm.reset();
       });
   }
 
@@ -198,5 +194,9 @@ export class PDetailComponent {
     dialogConfig.width = '90vw';
 
     this.dialog.open(AnswerFormComponent, dialogConfig);
+
+    this.dialog.afterAllClosed.subscribe((data: any) => {
+      this.getComments(this.id);
+    });
   }
 }
