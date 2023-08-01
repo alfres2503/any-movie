@@ -30,14 +30,13 @@ export class AnswerFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.dataDialog);
-
   }
 
   reactiveForm() {
     this.answerForm = this.formBuilder.group({
       id: [null, null],
       id_comment: [this.dataDialog.comment.id, null],
-      id_user: [118310145, null],
+      id_user: [null, null],
       text: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),

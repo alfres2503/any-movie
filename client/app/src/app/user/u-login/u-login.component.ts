@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+
 import {
   NotificationService,
   MessageType,
@@ -87,6 +88,7 @@ export class ULoginComponent {
     console.log(this.loginForm.value);
     this.authService.loginUser(this.loginForm.value).subscribe(
       (answer: any) => {
+        // tal vez haciendo un refresh se arregle el sidenav
         this.router.navigate(['/']);
       },
       (error) => {

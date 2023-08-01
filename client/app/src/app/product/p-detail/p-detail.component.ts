@@ -63,7 +63,7 @@ export class PDetailComponent {
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     private router: Router,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private authService: AuthenticationService
   ) {
     this.reactiveForm();
@@ -79,12 +79,10 @@ export class PDetailComponent {
       (valor) => (this.isAuth = valor)
     );
 
-    this.idUser = this.authService.idUser
+    this.idUser = this.authService.idUser;
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   getProduct(id: any) {
     this.gService
@@ -160,6 +158,12 @@ export class PDetailComponent {
 
   //form
   createComment() {
+    if (
+      this.commentForm.invalid ||
+      this.commentForm.value.text.trim().length === 0
+    )
+      return;
+
     this.commentForm.value.id_product = this.id;
     this.commentForm.value.id_user = this.idUser;
 

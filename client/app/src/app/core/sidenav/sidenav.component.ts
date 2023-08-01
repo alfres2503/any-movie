@@ -11,12 +11,12 @@ import { AuthenticationService } from 'src/app/share/authentication.service';
 export class SidenavComponent {
   isAuth: boolean;
   currentUser: any;
-  
+
   isSeller: boolean = false;
   isClient: boolean = false;
   isAdmin: boolean = false;
 
-  idUser: number
+  idUser: number;
 
   constructor(
     private cartService: CartService,
@@ -28,7 +28,7 @@ export class SidenavComponent {
       (valor) => (this.isAuth = valor)
     );
 
-    this.idUser = this.authService.idUser
+    this.idUser = this.authService.idUser;
 
     this.isSeller = this.authService.isSeller;
     this.isClient = this.authService.isClient;

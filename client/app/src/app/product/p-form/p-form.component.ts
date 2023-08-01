@@ -8,7 +8,12 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
+import {
+  NotificationService,
+  MessageType,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-p-form',
@@ -31,6 +36,10 @@ export class PFormComponent implements OnInit {
   isCreate: boolean = true;
   productInfo: any;
 
+  isAuth: boolean;
+  currentUser: any;
+  idUser: number;
+
   submitted = false;
   productAnswer: any;
 
@@ -41,11 +50,20 @@ export class PFormComponent implements OnInit {
     private gService: GenericService,
     private sanitizer: DomSanitizer,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService,
+    private notification: NotificationService
   ) {
     this.reactiveForm();
     this.typesList();
     this.categoriesList();
+
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.isAuthenticated.subscribe(
+      (valor) => (this.isAuth = valor)
+    );
+
+    this.idUser = this.authService.idUser;
   }
 
   ngOnInit(): void {
@@ -94,7 +112,7 @@ export class PFormComponent implements OnInit {
   reactiveForm() {
     this.productForm = this.formBuilder.group({
       id: [null, null],
-      id_user: [118310145, null],
+      id_user: [null, null],
       name: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
@@ -179,6 +197,16 @@ export class PFormComponent implements OnInit {
   }
 
   createProduct(): void {
+    this.submitted = true;
+
+    if (this.images.length <= 1) {
+      this.notification.message(
+        'Error',
+        'You must upload at least 2 images',
+        MessageType.error
+      );
+      return;
+    }
     //categories array
     let cateFormat: any = this.productForm
       .get('categories')
@@ -186,8 +214,16 @@ export class PFormComponent implements OnInit {
 
     this.productForm.patchValue({ categories: cateFormat });
     this.productForm.patchValue({ images: this.images });
+    this.productForm.patchValue({ id_user: this.idUser });
 
-    //API create action, sending the complete info
+    if (
+      this.productForm.invalid ||
+      this.productForm.value.description.trim().length === 0 ||
+      this.productForm.value.name.trim().length === 0
+    ) {
+      return;
+    }
+
     this.gService
       .create('products', this.productForm.value)
       .pipe(takeUntil(this.destroy$))
@@ -203,19 +239,29 @@ export class PFormComponent implements OnInit {
   updateProduct(): void {
     this.submitted = true;
 
-    if (
-      this.productForm.invalid ||
-      this.productForm.value.description.trim().length === 0 ||
-      this.productForm.value.name.trim().length === 0
-    )
-      return;
-
     let cateFormat: any = this.productForm
       .get('categories')
       .value.map((c) => ({ ['id_category']: c }));
 
     this.productForm.patchValue({ categories: cateFormat });
     this.productForm.patchValue({ images: this.images });
+    this.productForm.patchValue({ id_user: this.idUser });
+
+    if (this.images.length <= 1) {
+      this.notification.message(
+        'Error',
+        'You must upload at least 2 images',
+        MessageType.error
+      );
+      return;
+    }
+
+    if (
+      this.productForm.invalid ||
+      this.productForm.value.description.trim().length === 0 ||
+      this.productForm.value.name.trim().length === 0
+    )
+      return;
 
     this.gService
       .update('products', this.productForm.value)

@@ -121,7 +121,7 @@
   </main>
 
   <!-- Comments -->
-  <section class="container-reviews" >
+  <section class="container-reviews">
     <h3><mat-icon class="mat-icon-adjust"> rate_review</mat-icon> Comments</h3>
     <div *ngFor="let item of comments">
       <div class="card-list-reviews" *ngIf="comments.length > 0">
@@ -161,7 +161,7 @@
         >
           <div class="container-img-review">
             <img
-              [src]="'data:image/jpeg;base64,' +answer.user.image"
+              [src]="'data:image/jpeg;base64,' + answer.user.image"
               class="user-image me-1"
             />
           </div>
@@ -202,7 +202,11 @@
       <div class="d-flex gap-3">
         <div class="container-img-review" id="addCommentPic">
           <img
-            src="https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg"
+            [src]="
+              currentUser.user.image != null
+                ? 'data:image/jpeg;base64,' + currentUser.user.image
+                : 'https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg'
+            "
             class="user-image col-1 container-img-review"
           />
         </div>
