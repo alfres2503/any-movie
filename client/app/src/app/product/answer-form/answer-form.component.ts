@@ -30,6 +30,7 @@ export class AnswerFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.dataDialog);
+
   }
 
   reactiveForm() {
@@ -50,6 +51,7 @@ export class AnswerFormComponent implements OnInit {
 
   createAnswer() {
     this.answerForm.value.id_comment = this.dataDialog.comment.id;
+    this.answerForm.value.id_user = this.dataDialog.comment.id_user;
 
     if (
       this.answerForm.value.text == null ||

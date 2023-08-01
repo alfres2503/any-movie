@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GenericService } from 'src/app/share/generic.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 import { AnswerFormComponent } from '../answer-form/answer-form.component';
 
 @Component({
@@ -47,6 +48,10 @@ export class PDetailComponent {
 
   gridCols: number = 2;
 
+  isAuth: boolean;
+  currentUser: any;
+  idUser: number;
+
   commentForm: FormGroup;
   productAnswer: any;
 
@@ -58,7 +63,8 @@ export class PDetailComponent {
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog, 
+    private authService: AuthenticationService
   ) {
     this.reactiveForm();
 
@@ -68,6 +74,16 @@ export class PDetailComponent {
       this.getProduct(Number(this.id));
       this.getComments(Number(this.id));
     }
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.isAuthenticated.subscribe(
+      (valor) => (this.isAuth = valor)
+    );
+
+    this.idUser = this.authService.idUser
+  }
+
+  ngOnInit(): void {
+    
   }
 
   getProduct(id: any) {
@@ -84,7 +100,7 @@ export class PDetailComponent {
     this.commentForm = this.formBuilder.group({
       id: [null, null],
       id_product: [this.id, null],
-      id_user: [118310145, null],
+      id_user: [this.idUser, null],
       text: [
         null,
         Validators.compose([
@@ -145,6 +161,7 @@ export class PDetailComponent {
   //form
   createComment() {
     this.commentForm.value.id_product = this.id;
+    this.commentForm.value.id_user = this.idUser;
 
     console.log(this.commentForm.value);
 

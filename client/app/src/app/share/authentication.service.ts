@@ -9,6 +9,12 @@ import { CartService } from './cart.service';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  isSeller: boolean = false;
+  isClient: boolean = false;
+  isAdmin: boolean = false;
+
+  idUser: number
+
   //Header para afirmar el tipo de contenido JSON
   //URL del API
   ServerUrl = environment.apiUrl;
@@ -27,6 +33,10 @@ export class AuthenticationService {
     );
     //Establecer un observable para acceder a los datos del usuario
     this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser.subscribe((data) => {
+      this.idUser = data.user.id
+    })
+    this.roles();
   }
   //Obtener el valor del usuario actual
   public get currentUserValue(): any {
@@ -36,6 +46,7 @@ export class AuthenticationService {
   get isAuthenticated() {
     if (this.currentUserValue != null) {
       this.authenticated.next(true);
+      
     } else {
       this.authenticated.next(false);
     }
@@ -60,6 +71,29 @@ export class AuthenticationService {
         return user;
       })
     );
+  }
+
+  roles() {
+    if (this.currentUserValue != null) {
+      this.currentUser.subscribe((data) => {
+        for (let i = 0; i < data.user.roles.length; i++) {
+          switch (data.user.roles[i].id_role) {
+            case 1:
+              this.isAdmin = true;
+              break;
+            case 2:
+              this.isClient = true;
+              break;
+            case 3:
+              this.isSeller = true;
+              break;
+            default:
+              2;
+              break;
+          }
+        }
+      });
+    }
   }
 
   //Logout de usuario autentificado

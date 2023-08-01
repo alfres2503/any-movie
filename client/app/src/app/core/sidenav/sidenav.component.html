@@ -22,9 +22,9 @@
 
   <a
     mat-list-item
-    routerLink="orders/client/604780838"
     routerLinkActive="list-item-active"
     [matMenuTriggerFor]="menuO"
+    *ngIf="isAuth && !isAdmin"
   >
     <mat-icon>assignment_turned_in</mat-icon>
     Orders
@@ -40,6 +40,7 @@
     routerLink=""
     routerLinkActive="list-item-active"
     [matMenuTriggerFor]="menuR"
+    *ngIf="isAuth && (isAdmin || isSeller)"
   >
     <mat-icon>import_contacts</mat-icon>
     Reports
@@ -50,22 +51,22 @@
       <mat-icon>apps</mat-icon>
       Grid
     </button>
-    <button mat-menu-item (click)="productSeller(118310145)">
+    <button mat-menu-item (click)="productSeller(idUser)" *ngIf="isSeller">
       <mat-icon>edit</mat-icon>
       Maintenance
     </button>
   </mat-menu>
 
   <mat-menu #menuO="matMenu">
-    <button mat-menu-item routerLink="orders/client/604780838">
+    <button mat-menu-item (click)="orderClient(idUser)" *ngIf="isClient">
       <mat-icon>movies</mat-icon>
-      All Orders Client
+      All Orders
     </button>
-    <button mat-menu-item routerLink="orders/seller/118310145">
+    <button mat-menu-item (click)="orderSeller(idUser)" *ngIf="isSeller">
       <mat-icon>movies</mat-icon>
-      All Orders Seller
+      All Sales
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item *ngIf="isClient">
       <mat-icon>edit</mat-icon>
       Review
     </button>
@@ -73,34 +74,38 @@
 
   <mat-menu #menuR="matMenu">
     <!-- Admin -->
-    <button mat-menu-item>
-      <mat-icon>timeline</mat-icon>
-      Sells by day
-    </button>
-    <button mat-menu-item>
-      <mat-icon>bar_chart</mat-icon>
-      Top 5 Products per month
-    </button>
-    <button mat-menu-item>
-      <mat-icon>people_alt</mat-icon>
-      Top 5 Sellers
-    </button>
-    <button mat-menu-item>
-      <mat-icon>thumb_down_alt</mat-icon>
-      Top 3 Worst Sellers
-    </button>
+    <div *ngIf="isAdmin">
+      <button mat-menu-item>
+        <mat-icon>timeline</mat-icon>
+        Sells by day
+      </button>
+      <button mat-menu-item>
+        <mat-icon>bar_chart</mat-icon>
+        Top 5 Products per month
+      </button>
+      <button mat-menu-item>
+        <mat-icon>people_alt</mat-icon>
+        Top 5 Sellers
+      </button>
+      <button mat-menu-item>
+        <mat-icon>thumb_down_alt</mat-icon>
+        Top 3 Worst Sellers
+      </button>
+    </div>
     <!-- Seller -->
-    <button mat-menu-item>
-      <mat-icon>shopping_cart</mat-icon>
-      Most sold product
-    </button>
-    <button mat-menu-item>
-      <mat-icon>person</mat-icon>
-      Best Client
-    </button>
-    <button mat-menu-item>
-      <mat-icon>star</mat-icon>
-      Ratings Report
-    </button>
+    <div *ngIf="isSeller">
+      <button mat-menu-item>
+        <mat-icon>shopping_cart</mat-icon>
+        Most sold product
+      </button>
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        Best Client
+      </button>
+      <button mat-menu-item>
+        <mat-icon>star</mat-icon>
+        Ratings Report
+      </button>
+    </div>
   </mat-menu>
 </mat-list>

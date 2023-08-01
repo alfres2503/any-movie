@@ -121,7 +121,7 @@
   </main>
 
   <!-- Comments -->
-  <section class="container-reviews">
+  <section class="container-reviews" >
     <h3><mat-icon class="mat-icon-adjust"> rate_review</mat-icon> Comments</h3>
     <div *ngFor="let item of comments">
       <div class="card-list-reviews" *ngIf="comments.length > 0">
@@ -146,6 +146,7 @@
               mat-stroked-button
               class="ms-3"
               (click)="answerDialog(item)"
+              *ngIf="isAuth"
             >
               Reply
             </button>
@@ -192,6 +193,7 @@
       novalidate
       (ngSubmit)="createComment()"
       class="mt-5"
+      *ngIf="isAuth"
     >
       <input type="hidden" formControlName="id" />
       <input type="hidden" formControlName="id_product" />
