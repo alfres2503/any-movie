@@ -39,10 +39,11 @@ export class OrderDialogComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         this.data = apiData;
+
+        
+
         this.tableDataSource.connect();
         this.tableDataSource = new MatTableDataSource(this.data.details);
-        console.log(apiData);
-        console.log(this.tableDataSource);
       });
   }
 

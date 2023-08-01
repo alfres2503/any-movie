@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -16,16 +17,19 @@ export class AnswerFormComponent implements OnInit {
   answerForm: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
   apiAnswer: any;
+  idUser: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AnswerFormComponent>,
     private gService: GenericService,
+    private authService: AuthenticationService,
     private router: Router
   ) {
     this.dataDialog = data;
     this.reactiveForm();
+    this.idUser = this.authService.idUser;
   }
 
   ngOnInit(): void {
@@ -50,7 +54,7 @@ export class AnswerFormComponent implements OnInit {
 
   createAnswer() {
     this.answerForm.value.id_comment = this.dataDialog.comment.id;
-    this.answerForm.value.id_user = this.dataDialog.comment.id_user;
+    this.answerForm.value.id_user = this.idUser;
 
     if (
       this.answerForm.value.text == null ||

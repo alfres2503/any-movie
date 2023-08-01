@@ -90,6 +90,7 @@ export class ULoginComponent {
       (answer: any) => {
         // tal vez haciendo un refresh se arregle el sidenav
         this.router.navigate(['/']);
+        this.authService.roles();
       },
       (error) => {
         this.notification.message(

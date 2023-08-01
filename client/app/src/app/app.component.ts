@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatDrawerMode } from '@angular/material/sidenav';
+import { AuthenticationService } from './share/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,28 +13,23 @@ export class AppComponent {
   // sideBarMode: MatDrawerMode = 'side';
   sideBarOpen = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  isAuth: boolean;
+  currentUser: any;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthenticationService
+  ) {
     // this.observeBreakpoints();
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.isAuthenticated.subscribe(
+      (valor) => (this.isAuth = valor)
+    );
+
+    this.authService.roles();
   }
 
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }
-
-  // observeBreakpoints() {
-  //   this.breakpointObserver
-  //     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
-  //     .subscribe((result) => {
-  //       if (result.breakpoints[Breakpoints.XSmall]) {
-  //         this.sideBarMode = 'over';
-  //         this.sideBarOpen = false;
-  //       } else if (result.breakpoints[Breakpoints.Small]) {
-  //         this.sideBarMode = 'over';
-  //       } else if (result.breakpoints[Breakpoints.Medium]) {
-  //         this.sideBarMode = 'over';
-  //       } else {
-  //         this.sideBarMode = 'side';
-  //       }
-  //     });
-  // }
 }

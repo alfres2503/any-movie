@@ -18,16 +18,11 @@ export class HeaderComponent {
     private router: Router,
     private authService: AuthenticationService
   ) {
-    //this.qtyItems = this.cartService.quantityItems();
-  }
-
-  ngOnInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.authService.isAuthenticated.subscribe(
       (valor) => (this.isAuth = valor)
     );
-
-    console.log(this.currentUser);
+    this.authService.roles();
   }
 
   toggleSidebar() {

@@ -13,13 +13,13 @@ import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 @Component({
   selector: 'app-seller-list',
   templateUrl: './seller-list.component.html',
-  styleUrls: ['./seller-list.component.css']
+  styleUrls: ['./seller-list.component.css'],
 })
 export class SellerListComponent implements AfterViewInit {
   data: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,7 +31,7 @@ dataSource = new MatTableDataSource<any>();
     'client_feedback',
     'actions',
   ];
-  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CartService } from 'src/app/share/cart.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
