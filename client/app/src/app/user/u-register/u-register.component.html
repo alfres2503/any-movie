@@ -1,0 +1,159 @@
+<form [formGroup]="signupForm" novalidate>
+  <input type="hidden" formControlName="id" />
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>{{ titleForm }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div layout="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="text"
+              placeholder="Name"
+              formControlName="name"
+            />
+            <mat-error *ngIf="errorHandling('name', 'required')">
+              Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('name', 'minlength')">
+              Name must have at least <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="number"
+              placeholder="Phone Number"
+              formControlName="phone"
+            />
+            <mat-error *ngIf="errorHandling('phone', 'required')">
+              Phone Number is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('phone', 'minlength')">
+              Phone Number must have at least <strong>8 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="text"
+              placeholder="Company Name"
+              formControlName="company_name"
+            />
+            <mat-error *ngIf="errorHandling('company_name', 'required')">
+              Company Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('company_name', 'minlength')">
+              Company Name must have at least <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="text"
+              placeholder="Email"
+              formControlName="email"
+            />
+            <mat-error *ngIf="errorHandling('email', 'required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('email', 'minlength')">
+              Email must have at least <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('password', 'required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div layout="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Province" formControlName="province">
+              <mat-option *ngFor="let c of categories" [value]="c.id">
+                {{ c.description }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Province is <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="number"
+              placeholder="Phone Number"
+              formControlName="phone"
+            />
+            <mat-error *ngIf="errorHandling('phone', 'required')">
+              Phone Number is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('phone', 'minlength')">
+              Phone Number must have at least <strong>8 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="text"
+              placeholder="Company Name"
+              formControlName="company_name"
+            />
+            <mat-error *ngIf="errorHandling('company_name', 'required')">
+              Company Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('company_name', 'minlength')">
+              Company Name must have at least <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button
+        class="md-primary md-raised md-button md-ink-ripple flex-50 pull-left"
+        type="button"
+        ng-transclude=""
+        flex="50"
+      >
+        <span class="ng-scope">Submit</span>
+        <div class="md-ripple-container"></div>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</form>
