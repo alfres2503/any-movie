@@ -88,9 +88,7 @@ export class ULoginComponent {
     console.log(this.loginForm.value);
     this.authService.loginUser(this.loginForm.value).subscribe(
       (answer: any) => {
-        // tal vez haciendo un refresh se arregle el sidenav
-        this.router.navigate(['/']);
-        this.authService.roles();
+        window.location.href = '/';
       },
       (error) => {
         this.notification.message(

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class PIndexComponent {
   data: any;
-  types: any;
+  categories: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -41,11 +41,11 @@ export class PIndexComponent {
 
   listTypes() {
     this.gService
-      .list('types/')
+      .list('categories/')
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        console.log(apiData);
-        this.types = apiData;
+        // console.log(apiData);
+        this.categories = apiData;
       });
   }
 
@@ -64,18 +64,6 @@ export class PIndexComponent {
           this.gridCols = 4;
         }
       });
-  }
-
-  getImageUrl(image) {
-    let binary = '';
-    const bytes = new Uint8Array(image);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    const base64Image = window.btoa(binary);
-    const imageUrl = 'data:image/jpeg;base64,' + base64Image;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   productDetail(id: number) {

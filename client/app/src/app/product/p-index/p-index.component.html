@@ -1,5 +1,5 @@
-<mat-chip-listbox aria-label="Type selection" class="typeChips">
-  <mat-chip-option *ngFor="let item of types">{{
+<mat-chip-listbox aria-label="Categories selection" class="typeChips" multiple>
+  <mat-chip-option *ngFor="let item of categories">{{
     item.description
   }}</mat-chip-option>
 </mat-chip-listbox>

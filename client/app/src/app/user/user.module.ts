@@ -15,10 +15,12 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
+import { URegisterComponent } from './u-register/u-register.component';
 
 @NgModule({
   declarations: [
-    ULoginComponent
+    ULoginComponent,
+    URegisterComponent
   ],
   imports: [CommonModule,
     MatCardModule,
@@ -32,7 +34,8 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     ReactiveFormsModule, UserRoutingModule],
   exports: [
-    ULoginComponent
+    ULoginComponent,
+    URegisterComponent
   ],
 })
 export class UserModule { }
