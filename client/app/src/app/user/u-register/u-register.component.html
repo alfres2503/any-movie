@@ -1,76 +1,83 @@
-<form [formGroup]="signupForm" novalidate>
+<form
+  [formGroup]="signupForm"
+  novalidate
+  
+>
   <input type="hidden" formControlName="id" />
-  <mat-card class="shipping-card">
+  <mat-card >
     <mat-card-header>
       <mat-card-title>{{ titleForm }}</mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-      <div layout="row">
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
             <input
               matInput
-              type="text"
-              placeholder="Name"
               formControlName="name"
+              maxlength="50"
+              placeholder="Name"
             />
+            <mat-hint align="end"> / 50</mat-hint>
             <mat-error *ngIf="errorHandling('name', 'required')">
               Name is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="errorHandling('name', 'minlength')">
-              Name must have at least <strong>3 characters</strong>
+              Name must have <strong>3 characters</strong>
             </mat-error>
           </mat-form-field>
         </div>
-
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
             <input
+            type="number"
               matInput
-              type="number"
-              placeholder="Phone Number"
               formControlName="phone"
+              maxlength="8"
+              placeholder="Phone"
             />
+            <mat-hint align="end"> / 8</mat-hint>
             <mat-error *ngIf="errorHandling('phone', 'required')">
-              Phone Number is <strong>required</strong>
+              Name is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="errorHandling('phone', 'minlength')">
-              Phone Number must have at least <strong>8 characters</strong>
+              Name must have <strong>8 characters</strong>
             </mat-error>
           </mat-form-field>
         </div>
-
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Company Name</mat-label>
             <input
               matInput
-              type="text"
-              placeholder="Company Name"
               formControlName="company_name"
+              maxlength="50"
+              placeholder="Company Name"
             />
-            <mat-error *ngIf="errorHandling('company_name', 'required')">
+            <mat-hint align="end"> / 50</mat-hint>
+            <mat-error *ngIf="errorHandling('phone', 'required')">
               Company Name is <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="errorHandling('company_name', 'minlength')">
-              Company Name must have at least <strong>3 characters</strong>
+            <mat-error *ngIf="errorHandling('phone', 'minlength')">
+              Company Name must have <strong>3 characters</strong>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
-      <div layout="row">
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
             <input
               matInput
-              type="text"
-              placeholder="Email"
+              placeholder="jane_doe@example.com"
               formControlName="email"
             />
             <mat-error *ngIf="errorHandling('email', 'required')">
               Email is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="errorHandling('email', 'minlength')">
-              Email must have at least <strong>3 characters</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -97,63 +104,82 @@
           </mat-form-field>
         </div>
       </div>
+
       <mat-divider></mat-divider>
-      <div layout="row">
+
+      <h2>Insert your Adress</h2>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Province" formControlName="province">
-              <mat-option *ngFor="let c of categories" [value]="c.id">
-                {{ c.description }}
+            <mat-select placeholder="Select a Province..." formControlName="province" (selectionChange)="onProvinceChange()">
+              <mat-option *ngFor="let province of provinces" [value]="province.id">
+                {{ province.name }}
               </mat-option>
             </mat-select>
             <mat-error> Province is <strong>required</strong> </mat-error>
           </mat-form-field>
         </div>
-
+        <div class="col">
+          <mat-form-field class="full-width" *ngIf="selectedProvince!=''">
+            <mat-select placeholder="Select a Canton..." formControlName="canton" (selectionChange)="onCantonChange()">
+              <mat-option *ngFor="let canton of cantons" [value]="canton.id">
+                {{ canton.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Canton is <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col" >
+          <mat-form-field class="full-width" *ngIf="selectedCanton!=''">
+            <mat-select placeholder="Select a District..." formControlName="district">
+              <mat-option *ngFor="let district of districts" [value]="district.id">
+                {{ district.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error> District is <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
+        
+      </div>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input
+            <mat-label>Direction</mat-label>
+            <textarea
+              formControlName="direction"
               matInput
-              type="number"
-              placeholder="Phone Number"
-              formControlName="phone"
-            />
-            <mat-error *ngIf="errorHandling('phone', 'required')">
-              Phone Number is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="errorHandling('phone', 'minlength')">
-              Phone Number must have at least <strong>8 characters</strong>
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="6"
+            ></textarea>
+            <mat-hint align="end"> / 100</mat-hint>
+            <mat-error *ngIf="errorHandling('direction', 'required')">
+              Direction is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
-
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>Postal Code</mat-label>
             <input
+            type="number"
               matInput
-              type="text"
-              placeholder="Company Name"
-              formControlName="company_name"
+              formControlName="postal_code"
+              maxlength="10"
+              placeholder="Postal Code"
             />
-            <mat-error *ngIf="errorHandling('company_name', 'required')">
-              Company Name is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="errorHandling('company_name', 'minlength')">
-              Company Name must have at least <strong>3 characters</strong>
+            <mat-error *ngIf="errorHandling('postal_code', 'required')">
+              Name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
 
-      <button
-        class="md-primary md-raised md-button md-ink-ripple flex-50 pull-left"
-        type="button"
-        ng-transclude=""
-        flex="50"
-      >
-        <span class="ng-scope">Submit</span>
-        <div class="md-ripple-container"></div>
-      </button>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" type="submit">Save</button>
+    </mat-card-actions>
   </mat-card>
 </form>
+

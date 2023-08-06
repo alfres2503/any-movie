@@ -6,7 +6,7 @@ import {
   NotificationService,
   MessageType,
 } from 'src/app/share/notification.service';
-import axios, { AxiosResponse } from 'axios';
+import { LocationService } from 'src/app/share/locations.service';
 
 @Component({
   selector: 'app-u-register',
@@ -19,62 +19,97 @@ export class URegisterComponent {
   titleForm: string;
   hide = true;
 
-  //authorization: any;
-  API_KEY = 'palita3015@gmail.com:03693b784bfbda738e5a';
-  API_BASE_URL = 'https://api.alegra.com/api/v1';
+  provinces: any[] = [];
+  cantons: any[] = [];
+  districts: any[] = [];
+
+  selectedProvince: string = '';
+  selectedCanton: string = '';
 
   constructor(
     public fb: FormBuilder,
     private authService: AuthenticationService,
     private notification: NotificationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private locationService: LocationService
   ) {
     this.reactiveForm();
     this.titleForm = 'User Registration';
-
-    async function getLocations(): Promise<void> {
-      try {
-        const apiInstance = axios.create({
-          baseURL: this.API_BASE_URL,
-          headers: {
-            Authorization: `Basic ${Buffer.from(`${this.API_KEY}:`).toString(
-              'base64'
-            )}`,
-          },
-        });
-        console.log(apiInstance);
-
-        // const response: AxiosResponse = await apiInstance.get(
-        //   '/countries/CR/identificationTypes'
-        // );
-
-        // const tiposIdentificacion = response.data;
-        // console.log('Tipos de Identificación en Costa Rica:');
-        // console.log(tiposIdentificacion);
-      } catch (error) {
-        console.error(
-          'Error:',
-          error.response?.status,
-          '-',
-          error.response?.data
-        );
-      }
-    }
+    this.loadProvincias()
   }
-
+  
   reactiveForm() {
     this.signupForm = this.fb.group({
-      FirstName: [
+      id: [null, null],
+      name: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
-      Email: [
+      phone: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(8)]),
+      ],
+      email: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
       password: ['', Validators.required],
+      company_name: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
+      province: ['', Validators.required],
+      canton: ['', Validators.required],
+      district: ['', Validators.required],
+      direction: ['', Validators.required],
+      postal_code: ['', Validators.required],
     });
+  }
+
+  async loadProvincias() {
+    try {
+      const data: any = await this.locationService.getProvinces();
+      for (const key in data) {
+        this.provinces.push({ id: key, name: data[key] });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  async onProvinceChange() {
+    this.cantons = [];
+    this.districts = [];
+    this.selectedCanton = '';
+    this.selectedProvince = this.signupForm.value.province;
+
+    if (this.selectedProvince) {
+      try {
+        const data: any = await this.locationService.getCantons(this.selectedProvince);
+        for (const key in data) {
+          this.cantons.push({ id: key, name: data[key] });
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+  }
+
+  async onCantonChange() {
+    this.districts = [];
+    this.selectedCanton = this.signupForm.value.canton;
+    if (this.selectedProvince && this.selectedCanton) {
+      try {
+        const data: any = await this.locationService.getDistritos(this.selectedProvince, this.selectedCanton);
+        for (const key in data) {
+          this.districts.push({ id: key, name: data[key] });
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
   }
 
   public errorHandling = (control: string, error: string) => {

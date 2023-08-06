@@ -6,7 +6,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `company_name` VARCHAR(191) NULL,
-    `image` LONGBLOB NULL,
+    `image` LONGTEXT NULL,
 
     UNIQUE INDEX `user_id_key`(`id`),
     UNIQUE INDEX `user_phone_key`(`phone`),
