@@ -7,6 +7,8 @@ import { AboutComponent } from './about/about.component';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [HomepageComponent, AboutComponent],
@@ -16,6 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatDividerModule,
+    MatGridListModule,
   ],
 })
 export class HomeModule {}

@@ -1,14 +1,46 @@
 <section class="main-content">
   <div class="container-fluid">
-    <h3 class="mb-4 text-center">
+    <h3 class="my-4 text-center">
       <mat-icon>home</mat-icon> Welcome to AnyMovie!
     </h3>
-    <div class="row px-3">
+    <div class="row">
+      <div class="col-lg-6 stats-1 pt-0">
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Movies</mat-card-title>
+            <mat-card-subtitle>Available</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content align="end">
+            <p>3</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Series</mat-card-title>
+            <mat-card-subtitle>Available</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content align="end">
+            <p>4</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Documentaries</mat-card-title>
+            <mat-card-subtitle>Available</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content align="end">
+            <p>2</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
       <div
         id="carouselExampleCaptions"
         class="carousel slide col-lg-6 rounded-5"
       >
-        <h5>Featured Products</h5>
         <div class="carousel-indicators">
           <button
             type="button"
@@ -32,7 +64,10 @@
           ></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
+          <div
+            class="carousel-item active"
+            (click)="productDetail(randomProduct1.id)"
+          >
             <img
               [src]="'data:image/jpeg;base64,' + randomProduct1.images[0].image"
               class="d-block w-100"
@@ -43,7 +78,7 @@
               <p>{{ randomProduct1.description | slice : 0 : 100 }} ...</p>
             </div>
           </div>
-          <div class="carousel-item">
+          <div class="carousel-item" (click)="productDetail(randomProduct2.id)">
             <img
               [src]="'data:image/jpeg;base64,' + randomProduct2.images[0].image"
               class="d-block w-100"
@@ -54,7 +89,7 @@
               <p>{{ randomProduct2.description | slice : 0 : 100 }} ...</p>
             </div>
           </div>
-          <div class="carousel-item">
+          <div class="carousel-item" (click)="productDetail(randomProduct3.id)">
             <img
               [src]="'data:image/jpeg;base64,' + randomProduct3.images[0].image"
               class="d-block w-100"
@@ -85,23 +120,16 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
-      <div class="col-lg-6"><h5>Client Reviews</h5></div>
-
-      <!-- <div class="col-lg-6">
-        <img
-          src="../../../assets/AnyMovieLogo.svg"
-          class="img-fluid"
-          width=""
-        />
-        <p class="mt-3 ">
-          AnyMovie is a website where you can find all the information about
-          your favorite movies, series and actors. You can also buy your
-          favorite movies and series in our store.
-
-          <br /><br />
-        </p>
-      </div> -->
     </div>
+    <!-- <div class="col-lg-6">
+      <img src="../../../assets/AnyMovieLogo.svg" class="img-fluid" width="" />
+      <p class="mt-3">
+        AnyMovie is a website where you can find all the information about your
+        favorite movies, series and actors. You can also buy your favorite
+        movies and series in our store.
+
+        <br /><br />
+      </p>
+    </div> -->
   </div>
 </section>

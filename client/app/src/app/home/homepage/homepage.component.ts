@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
@@ -17,7 +18,8 @@ export class HomepageComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private gService: GenericService
+    private gService: GenericService,
+    private router: Router
   ) {
     this.listProduct();
     // this.randomProducts();
@@ -46,5 +48,9 @@ export class HomepageComponent implements OnInit {
 
     const randomIndex3 = Math.floor(Math.random() * (this.data.length - 2));
     this.randomProduct3 = this.data[randomIndex3];
+  }
+
+  productDetail(id: number) {
+    this.router.navigate(['/products', id]);
   }
 }
