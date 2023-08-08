@@ -30,6 +30,7 @@ app.use("/categories", require("./routes/category.routes"));
 app.use("/comments", require("./routes/comment.routes"));
 app.use("/paymentMethods", require("./routes/paymentMethod.routes"));
 app.use("/types", require("./routes/type.routes"));
+app.use("/roles", require("./routes/role.routes"));
 
 // Server
 app.listen(port, () => {

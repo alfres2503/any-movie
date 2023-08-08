@@ -1,16 +1,30 @@
-<form
-  [formGroup]="signupForm"
-  novalidate
-  
->
-  <input type="hidden" formControlName="id" />
-  <mat-card >
+<form [formGroup]="signupForm" novalidate (ngSubmit)="createUser()">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>{{ titleForm }}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
+      <mat-divider></mat-divider>
+      <h5>Insert your Information</h5>
       <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Identification</mat-label>
+            <input
+              matInput
+              formControlName="id"
+              maxlength="9"
+              placeholder="Identification"
+            />
+            <mat-error *ngIf="errorHandling('phone', 'required')">
+              Identification is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('phone', 'minlength')">
+              Identification must have <strong>9 characters</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
         <div class="col">
           <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
@@ -29,11 +43,13 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <mat-label>Phone Number</mat-label>
             <input
-            type="number"
+              type="number"
               matInput
               formControlName="phone"
               maxlength="8"
@@ -79,6 +95,9 @@
             <mat-error *ngIf="errorHandling('email', 'required')">
               Email is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="errorHandling('email', 'email')">
+              Email must have specific <strong>format</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
@@ -103,16 +122,33 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Roles" formControlName="roles" multiple>
+              <mat-option *ngFor="let r of roles" [value]="r.id">
+                {{ r.description }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Roles are <strong>required</strong> </mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider>
 
-      <h2>Insert your Adress</h2>
+      <h5>Insert your Adress</h5>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Select a Province..." formControlName="province" (selectionChange)="onProvinceChange()">
-              <mat-option *ngFor="let province of provinces" [value]="province.id">
+            <mat-select
+              placeholder="Select a Province..."
+              formControlName="province"
+              (selectionChange)="onProvinceChange()"
+            >
+              <mat-option
+                *ngFor="let province of provinces"
+                [value]="province.id"
+              >
                 {{ province.name }}
               </mat-option>
             </mat-select>
@@ -120,8 +156,12 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field class="full-width" *ngIf="selectedProvince!=''">
-            <mat-select placeholder="Select a Canton..." formControlName="canton" (selectionChange)="onCantonChange()">
+          <mat-form-field class="full-width" *ngIf="selectedProvince != ''">
+            <mat-select
+              placeholder="Select a Canton..."
+              formControlName="canton"
+              (selectionChange)="onCantonChange()"
+            >
               <mat-option *ngFor="let canton of cantons" [value]="canton.id">
                 {{ canton.name }}
               </mat-option>
@@ -129,17 +169,22 @@
             <mat-error> Canton is <strong>required</strong> </mat-error>
           </mat-form-field>
         </div>
-        <div class="col" >
-          <mat-form-field class="full-width" *ngIf="selectedCanton!=''">
-            <mat-select placeholder="Select a District..." formControlName="district">
-              <mat-option *ngFor="let district of districts" [value]="district.id">
+        <div class="col">
+          <mat-form-field class="full-width" *ngIf="selectedCanton != ''">
+            <mat-select
+              placeholder="Select a District..."
+              formControlName="district"
+            >
+              <mat-option
+                *ngFor="let district of districts"
+                [value]="district.id"
+              >
                 {{ district.name }}
               </mat-option>
             </mat-select>
             <mat-error> District is <strong>required</strong> </mat-error>
           </mat-form-field>
         </div>
-        
       </div>
       <div class="row">
         <div class="col">
@@ -163,7 +208,7 @@
           <mat-form-field class="full-width">
             <mat-label>Postal Code</mat-label>
             <input
-            type="number"
+              type="number"
               matInput
               formControlName="postal_code"
               maxlength="10"
@@ -174,12 +219,10 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-
+      </div> -->
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="accent" type="submit">Save</button>
     </mat-card-actions>
   </mat-card>
 </form>
-

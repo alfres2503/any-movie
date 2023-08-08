@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/share/authentication.service';
-import {
-  NotificationService,
-  MessageType,
-} from 'src/app/share/notification.service';
-import { LocationService } from 'src/app/share/locations.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+//import { LocationService } from 'src/app/share/locations.service';
+import { GenericService } from 'src/app/share/generic.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-u-register',
@@ -18,30 +14,27 @@ export class URegisterComponent {
   makeSubmit: boolean = false;
   titleForm: string;
   hide = true;
+  apiAnswer: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  provinces: any[] = [];
-  cantons: any[] = [];
-  districts: any[] = [];
-
-  selectedProvince: string = '';
-  selectedCanton: string = '';
+  roles: any;
 
   constructor(
     public fb: FormBuilder,
-    private authService: AuthenticationService,
-    private notification: NotificationService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private locationService: LocationService
+    //private locationService: LocationService,
+    private gService: GenericService
   ) {
     this.reactiveForm();
     this.titleForm = 'User Registration';
-    this.loadProvincias()
+    this.rolesList();
   }
-  
+
   reactiveForm() {
     this.signupForm = this.fb.group({
-      id: [null, null],
+      id: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(9)]),
+      ],
       name: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
@@ -52,65 +45,43 @@ export class URegisterComponent {
       ],
       email: [
         null,
-        Validators.compose([Validators.required, Validators.minLength(3)]),
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.email]),
       ],
       password: ['', Validators.required],
       company_name: [
         null,
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
-      province: ['', Validators.required],
-      canton: ['', Validators.required],
-      district: ['', Validators.required],
-      direction: ['', Validators.required],
-      postal_code: ['', Validators.required],
+      // province: ['', Validators.required],
+      // canton: ['', Validators.required],
+      // district: ['', Validators.required],
+      // direction: ['', Validators.required],
+      // postal_code: ['', Validators.required],
+      // address: this.fb.group({
+      //   province: ['', Validators.required],
+      //   canton: ['', Validators.required],
+      //   district: ['', Validators.required],
+      //   direction: ['', Validators.required],
+      //   postal_code: ['', Validators.required],
+      //   phone: [
+      //     null,
+      //     Validators.compose([Validators.required, Validators.minLength(8)]),
+      //   ],
+      // }),
+      roles: [null, Validators.required],
     });
   }
 
-  async loadProvincias() {
-    try {
-      const data: any = await this.locationService.getProvinces();
-      for (const key in data) {
-        this.provinces.push({ id: key, name: data[key] });
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  rolesList() {
+    this.roles = null;
+    this.gService
+      .list('roles')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((apiData: any) => {
+        this.roles = apiData;
+      });
   }
 
-  async onProvinceChange() {
-    this.cantons = [];
-    this.districts = [];
-    this.selectedCanton = '';
-    this.selectedProvince = this.signupForm.value.province;
-
-    if (this.selectedProvince) {
-      try {
-        const data: any = await this.locationService.getCantons(this.selectedProvince);
-        for (const key in data) {
-          this.cantons.push({ id: key, name: data[key] });
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-
-  }
-
-  async onCantonChange() {
-    this.districts = [];
-    this.selectedCanton = this.signupForm.value.canton;
-    if (this.selectedProvince && this.selectedCanton) {
-      try {
-        const data: any = await this.locationService.getDistritos(this.selectedProvince, this.selectedCanton);
-        for (const key in data) {
-          this.districts.push({ id: key, name: data[key] });
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-  }
 
   public errorHandling = (control: string, error: string) => {
     return (
@@ -119,4 +90,19 @@ export class URegisterComponent {
       (this.makeSubmit || this.signupForm.controls[control].touched)
     );
   };
+
+  createUser() {
+    let roleFormat: any = this.signupForm
+      .get('roles')
+      .value.map((x) => ({ ['id_role']: x }));
+
+    console.log(this.signupForm);
+
+    // this.gService
+    //   .create('users', this.signupForm.value)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((data: any) => {
+    //     this.apiAnswer = data;
+    //   });
+  }
 }

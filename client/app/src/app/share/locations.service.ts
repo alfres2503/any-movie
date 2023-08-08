@@ -23,3 +23,52 @@ export class LocationService {
   }
   
 }
+
+// async loadProvincias() {
+//   try {
+//     const data: any = await this.locationService.getProvinces();
+//     for (const key in data) {
+//       this.provinces.push({ id: key, name: data[key] });
+//     }
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+
+// async onProvinceChange() {
+//   this.cantons = [];
+//   this.districts = [];
+//   this.selectedCanton = '';
+//   this.selectedProvince = this.signupForm.value.province;
+
+//   if (this.selectedProvince) {
+//     try {
+//       const data: any = await this.locationService.getCantons(
+//         this.selectedProvince
+//       );
+//       for (const key in data) {
+//         this.cantons.push({ id: key, name: data[key] });
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   }
+// }
+
+// async onCantonChange() {
+//   this.districts = [];
+//   this.selectedCanton = this.signupForm.value.canton;
+//   if (this.selectedProvince && this.selectedCanton) {
+//     try {
+//       const data: any = await this.locationService.getDistritos(
+//         this.selectedProvince,
+//         this.selectedCanton
+//       );
+//       for (const key in data) {
+//         this.districts.push({ id: key, name: data[key] });
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   }
+// }

@@ -25,7 +25,6 @@ export class AnswerFormComponent implements OnInit {
     private dialogRef: MatDialogRef<AnswerFormComponent>,
     private gService: GenericService,
     private authService: AuthenticationService,
-    private router: Router
   ) {
     this.dataDialog = data;
     this.reactiveForm();
