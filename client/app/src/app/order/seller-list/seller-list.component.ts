@@ -74,7 +74,7 @@ export class SellerListComponent implements AfterViewInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         this.data = apiData;
-        console.log(apiData);
+
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
