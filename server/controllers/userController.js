@@ -17,20 +17,24 @@ module.exports.create = async (request, response, next) => {
       password: hash,
       company_name: request.body.company_name,
       image: request.body.image,
-      payment_methods: {
-        createMany: {
-          data: request.body.payment_methods,
-        },
-      },
-      address: {
-        createMany: {
-          data: request.body.address,
-        },
-      },
+      // payment_methods: {
+      //   createMany: {
+      //     data: request.body.payment_methods,
+      //   },
+      // },
+      // address: {
+      //   createMany: {
+      //     data: request.body.address,
+      //   },
+      // },
       roles: {
-        createMany: {
-          data: request.body.roles,
-        },
+        create: selectedRoleIds.map((id_role) => ({
+          Role: {
+            connect: {
+              id: id_role,
+            },
+          },
+        })),
       },
     },
   });

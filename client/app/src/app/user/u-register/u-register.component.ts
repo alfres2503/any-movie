@@ -99,7 +99,7 @@ export class URegisterComponent {
     console.log(this.signupForm);
 
     // this.gService
-    //   .create('users', this.signupForm.value)
+    //   .create('users/create', this.signupForm.value)
     //   .pipe(takeUntil(this.destroy$))
     //   .subscribe((data: any) => {
     //     this.apiAnswer = data;
