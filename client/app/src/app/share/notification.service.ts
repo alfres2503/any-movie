@@ -17,7 +17,7 @@ export class NotificationService {
     this.options.enableHtml = true;
 
     this.options.positionClass = 'toast-top-center';
-    this.options.disableTimeOut = true;
+    this.options.disableTimeOut = false;
     this.options.closeButton = true;
   }
 

@@ -1,8 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 //import { LocationService } from 'src/app/share/locations.service';
 import { GenericService } from 'src/app/share/generic.service';
 import { Subject, takeUntil } from 'rxjs';
+import { MatSelectChange } from '@angular/material/select';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-u-register',
@@ -19,10 +30,14 @@ export class URegisterComponent {
 
   roles: any;
 
+  isSeller: boolean = false;
+
   constructor(
     public fb: FormBuilder,
     //private locationService: LocationService,
-    private gService: GenericService
+    private gService: GenericService,
+    private notification: NotificationService,
+    private router: Router
   ) {
     this.reactiveForm();
     this.titleForm = 'User Registration';
@@ -45,13 +60,14 @@ export class URegisterComponent {
       ],
       email: [
         null,
-        Validators.compose([Validators.required, Validators.minLength(3), Validators.email]),
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.email,
+        ]),
       ],
       password: ['', Validators.required],
-      company_name: [
-        null,
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
+      company_name: [null],
       // province: ['', Validators.required],
       // canton: ['', Validators.required],
       // district: ['', Validators.required],
@@ -82,7 +98,6 @@ export class URegisterComponent {
       });
   }
 
-
   public errorHandling = (control: string, error: string) => {
     return (
       this.signupForm.controls[control].hasError(error) &&
@@ -96,13 +111,51 @@ export class URegisterComponent {
       .get('roles')
       .value.map((x) => ({ ['id_role']: x }));
 
-    console.log(this.signupForm);
+    this.signupForm.patchValue({ roles: roleFormat });
+    console.log(this.roles);
 
-    // this.gService
-    //   .create('users/create', this.signupForm.value)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((data: any) => {
-    //     this.apiAnswer = data;
-    //   });
+    if (this.signupForm.invalid) {
+      return;
+    }
+
+    if (
+      this.isSeller &&
+      (this.signupForm.value.company_name == null ||
+        this.signupForm.value.company_name.trim().length === 0)
+    ) {
+      this.notification.message(
+        'Error',
+        'If you are a seller, you must enter the company name',
+        MessageType.error
+      );
+      return;
+    }
+
+    this.gService
+      .create('users/create', this.signupForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (data: any) => {
+          this.notification.message(
+            'Success',
+            'User created successfully',
+            MessageType.success
+          );
+          this.router.navigate(['/']);
+        },
+        (error: any) => {
+          this.notification.message(
+            'Error',
+            'An error happened',
+            MessageType.error
+          );
+        }
+      );
+  }
+
+  showCompany(event: MatSelectChange) {
+    if (event.value.includes(3)) {
+      this.isSeller = true;
+    } else this.isSeller = false;
   }
 }

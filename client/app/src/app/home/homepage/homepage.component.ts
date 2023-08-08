@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-homepage',
@@ -19,7 +23,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private gService: GenericService,
-    private router: Router
+    private router: Router,
+    private notification: NotificationService
   ) {
     this.listProduct();
     // this.randomProducts();

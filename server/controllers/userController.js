@@ -8,42 +8,35 @@ module.exports.create = async (request, response, next) => {
   let salt = bcrypt.genSaltSync(10);
   let hash = bcrypt.hashSync(request.body.password, salt);
 
-  const user = await prisma.user.create({
-    data: {
-      id: parseInt(request.body.id),
-      name: request.body.name,
-      phone: parseInt(request.body.phone),
-      email: request.body.email,
-      password: hash,
-      company_name: request.body.company_name,
-      image: request.body.image,
-      // payment_methods: {
-      //   createMany: {
-      //     data: request.body.payment_methods,
-      //   },
-      // },
-      // address: {
-      //   createMany: {
-      //     data: request.body.address,
-      //   },
-      // },
-      roles: {
-        create: selectedRoleIds.map((id_role) => ({
-          Role: {
-            connect: {
-              id: id_role,
-            },
+  try {
+    const user = await prisma.user.create({
+      data: {
+        id: parseInt(request.body.id),
+        name: request.body.name,
+        phone: parseInt(request.body.phone),
+        email: request.body.email,
+        password: hash,
+        company_name: request.body.company_name,
+        roles: {
+          createMany: {
+            data: request.body.roles,
           },
-        })),
+        },
       },
-    },
-  });
+    });
 
-  response.status(200).json({
-    status: true,
-    message: "User registered",
-    data: user,
-  });
+    response.status(200).json({
+      status: true,
+      message: "User registered",
+      data: user,
+    });
+  } catch (error) {
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
 };
 
 module.exports.update = async (request, response, next) => {
@@ -52,11 +45,9 @@ module.exports.update = async (request, response, next) => {
   let salt = bcrypt.genSaltSync(10);
   let hash;
 
-  if (request.body.newPassword) 
+  if (request.body.newPassword)
     hash = bcrypt.hashSync(request.body.newPassword, salt);
-  else 
-    hash = bcrypt.hashSync(request.body.password, salt);
-  
+  else hash = bcrypt.hashSync(request.body.password, salt);
 
   const oldUser = await prisma.user.findUnique({
     where: { email: Email },
@@ -65,7 +56,10 @@ module.exports.update = async (request, response, next) => {
     },
   });
 
-  const checkPassword = await bcrypt.compare(request.body.password, oldUser.password);
+  const checkPassword = await bcrypt.compare(
+    request.body.password,
+    oldUser.password
+  );
 
   if (!checkPassword) {
     response.status(401).send({
@@ -96,7 +90,7 @@ module.exports.login = async (request, response, next) => {
     },
     include: {
       roles: true,
-    }
+    },
   });
 
   if (user == null || !user) {
@@ -108,13 +102,16 @@ module.exports.login = async (request, response, next) => {
     return;
   }
 
-  const checkPassword = await bcrypt.compare(request.body.password, user.password);
+  const checkPassword = await bcrypt.compare(
+    request.body.password,
+    user.password
+  );
 
   if (!checkPassword) {
     response.status(401).send({
       success: false,
       message: "Incorrect password",
-    });  
+    });
   } else {
     const payload = {
       email: user.email,

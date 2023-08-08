@@ -65,7 +65,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" *ngIf="isSeller">
             <mat-label>Company Name</mat-label>
             <input
               matInput
@@ -111,6 +111,7 @@
             <button
               mat-icon-button
               matSuffix
+              type="button"
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"
@@ -124,7 +125,12 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Roles" formControlName="roles" multiple>
+            <mat-select
+              placeholder="Roles"
+              formControlName="roles"
+              multiple
+              (selectionChange)="showCompany($event)"
+            >
               <mat-option *ngFor="let r of roles" [value]="r.id">
                 {{ r.description }}
               </mat-option>
