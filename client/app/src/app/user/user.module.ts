@@ -11,31 +11,36 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
 import { URegisterComponent } from './u-register/u-register.component';
+import { UListComponent } from './u-list/u-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [
-    ULoginComponent,
-    URegisterComponent
-  ],
-  imports: [CommonModule,
+  declarations: [ULoginComponent, URegisterComponent, UListComponent],
+  imports: [
+    CommonModule,
     MatCardModule,
     MatTabsModule,
-    MatButtonModule, MatIconModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     LayoutModule,
     MatDividerModule,
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule, UserRoutingModule],
-  exports: [
-    ULoginComponent,
-    URegisterComponent
+    ReactiveFormsModule,
+    UserRoutingModule,
   ],
+  exports: [ULoginComponent, URegisterComponent, UListComponent],
 })
-export class UserModule { }
+export class UserModule {}

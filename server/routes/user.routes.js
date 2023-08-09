@@ -11,4 +11,6 @@ router.post("/create", userController.create);
 
 router.put("/:id", userController.update);
 
+router.put("/changeStatus/:id", userController.changeStatus);
+
 module.exports = router;

@@ -140,7 +140,22 @@ module.exports.login = async (request, response, next) => {
 
 //Obtener listado
 module.exports.get = async (request, response, next) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      phone: true,
+      email: true,
+      company_name: true,
+      active: true,
+      roles: {
+        select: {
+          role: true,
+        },
+      },
+      image: true,
+    },
+  });
 
   response.json(users);
 };
@@ -152,4 +167,22 @@ module.exports.getById = async (request, response, next) => {
     where: { id: id },
   });
   response.json(users);
+};
+
+module.exports.changeStatus = async (request, response, next) => {
+  let id = request.params.id;
+
+  console.log("ya entré");
+  console.log(id);
+
+  const user = await prisma.user.update({
+    where: {
+      id: id,
+    },
+    data: {
+      active: user.active ? false : true,
+    },
+  });
+
+  response.json(user);
 };
