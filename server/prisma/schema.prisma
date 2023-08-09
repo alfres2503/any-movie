@@ -18,6 +18,7 @@ model user {
   password     String
   company_name String?
   image        String? @db.LongText
+  active       Boolean @default(true)
 
   payment_methods payment_method[]
   address         address[]

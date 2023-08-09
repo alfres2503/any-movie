@@ -112,6 +112,11 @@ module.exports.login = async (request, response, next) => {
       success: false,
       message: "Incorrect password",
     });
+  } else if (user.active == false) {
+    response.status(401).send({
+      success: false,
+      message: "User is not active, contact the administrator",
+    });
   } else {
     const payload = {
       email: user.email,
