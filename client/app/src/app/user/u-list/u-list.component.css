@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.mat-elevation-z8 {
+  overflow-x: auto;
+}
+
 table button {
   margin: 0.5rem;
 }

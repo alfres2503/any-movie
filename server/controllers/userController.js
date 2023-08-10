@@ -170,19 +170,28 @@ module.exports.getById = async (request, response, next) => {
 };
 
 module.exports.changeStatus = async (request, response, next) => {
-  let id = request.params.id;
+  let id = parseInt(request.params.id);
 
-  console.log("ya entré");
-  console.log(id);
-
-  const user = await prisma.user.update({
-    where: {
-      id: id,
-    },
-    data: {
-      active: user.active ? false : true,
-    },
+  const oldUser = await prisma.user.findUnique({
+    where: { id: id },
   });
 
-  response.json(user);
+  try {
+    const newUser = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        active: oldUser.active ? false : true,
+      },
+    });
+
+    response.json(newUser);
+  } catch (error) {
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
 };

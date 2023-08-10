@@ -7,6 +7,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-u-list',
@@ -38,7 +42,8 @@ export class UListComponent {
     private route: ActivatedRoute,
     private gService: GenericService,
     private sanitizer: DomSanitizer,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private notification: NotificationService
   ) {
     this.getUsers();
   }
@@ -56,8 +61,6 @@ export class UListComponent {
         this.data = apiData;
         this.dataSource = new MatTableDataSource(this.data);
 
-        console.log(this.data);
-
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
@@ -69,6 +72,12 @@ export class UListComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         this.getUsers();
+
+        this.notification.message(
+          'Success',
+          'User status changed succesfully',
+          MessageType.success
+        );
       });
   }
 

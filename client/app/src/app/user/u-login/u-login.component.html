@@ -29,6 +29,7 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
+            (keydown)="onPasswordKeyDown($event)"
             placeholder="Password"
             formControlName="password"
           />

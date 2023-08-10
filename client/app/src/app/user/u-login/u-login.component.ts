@@ -71,6 +71,12 @@ export class ULoginComponent {
     this.loginForm.reset();
   }
 
+  onPasswordKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.submitForm();
+    }
+  }
+
   public errorHandling = (control: string, error: string) => {
     return (
       this.loginForm.controls[control].hasError(error) &&

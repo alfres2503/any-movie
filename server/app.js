@@ -16,8 +16,8 @@ dotEnv.config();
 
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.json({ limit: "1000mb" }));
-app.use(express.urlencoded({ limit: "1000mb", extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Routes
 
@@ -34,6 +34,6 @@ app.use("/roles", require("./routes/role.routes"));
 
 // Server
 app.listen(port, () => {
-  console.log(`http://localhost:${port}`);
-  console.log("Presione CTRL-C para detenerlo\n");
+  console.log(`Server on: http://localhost:${port}`);
+  console.log("CTRL-C to stop\n");
 });

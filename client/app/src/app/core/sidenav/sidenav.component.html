@@ -30,9 +30,14 @@
     Orders
   </a>
 
-  <a mat-list-item routerLink="" routerLinkActive="list-item-active">
+  <a
+    mat-list-item
+    routerLink="/users"
+    routerLinkActive="list-item-active"
+    *ngIf="isAuth && isAdmin"
+  >
     <mat-icon>person_pin_circle</mat-icon>
-    Sellers
+    Users
   </a>
 
   <a

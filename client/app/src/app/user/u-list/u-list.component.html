@@ -5,132 +5,132 @@
 
   <mat-divider style="margin: 10px 0"></mat-divider>
 
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="mat-elevation-z8"
-    matSort
-    (matSortChange)="announceSortChange($event)"
-  >
-    <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef>Image</th>
-      <td mat-cell *matCellDef="let element">
-        <img
-          [src]="'data:image/jpeg;base64,' + element.image"
-          alt="User Image"
-        />
-      </td>
-    </ng-container>
+  <div class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+    >
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Image</th>
+        <td mat-cell *matCellDef="let element">
+          <img
+            [src]="'data:image/jpeg;base64,' + element.image"
+            alt="User Image"
+          />
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="id">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by id"
-      >
-        ID
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
-      >
-        Name
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by phone"
-      >
-        Phone
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by email"
-      >
-        Email
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="company_name">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by company name"
-      >
-        Company Name
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.company_name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="active">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by active"
-      >
-        Status
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        [ngClass]="{ active: element.active, inactive: !element.active }"
-      >
-        {{ element.active ? "Active" : "Inactive" }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="roles">
-      <th mat-header-cell *matHeaderCellDef>Roles</th>
-      <td mat-cell *matCellDef="let element">
-        <span *ngFor="let object of element.roles">
-          {{ object.role.description }}
-        </span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-raised-button
-          matTooltip="Edit User"
-          aria-label="Edit User"
-          color="primary"
-          (click)="updateUser(element)"
+      <ng-container matColumnDef="id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by id"
         >
-          Change Status
-        </button>
-      </td>
-    </ng-container>
+          ID
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 15]"
-    showFirstLastButtons
-    *ngIf="dataSource.data.length > 0"
-    color="accent"
-  ></mat-paginator>
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by phone"
+        >
+          Phone
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by email"
+        >
+          Email
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="company_name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by company name"
+        >
+          Company Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.company_name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by active"
+        >
+          Status
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ active: element.active, inactive: !element.active }"
+        >
+          {{ element.active ? "Active" : "Inactive" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roles">
+        <th mat-header-cell *matHeaderCellDef>Roles</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngFor="let object of element.roles">
+            {{ object.role.description }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            matTooltip="Edit User"
+            aria-label="Edit User"
+            color="primary"
+            (click)="updateUser(element)"
+          >
+            Change Status
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 15]"
+      showFirstLastButtons
+      color="accent"
+    ></mat-paginator>
+  </div>
 </section>
