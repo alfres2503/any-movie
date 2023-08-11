@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocationService {
   constructor(private http: HttpClient) {}
+
+  // https://web.archive.org/web/20230330004601/https://programando.paginasweb.cr/2016/04/29/lista-de-provincias-cantones-y-distritos-de-costa-rica-en-formato-json/
 
   getProvinces(): Promise<any> {
     const url = 'https://ubicaciones.paginasweb.cr/provincias.json';
@@ -21,7 +23,6 @@ export class LocationService {
     const url = `https://ubicaciones.paginasweb.cr/provincia/${province}/canton/${canton}/distritos.json`;
     return this.http.get(url).toPromise();
   }
-  
 }
 
 // async loadProvincias() {

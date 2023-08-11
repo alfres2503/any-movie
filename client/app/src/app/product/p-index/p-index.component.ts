@@ -18,6 +18,8 @@ export class PIndexComponent {
 
   gridCols: number = 3;
 
+  filteredData: any;
+
   constructor(
     private gService: GenericService,
     private breakpointObserver: BreakpointObserver,
@@ -34,9 +36,44 @@ export class PIndexComponent {
       .list('products/')
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        //console.log(apiData);
+        console.log(apiData);
         this.data = apiData;
+        this.filteredData = this.data;
       });
+  }
+
+  filterDataByName(text: string) {
+    if (!text) {
+      this.filteredData = this.data;
+    } else {
+      this.filteredData = this.data.filter((p) =>
+        p?.name.toLowerCase().includes(text.toLowerCase())
+      );
+    }
+  }
+
+  filterDataByCategory(categoryID: number) {
+    if (!categoryID) {
+      this.filteredData = this.data;
+    } else {
+      this.filteredData = this.data.filter((p) =>
+        p?.categories.some((c) => c.id_category === categoryID)
+      );
+    }
+  }
+
+  filterDataByOrder(orderBy: number) {
+    if (!orderBy || orderBy == 0) {
+      this.filteredData = this.data;
+    }
+
+    if (orderBy == 1) {
+      this.filteredData = this.filteredData.sort((a, b) => b.price - a.price);
+    }
+
+    if (orderBy == 2) {
+      this.filteredData = this.filteredData.sort((a, b) => a.price - b.price);
+    }
   }
 
   listTypes() {

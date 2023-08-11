@@ -13,7 +13,9 @@
 .dashboard-card-content {
   text-align: center;
 } */
-
+.searchbar {
+  margin: 0rem 0rem 0.5rem 0.5rem;
+}
 .typeChips {
   margin: 0rem 0rem 0.5rem 0.7rem;
 }

@@ -1,38 +1,74 @@
-<mat-chip-listbox aria-label="Categories selection" class="typeChips" multiple>
-  <mat-chip-option *ngFor="let item of categories">{{
-    item.description
-  }}</mat-chip-option>
-</mat-chip-listbox>
+<mat-form-field class="container-fluid" appearance="outline" color="accent">
+  <mat-label>Product Name</mat-label>
+  <input
+    matInput
+    #filter
+    type="text"
+    (input)="filterDataByName(filter.value)"
+  />
+  <button
+    mat-icon-button
+    matSuffix
+    color="primary"
+    (click)="filterDataByName(filter.value)"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>
 
-<mat-grid-list [cols]="gridCols" rowHeight="300px" gutterSize="10px">
-  <mat-grid-tile *ngFor="let item of data">
-    <mat-card class="product">
-      <img
-        mat-card-image
-        [src]="'data:image/jpeg;base64,' + item.images[0].image"
-        alt="photo"
-      />
-      <mat-card-title>{{ item.name }}</mat-card-title>
+<div class="container-fluid d-flex gap-3">
+  <mat-form-field class="w-50" appearance="outline" color="accent">
+    <mat-label>Category</mat-label>
+    <mat-select (selectionChange)="filterDataByCategory($event.value)">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option *ngFor="let item of categories" [value]="item.id">
+        {{ item.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-      <mat-card-content>
-        <p>{{ item.price | currency : "USD" }}</p>
-      </mat-card-content>
+  <mat-form-field class="w-50" appearance="outline" color="accent">
+    <mat-label>Order by</mat-label>
+    <mat-select (selectionChange)="filterDataByOrder($event.value)">
+      <mat-option value="0">Oldest to Newest</mat-option>
+      <mat-option value="1">Price: Highest to Lowest</mat-option>
+      <mat-option value="2">Price: Lowest to Highest</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
-      <mat-divider></mat-divider>
-      <mat-card-actions style="gap: 0.5rem">
-        <button mat-raised-button color="primary">
-          <mat-icon>add_shopping_cart</mat-icon>
-          Add to cart
-        </button>
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="productDetail(item.id)"
-        >
-          <mat-icon>info</mat-icon>
-          Details
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<div *ngIf="filteredData.length > 0">
+  <mat-grid-list [cols]="gridCols" rowHeight="300px" gutterSize="10px">
+    <mat-grid-tile *ngFor="let item of filteredData">
+      <mat-card class="product">
+        <img
+          mat-card-image
+          [src]="'data:image/jpeg;base64,' + item.images[0].image"
+          alt="photo"
+        />
+        <mat-card-title>{{ item.name }}</mat-card-title>
+
+        <mat-card-content>
+          <p>{{ item.price | currency : "USD" }}</p>
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
+        <mat-card-actions style="gap: 0.5rem">
+          <button mat-raised-button color="primary">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Add to cart
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="productDetail(item.id)"
+          >
+            <mat-icon>info</mat-icon>
+            Details
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<p *ngIf="filteredData.length == 0" class="ms-3">No items found yet</p>
