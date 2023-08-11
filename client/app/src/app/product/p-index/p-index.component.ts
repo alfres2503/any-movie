@@ -1,9 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/share/cart.service';
+import { NotificationService, MessageType } from 'src/app/share/notification.service';
+
 
 @Component({
   selector: 'app-p-index',
@@ -20,15 +23,21 @@ export class PIndexComponent {
 
   filteredData: any;
 
+  isClient:boolean;
+
   constructor(
     private gService: GenericService,
     private breakpointObserver: BreakpointObserver,
-    private sanitizer: DomSanitizer,
+    private notification: NotificationService,
+    private cartService:CartService,
+    private authService: AuthenticationService,
     private router: Router
   ) {
     this.listProduct();
     this.listTypes();
     this.observeBreakpoints();
+
+    this.isClient= this.authService.isClient;
   }
 
   listProduct() {
@@ -105,5 +114,20 @@ export class PIndexComponent {
 
   productDetail(id: number) {
     this.router.navigate(['/products', id]);
+  }
+
+  buy(id:number){
+    this.gService
+    .get('products', id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data:any)=>{
+      //Adds APIs product to the cart
+      this.cartService.addToCart(data);
+      this.notification.message(
+        'Order',
+        'Product: '+data.name+ ' added to cart',
+        MessageType.success
+      )
+    });
   }
 }

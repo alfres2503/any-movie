@@ -12,6 +12,8 @@ export class HeaderComponent {
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   isAuth: boolean;
   currentUser: any;
+  isAdmin:boolean;
+  qtyItems: Number = 0;
 
   constructor(
     private cartService: CartService,
@@ -23,6 +25,9 @@ export class HeaderComponent {
       (valor) => (this.isAuth = valor)
     );
     this.authService.roles();
+    this.isAdmin= this.authService.isAdmin;
+
+    this.qtyItems = this.cartService.quantityItems();
   }
 
   toggleSidebar() {

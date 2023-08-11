@@ -5,16 +5,16 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GenericService } from 'src/app/share/generic.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { AnswerFormComponent } from '../answer-form/answer-form.component';
+import { CartService } from 'src/app/share/cart.service';
+import { NotificationService, MessageType } from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-p-detail',
@@ -49,6 +49,7 @@ export class PDetailComponent {
   gridCols: number = 2;
 
   isAuth: boolean;
+  isClient: boolean;
   currentUser: any;
   idUser: number;
 
@@ -60,11 +61,11 @@ export class PDetailComponent {
   constructor(
     private gService: GenericService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
-    private router: Router,
     private dialog: MatDialog,
-    private authService: AuthenticationService
+    private cartService:CartService,
+    private authService: AuthenticationService,
+    private notification: NotificationService,
   ) {
     this.reactiveForm();
 
@@ -80,6 +81,7 @@ export class PDetailComponent {
     );
 
     this.idUser = this.authService.idUser;
+    this.isClient = this.authService.isClient;
   }
 
   ngOnInit(): void {}
@@ -197,6 +199,21 @@ export class PDetailComponent {
 
     this.dialog.afterAllClosed.subscribe((data: any) => {
       this.getComments(this.id);
+    });
+  }
+
+  buy(id:number){
+    this.gService
+    .get('products', id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data:any)=>{
+      //Adds APIs product to the cart
+      this.cartService.addToCart(data);
+      this.notification.message(
+        'Order',
+        'Product: '+data.name+ ' added to cart',
+        MessageType.success
+      )
     });
   }
 }

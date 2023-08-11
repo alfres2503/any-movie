@@ -5,17 +5,18 @@
 
   <div class="example-spacer"></div>
 
-  <button mat-icon-button *ngIf="isAuth">
-    <mat-icon matBadge="0" matBadgeColor="primary">shopping_cart</mat-icon>
+  <button mat-icon-button *ngIf="isAuth  && !isAdmin" [routerLink]="" 
+  [routerLinkActive]="'mat-raised-button'" >
+    <mat-icon [matBadge]="qtyItems.toString()"  matBadgeColor="primary">shopping_cart</mat-icon>
   </button>
 
-  <button mat-icon-button *ngIf="isAuth">
+  <!-- <button mat-icon-button *ngIf="isAuth">
     <mat-icon matBadge="3" matBadgeColor="accent">notifications</mat-icon>
   </button>
 
   <button mat-icon-button *ngIf="isAuth">
     <mat-icon matBadge="5" matBadgeColor="warn">messages</mat-icon>
-  </button>
+  </button> -->
 
   <button mat-button [matMenuTriggerFor]="menu" class="user" *ngIf="isAuth">
     <img

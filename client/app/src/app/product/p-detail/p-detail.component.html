@@ -113,6 +113,8 @@
         color="primary"
         class="btn-add-cart"
         style="width: 50%; margin: 5% 25%"
+        (click)="buy(data.id)"
+        *ngIf="isClient"
       >
         <mat-icon>add_shopping_cart</mat-icon>
         Add to cart
