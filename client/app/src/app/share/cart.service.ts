@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class ItemCart {
   idItem: number;
   product: any;
-  cantidad: number;
-  precio: number;
+  quantity: number;
+  price: number;
   subtotal: number;
 }
 @Injectable({
@@ -32,8 +32,8 @@ export class CartService {
     //Armar instancia de ItemCart con los valores respectivos del producto
     //producto.id es cuando viene desde el boton comprar y trae la información del API
     newItem.idItem = producto.id | producto.idItem;
-    newItem.precio = producto.precio;
-    newItem.cantidad = 1;
+    newItem.price = producto.price;
+    newItem.quantity = 1;
     newItem.subtotal = this.calculoSubtotal(newItem);
     newItem.product = producto;
     //Obtenemos el valor actual
@@ -52,13 +52,13 @@ export class CartService {
             return;
           } else {
             //Actualizar cantidad
-            listCart[objIndex].cantidad = producto.cantidad;
+            listCart[objIndex].quantity = producto.cantidad;
           }
         } else {
           //Actualizar la cantidad de un producto existente
-          listCart[objIndex].cantidad += 1;
+          listCart[objIndex].quantity += 1;
         }
-        newItem.cantidad = listCart[objIndex].cantidad;
+        newItem.quantity = listCart[objIndex].quantity;
         listCart[objIndex].subtotal = this.calculoSubtotal(newItem);
       }
       //Si es el primer item de ese tipo se agrega al carrito
@@ -79,8 +79,14 @@ export class CartService {
   }
   //Calcula el subtotal del item del carrito que se indique
   private calculoSubtotal(item: ItemCart) {
-    return item.precio * item.cantidad;
+    
+    return item.price * item.quantity;
   }
+public bababab(){
+  console.log("obtiene todos los productos del carro")
+  console.log(this.currentDataCart)
+}
+
   //Elimina un elemento del carrito
   public removeFromCart(newData: ItemCart) {
     //Obtenemos el valor actual de carrito
@@ -117,7 +123,7 @@ export class CartService {
       
       //Sumando las cantidades de cada uno de los items del carrito
      listCart.forEach((obj) => {
-       sum +=  obj.cantidad;
+       sum +=  obj.quantity;
      });
       
     }
