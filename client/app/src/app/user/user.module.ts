@@ -20,9 +20,10 @@ import { UListComponent } from './u-list/u-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UEditComponent } from './u-edit/u-edit.component';
 
 @NgModule({
-  declarations: [ULoginComponent, URegisterComponent, UListComponent],
+  declarations: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -41,6 +42,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     UserRoutingModule,
   ],
-  exports: [ULoginComponent, URegisterComponent, UListComponent],
+  exports: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent],
 })
 export class UserModule {}

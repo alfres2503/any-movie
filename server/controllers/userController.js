@@ -51,9 +51,6 @@ module.exports.update = async (request, response, next) => {
 
   const oldUser = await prisma.user.findUnique({
     where: { email: Email },
-    include: {
-      roles: true,
-    },
   });
 
   const checkPassword = await bcrypt.compare(
@@ -75,8 +72,6 @@ module.exports.update = async (request, response, next) => {
         name: request.body.name,
         phone: request.body.phone,
         email: request.body.email,
-        password: hash,
-        company_name: request.body.company_name,
         image: request.body.image,
       },
     });

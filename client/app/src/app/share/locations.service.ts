@@ -19,7 +19,7 @@ export class LocationService {
     return this.http.get(url).toPromise();
   }
 
-  getDistritos(province: string, canton: string): Promise<any> {
+  getDistricts(province: string, canton: string): Promise<any> {
     const url = `https://ubicaciones.paginasweb.cr/provincia/${province}/canton/${canton}/distritos.json`;
     return this.http.get(url).toPromise();
   }

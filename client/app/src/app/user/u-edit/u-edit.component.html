@@ -1,0 +1,118 @@
+<section class="d-flex gap-2">
+  <mat-card class="w-50">
+    <form [formGroup]="userForm" novalidate>
+      <mat-card-header>
+        <mat-card-title>Personal Information</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-divider class="my-3"></mat-divider>
+
+        <div class="d-flex justify-content-center my-3">
+          <img
+            [src]="'data:image/jpeg;base64,' + this.userImage"
+            class="user-image"
+          />
+        </div>
+
+        <mat-form-field class="w-100">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            maxlength="50"
+            placeholder="Name"
+          />
+          <mat-hint align="end"> / 50</mat-hint>
+          <mat-error *ngIf="errorHandling('name', 'required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('name', 'minlength')">
+            Name must have <strong>3 characters</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+          <mat-label>Phone Number</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="phone"
+            maxlength="8"
+            placeholder="Phone"
+          />
+          <mat-hint align="end"> / 8</mat-hint>
+          <mat-error *ngIf="errorHandling('phone', 'required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('phone', 'minlength')">
+            Name must have <strong>8 characters</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="errorHandling('email', 'required')">
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('email', 'email')">
+            Email must have specific <strong>format</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+          <input matInput hidden />
+          <input type="file" (change)="getImage($event)" accept="image/*" />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" type="submit">Save</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <mat-card class="w-50">
+    <mat-card-header>
+      <mat-card-title>Addresses</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-divider class="my-3"></mat-divider>
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Province" formControlName="provinces">
+          <mat-option
+            *ngFor="let p of provinces"
+            [value]="p.id"
+            (onSelectionChange)="getCantons(p.id)"
+          >
+            {{ p.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error> Province is <strong>required</strong> </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Canton" formControlName="provinces">
+          <mat-option
+            *ngFor="let c of cantons"
+            [value]="c.id"
+            (onSelectionChange)="getDistricts(c.id, c.provinceId)"
+          >
+            {{ c.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error> Canton is <strong>required</strong> </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Canton" formControlName="provinces">
+          <mat-option *ngFor="let d of districts" [value]="d.id">
+            {{ d.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error> District is <strong>required</strong> </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</section>
