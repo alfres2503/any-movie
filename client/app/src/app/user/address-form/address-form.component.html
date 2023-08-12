@@ -1,0 +1,109 @@
+<h2 mat-dialog-title>Add new address</h2>
+<form [formGroup]="addressForm" novalidate>
+  <mat-dialog-content>
+    <input type="hidden" formControlName="id_user" />
+    <input type="hidden" formControlName="phone" />
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Province" formControlName="province">
+        <mat-option
+          *ngFor="let p of provinces"
+          [value]="p.id"
+          (click)="getCantons(p.id)"
+        >
+          {{ p.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error> Province is <strong>required</strong> </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Canton" formControlName="canton">
+        <mat-option
+          *ngFor="let c of cantons"
+          [value]="c.id"
+          (click)="getDistricts(c.province_id, c.id)"
+        >
+          {{ c.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error> Canton is <strong>required</strong> </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-select placeholder="District" formControlName="district">
+        <mat-option *ngFor="let d of districts" [value]="d.id">
+          {{ d.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error> District is <strong>required</strong> </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Exact direction</mat-label>
+      <input
+        matInput
+        formControlName="direction"
+        maxlength="50"
+        placeholder="1st Street, 2nd Avenue, 3rd House"
+      />
+      <mat-hint align="end"> / 50</mat-hint>
+      <mat-error *ngIf="errorHandling('direction', 'required')">
+        Direction is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="errorHandling('direction', 'minlength')">
+        Direction must have <strong>3 characters</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Postal code</mat-label>
+      <input
+        matInput
+        formControlName="postal_code"
+        minlength="5"
+        maxlength="5"
+        type="number"
+        placeholder="20501"
+      />
+      <mat-hint align="end"> / 5</mat-hint>
+      <mat-error *ngIf="errorHandling('postal_code', 'required')">
+        Postal is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="errorHandling('postal_code', 'minlength')">
+        Postal must have <strong>5 characters</strong>
+      </mat-error>
+      <mat-error *ngIf="errorHandling('postal_code', 'maxlength')">
+        Postal must have <strong>5 characters</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Phone number (Optional)</mat-label>
+      <input
+        matInput
+        formControlName="phone"
+        minlength="8"
+        maxlength="8"
+        type="number"
+        placeholder="24460123"
+      />
+      <mat-hint align="end"> / 8</mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="d-flex justify-content-end px-4">
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [mat-dialog-close]="true"
+    >
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+      <mat-icon>close</mat-icon>
+      Close
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -21,9 +21,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UEditComponent } from './u-edit/u-edit.component';
+import { AddressFormComponent } from './address-form/address-form.component';
 
 @NgModule({
-  declarations: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent],
+  declarations: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent, AddressFormComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -42,6 +43,6 @@ import { UEditComponent } from './u-edit/u-edit.component';
     ReactiveFormsModule,
     UserRoutingModule,
   ],
-  exports: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent],
+  exports: [ULoginComponent, URegisterComponent, UListComponent, UEditComponent, AddressFormComponent],
 })
 export class UserModule {}

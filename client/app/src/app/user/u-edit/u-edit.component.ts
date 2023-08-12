@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 import { LocationService } from 'src/app/share/locations.service';
 import { NotificationService } from 'src/app/share/notification.service';
+import { AddressFormComponent } from '../address-form/address-form.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-u-edit',
@@ -17,7 +20,6 @@ export class UEditComponent implements OnInit {
   makeSubmit: boolean = false;
 
   isAuth: boolean;
-  currentUser: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   idUser: number;
@@ -25,23 +27,28 @@ export class UEditComponent implements OnInit {
   userInfo: any;
   userImage: any;
 
-  isSeller: boolean = false;
+  addressesColumns = [
+    'province',
+    'canton',
+    'district',
+    'direction',
+    'postal_code',
+    'phone',
+  ];
+  addresses = new MatTableDataSource<any>();
 
-  provinces: any;
-  cantons: any;
-  districts: any;
+  paymentColumns = ['type', 'provider', 'account_number', 'expiration_date'];
+  payment_methods = new MatTableDataSource<any>();
+
+  isSeller: boolean = false;
 
   constructor(
     public fb: FormBuilder,
-    //private locationService: LocationService,
     private gService: GenericService,
     private notification: NotificationService,
-    private router: Router,
-    private activeRouter: ActivatedRoute,
     private authService: AuthenticationService,
-    private location: LocationService
+    private dialog: MatDialog
   ) {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.authService.isAuthenticated.subscribe(
       (valor) => (this.isAuth = valor)
     );
@@ -56,6 +63,10 @@ export class UEditComponent implements OnInit {
           this.userInfo = apiData;
 
           this.userImage = this.userInfo.image;
+          this.addresses = new MatTableDataSource(this.userInfo.address);
+          this.payment_methods = new MatTableDataSource(
+            this.userInfo.payment_methods
+          );
 
           this.userForm.setValue({
             name: this.userInfo.name,
@@ -67,10 +78,7 @@ export class UEditComponent implements OnInit {
     }
 
     this.reactiveForm();
-
-    this.getProvinces();
   }
-
   ngOnInit(): void {}
 
   reactiveForm() {
@@ -124,31 +132,17 @@ export class UEditComponent implements OnInit {
     }
   }
 
-  async getProvinces() {
-    this.provinces = await this.location.getProvinces();
-    const provincesArray = Object.entries(this.provinces).map(([id, name]) => ({
-      id,
-      name,
-    }));
-    this.provinces = provincesArray;
-  }
+  addressDialog(): void {
+    const dialogConfig = new MatDialogConfig();
 
-  async getCantons(idProvince) {
-    const cantons = await this.location.getCantons(idProvince);
-    const cantonsArray = Object.entries(cantons).map(([id, name]) => ({
-      id,
-      name,
-      provinceId: idProvince, // Add provinceId property to the object
-    }));
-    this.cantons = cantonsArray;
-  }
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { user: this.userInfo };
+    dialogConfig.width = '90vw';
 
-  async getDistricts(idCanton, idProvince) {
-    const districts = await this.location.getDistricts(idProvince, idCanton);
-    const districtsArray = Object.entries(districts).map(([id, name]) => ({
-      id,
-      name,
-    }));
-    this.districts = districtsArray;
+    this.dialog.open(AddressFormComponent, dialogConfig);
+
+    this.dialog.afterAllClosed.subscribe((data: any) => {
+      // this.getComments(this.id);
+    });
   }
 }
