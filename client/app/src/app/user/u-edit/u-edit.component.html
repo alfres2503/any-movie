@@ -10,7 +10,11 @@
 
         <div class="d-flex justify-content-center my-3">
           <img
-            [src]="'data:image/jpeg;base64,' + this.userImage"
+            [src]="
+              this.userImage != null
+                ? 'data:image/jpeg;base64,' + this.userImage
+                : 'https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg'
+            "
             class="user-image"
           />
         </div>
@@ -61,6 +65,7 @@
             </mat-error>
           </mat-form-field>
 
+          <p class="ms-2">Change image</p>
           <mat-form-field class="w-100">
             <input matInput hidden />
             <input type="file" (change)="getImage($event)" accept="image/*" />
