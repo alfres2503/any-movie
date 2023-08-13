@@ -6,7 +6,10 @@ import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 import { LocationService } from 'src/app/share/locations.service';
-import { NotificationService } from 'src/app/share/notification.service';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-address-form',
@@ -23,17 +26,23 @@ export class AddressFormComponent {
   cantons: any;
   districts: any;
 
+  idUser: number;
+  userDefaultPhone: number;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     public formBuilder: FormBuilder,
     private gService: GenericService,
     private notification: NotificationService,
-    private location: LocationService
+    private location: LocationService,
+    private router: Router
   ) {
     this.reactiveForm();
     this.getProvinces();
 
     console.log(data);
+    this.idUser = data.user.id;
+    this.userDefaultPhone = data.user.phone;
   }
 
   reactiveForm() {
@@ -87,5 +96,33 @@ export class AddressFormComponent {
     this.location.getDistricts(idProvince, idCanton).subscribe((data) => {
       this.districts = Object.entries(data).map(([id, name]) => ({ id, name }));
     });
+  }
+
+  submitForm() {
+    this.makeSubmit = true;
+
+    this.addressForm.controls['id_user'].setValue(this.idUser);
+
+    if (this.addressForm.invalid) return;
+
+    if (this.addressForm.value.phone == null)
+      this.addressForm.controls['phone'].setValue(this.userDefaultPhone);
+
+    this.gService.create('address', this.addressForm.value).subscribe(
+      (data: any) => {
+        this.notification.message(
+          'Success',
+          'Address registered successfully',
+          MessageType.success
+        );
+      },
+      (error) => {
+        this.notification.message(
+          'Error',
+          'An error happened',
+          MessageType.error
+        );
+      }
+    );
   }
 }

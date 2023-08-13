@@ -6,9 +6,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 import { LocationService } from 'src/app/share/locations.service';
-import { NotificationService } from 'src/app/share/notification.service';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { PMethodFormComponent } from '../p-method-form/p-method-form.component';
 
 @Component({
   selector: 'app-u-edit',
@@ -81,6 +85,28 @@ export class UEditComponent implements OnInit {
   }
   ngOnInit(): void {}
 
+  refreshUser() {
+    this.gService
+      .get('users', this.idUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((apiData: any) => {
+        this.userInfo = apiData;
+
+        this.userImage = this.userInfo.image;
+        this.addresses = new MatTableDataSource(this.userInfo.address);
+        this.payment_methods = new MatTableDataSource(
+          this.userInfo.payment_methods
+        );
+
+        this.userForm.setValue({
+          name: this.userInfo.name,
+          phone: this.userInfo.phone,
+          email: this.userInfo.email,
+          image: this.userInfo.image,
+        });
+      });
+  }
+
   reactiveForm() {
     this.userForm = this.fb.group({
       name: [
@@ -142,7 +168,52 @@ export class UEditComponent implements OnInit {
     this.dialog.open(AddressFormComponent, dialogConfig);
 
     this.dialog.afterAllClosed.subscribe((data: any) => {
-      // this.getComments(this.id);
+      this.refreshUser();
     });
+  }
+
+  pMethodDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { user: this.userInfo };
+    dialogConfig.width = '90vw';
+
+    this.dialog.open(PMethodFormComponent, dialogConfig);
+
+    this.dialog.afterAllClosed.subscribe((data: any) => {
+      this.refreshUser();
+    });
+  }
+
+  updateUser() {
+    this.makeSubmit = true;
+
+    if (this.userForm.invalid) return;
+
+    // insert user id in form
+    this.userForm.value.id = this.idUser;
+    this.userForm.value.image = this.userImage;
+
+    this.gService
+      .update('users', this.userForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (data) => {
+          this.notification.message(
+            'Success',
+            'Information updated successfully',
+            MessageType.success
+          );
+          this.refreshUser();
+        },
+        (error) => {
+          this.notification.message(
+            'Error',
+            'Error updating information',
+            MessageType.error
+          );
+        }
+      );
   }
 }

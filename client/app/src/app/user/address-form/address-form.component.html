@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Add new address</h2>
-<form [formGroup]="addressForm" novalidate>
+<form [formGroup]="addressForm" (ngSubmit)="submitForm()">
   <mat-dialog-content>
     <input type="hidden" formControlName="id_user" />
     <input type="hidden" formControlName="phone" />
@@ -7,7 +7,7 @@
       <mat-select placeholder="Province" formControlName="province">
         <mat-option
           *ngFor="let p of provinces"
-          [value]="p.id"
+          [value]="p"
           (click)="getCantons(p.id)"
         >
           {{ p.name }}
@@ -20,7 +20,7 @@
       <mat-select placeholder="Canton" formControlName="canton">
         <mat-option
           *ngFor="let c of cantons"
-          [value]="c.id"
+          [value]="c"
           (click)="getDistricts(c.province_id, c.id)"
         >
           {{ c.name }}
@@ -31,7 +31,7 @@
 
     <mat-form-field class="w-100">
       <mat-select placeholder="District" formControlName="district">
-        <mat-option *ngFor="let d of districts" [value]="d.id">
+        <mat-option *ngFor="let d of districts" [value]="d">
           {{ d.name }}
         </mat-option>
       </mat-select>
