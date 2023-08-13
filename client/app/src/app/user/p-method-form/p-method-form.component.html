@@ -28,8 +28,9 @@
         maxlength="16"
         type="number"
         placeholder="1234567890123456"
+        #accountNumber
       />
-      <mat-hint align="end"> / 16</mat-hint>
+      <mat-hint align="end"> {{ accountNumber.value.length }} / 16</mat-hint>
       <mat-error *ngIf="errorHandling('account_number', 'required')">
         Account Number is <strong>required</strong>
       </mat-error>

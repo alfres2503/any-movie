@@ -45,8 +45,9 @@
         formControlName="direction"
         maxlength="50"
         placeholder="1st Street, 2nd Avenue, 3rd House"
+        #exactDirection
       />
-      <mat-hint align="end"> / 50</mat-hint>
+      <mat-hint align="end">{{ exactDirection.value.length }} / 50</mat-hint>
       <mat-error *ngIf="errorHandling('direction', 'required')">
         Direction is <strong>required</strong>
       </mat-error>
@@ -64,8 +65,9 @@
         maxlength="5"
         type="number"
         placeholder="20501"
+        #postalCode
       />
-      <mat-hint align="end"> / 5</mat-hint>
+      <mat-hint align="end"> {{ postalCode.value.length }} / 5</mat-hint>
       <mat-error *ngIf="errorHandling('postal_code', 'required')">
         Postal is <strong>required</strong>
       </mat-error>
@@ -86,8 +88,9 @@
         maxlength="8"
         type="number"
         placeholder="24460123"
+        #phone
       />
-      <mat-hint align="end"> / 8</mat-hint>
+      <mat-hint align="end"> {{ phone.value.length }} / 8</mat-hint>
     </mat-form-field>
   </mat-dialog-content>
 
