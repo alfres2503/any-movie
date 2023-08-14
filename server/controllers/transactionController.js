@@ -60,3 +60,32 @@ module.exports.getBySellerId = async (request, response, next) => {
 
   response.json(transaction);
 };
+
+module.exports.create = async (request, response, next) => {
+  try {
+    const transaction = await prisma.transaction_header.create({
+      data: {
+        id_user: request.body.id_user,
+        id_payment_method: request.body.id_payment_method,
+        id_address: request.body.id_address,
+        total: request.body.total,
+        created_at: new Date(),
+        payed: request.body.payed,
+        details: {
+          createMany: {
+            data: request.body.details,
+          },
+        },
+      },
+    });
+
+    response.json(transaction);
+
+  } catch (error) {
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
+};

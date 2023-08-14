@@ -17,4 +17,6 @@ router.get("/user/:id", transactionController.getByUserId);
 //get by seller
 router.get("/seller/:id", transactionController.getBySellerId);
 
+router.post("/", transactionController.create);
+
 module.exports = router;

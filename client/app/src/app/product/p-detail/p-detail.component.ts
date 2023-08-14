@@ -215,5 +215,6 @@ export class PDetailComponent {
         MessageType.success
       )
     });
+    
   }
 }

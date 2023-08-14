@@ -52,6 +52,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent, SellerListComponent],
+  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent, SellerListComponent, OBuyComponent,],
 })
 export class OrderModule {}

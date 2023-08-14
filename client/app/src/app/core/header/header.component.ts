@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from 'src/app/share/cart.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
@@ -8,7 +8,8 @@ import { AuthenticationService } from 'src/app/share/authentication.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+
+export class HeaderComponent implements OnInit {
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   isAuth: boolean;
   currentUser: any;
@@ -27,6 +28,10 @@ export class HeaderComponent {
     this.authService.roles();
     this.isAdmin= this.authService.isAdmin;
 
+    this.qtyItems = this.cartService.quantityItems();
+  }
+
+  ngOnInit(): void{
     this.qtyItems = this.cartService.quantityItems();
   }
 
