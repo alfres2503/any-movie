@@ -40,45 +40,29 @@ module.exports.create = async (request, response, next) => {
 };
 
 module.exports.update = async (request, response, next) => {
-  const Email = request.body.email;
-
-  let salt = bcrypt.genSaltSync(10);
-  let hash;
-
-  if (request.body.newPassword)
-    hash = bcrypt.hashSync(request.body.newPassword, salt);
-  else hash = bcrypt.hashSync(request.body.password, salt);
-
   const oldUser = await prisma.user.findUnique({
-    where: { email: Email },
-    include: {
-      roles: true,
-    },
+    where: { id: request.body.id },
   });
 
-  const checkPassword = await bcrypt.compare(
-    request.body.password,
-    oldUser.password
-  );
-
-  if (!checkPassword) {
-    response.status(401).send({
-      success: false,
-      message: "Incorrect password",
-    });
-  } else {
+  try {
     const newUser = await prisma.user.update({
       where: {
-        email: Email,
+        id: request.body.id,
       },
       data: {
         name: request.body.name,
         phone: request.body.phone,
         email: request.body.email,
-        password: hash,
-        company_name: request.body.company_name,
         image: request.body.image,
       },
+    });
+
+    response.json(newUser);
+  } catch (error) {
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
     });
   }
 };
@@ -165,6 +149,10 @@ module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);
   const users = await prisma.user.findUnique({
     where: { id: id },
+    include: {
+      address: true,
+      payment_methods: true,
+    },
   });
   response.json(users);
 };
