@@ -95,9 +95,11 @@ export class OBuyComponent {
   }
 
   registerOrder() {
+    if(this.orderForm.invalid) return;
+
     if (this.cartService.getItems != null && this.orderForm.value.payment_method!=null && this.orderForm.value.address!=null ) {
       let cart_item = this.cartService.getItems;
-      
+
       let products = cart_item.map((x) => ({
         // detail
         //   id_product  Int
@@ -107,7 +109,7 @@ export class OBuyComponent {
         ['quantity']: x.quantity,
         ['subtotal']: x.subtotal,
       }));
-      
+
       let order_info = {
         // header
         //   id_user           Int
@@ -158,35 +160,35 @@ export class OBuyComponent {
 //   arrivalDate DateTime?                                        cuando el cliente lo marca como entregado
 
 // created_at
-// : 
+// :
 // Mon Aug 14 2023 00:33:47 GMT-0600 (hora estándar central) {}
 // details
-// : 
+// :
 // Array(2)
 // 0
-// : 
+// :
 // {id_product: 2, quantity: 1, subtotal: 99.99}
 // 1
-// : 
+// :
 // {id_product: 4, quantity: 1, subtotal: 19.99}
 // length
-// : 
+// :
 // 2
 // [[Prototype]]
-// : 
+// :
 // Array(0)
 // id_address
-// : 
+// :
 // 1
 // id_payment_method
-// : 
+// :
 // 1
 // id_user
-// : 
+// :
 // 118310145
 // payed
-// : 
+// :
 // false
 // total
-// : 
+// :
 // 119.97999999999999

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from 'src/app/share/cart.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   currentUser: any;
   isAdmin:boolean;
   qtyItems: Number = 0;
+  qtyItemsSubscription: Subscription;
 
   constructor(
     private cartService: CartService,
@@ -32,7 +34,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void{
-    this.qtyItems = this.cartService.quantityItems();
+    this.qtyItemsSubscription = this.cartService.countItems.subscribe(
+      (qtyItems) => {
+        this.qtyItems = qtyItems;
+      }
+    );
   }
 
   toggleSidebar() {

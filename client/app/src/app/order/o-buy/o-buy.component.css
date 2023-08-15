@@ -3,8 +3,8 @@
 }
 
 .box {
-  margin: 2em 2em;
-  padding: 2em 2em;
+  margin: 1rem 1rem;
+  padding: 1rem 1rem;
 }
 
 .header {
@@ -14,4 +14,9 @@
 .footer-total {
   font-size: 1.2em;
   font-weight: bolder;
+}
+
+.mat-mdc-card-content {
+  display: block;
+  padding: 0px;
 }
