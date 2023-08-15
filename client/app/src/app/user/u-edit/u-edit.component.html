@@ -1,0 +1,194 @@
+<section class="d-lg-flex gap-2">
+  <mat-card class="col-lg-6 col-12 mb-2">
+    <mat-card-header>
+      <mat-card-title>Personal Information</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+      <mat-card-content class="overflow-x-auto">
+        <mat-divider class="my-3"></mat-divider>
+
+        <div class="d-flex justify-content-center my-3">
+          <img
+            [src]="
+              this.userImage != null
+                ? 'data:image/jpeg;base64,' + this.userImage
+                : 'https://i.pinimg.com/474x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg'
+            "
+            class="user-image"
+          />
+        </div>
+        <form [formGroup]="userForm" novalidate>
+          <mat-form-field class="w-100">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              maxlength="50"
+              placeholder="Name"
+              #name
+            />
+            <mat-hint align="end">{{ name.value.length }}/ 50</mat-hint>
+            <mat-error *ngIf="errorHandling('name', 'required')">
+              Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('name', 'minlength')">
+              Name must have <strong>3 characters</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <mat-label>Phone Number</mat-label>
+            <input
+              type="number"
+              matInput
+              formControlName="phone"
+              maxlength="8"
+              placeholder="Phone"
+              #phone
+            />
+            <mat-hint align="end"> {{ phone.value.length }} / 8</mat-hint>
+            <mat-error *ngIf="errorHandling('phone', 'required')">
+              Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('phone', 'minlength')">
+              Name must have <strong>8 characters</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error *ngIf="errorHandling('email', 'required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('email', 'email')">
+              Email must have specific <strong>format</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <p class="ms-2">Change image</p>
+          <mat-form-field class="w-100">
+            <input matInput hidden />
+            <input type="file" (change)="getImage($event)" accept="image/*" />
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="my-2">
+        <button mat-raised-button color="accent" type="submit">Save</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <div class="col-lg-6 d-block">
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title>Addresses </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="overflow-auto">
+        <mat-divider class="my-3"></mat-divider>
+
+        <table mat-table [dataSource]="addresses" class="mat-elevation-z8 mb-3">
+          <ng-container matColumnDef="province">
+            <th mat-header-cell *matHeaderCellDef>Province</th>
+            <td mat-cell *matCellDef="let element">{{ element.province }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="canton">
+            <th mat-header-cell *matHeaderCellDef>Canton</th>
+            <td mat-cell *matCellDef="let element">{{ element.canton }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="district">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">{{ element.district }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="direction">
+            <th mat-header-cell *matHeaderCellDef>Direction</th>
+            <td mat-cell *matCellDef="let element">{{ element.direction }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="postal_code">
+            <th mat-header-cell *matHeaderCellDef>Postal_code</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.postal_code }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="addressesColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: addressesColumns"></tr>
+        </table>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button
+          mat-raised-button
+          color="accent"
+          class="me-2"
+          (click)="addressDialog()"
+        >
+          New Address
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="my-2">
+      <mat-card-header>
+        <mat-card-title class="mt-3">Payment methods </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="overflow-auto">
+        <mat-divider class="my-3"></mat-divider>
+        <table
+          mat-table
+          [dataSource]="payment_methods"
+          class="mat-elevation-z8 mb-3"
+        >
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="provider">
+            <th mat-header-cell *matHeaderCellDef>Provider</th>
+            <td mat-cell *matCellDef="let element">{{ element.provider }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="account_number">
+            <th mat-header-cell *matHeaderCellDef>Account Number</th>
+            <td mat-cell *matCellDef="let element">
+              {{ "**** **** **** " + element.account_number.slice(-4) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expiration_date">
+            <th mat-header-cell *matHeaderCellDef>Expiration Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.expiration_date | date : "MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="paymentColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: paymentColumns"></tr>
+        </table>
+      </mat-card-content>
+      <mat-card-actions align="end" class="">
+        <button
+          mat-raised-button
+          color="primary"
+          class="me-2"
+          (click)="pMethodDialog()"
+        >
+          New Payment Method
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+<h2 mat-dialog-title>Add new payment method</h2>
+<form [formGroup]="methodForm" (ngSubmit)="submitForm()">
+  <mat-dialog-content>
+    <input type="hidden" formControlName="id_user" />
+
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Type" formControlName="type">
+        <mat-option value="Credit Card"> Credit Card </mat-option>
+        <mat-option value="Debit Card"> Debit Card </mat-option>
+      </mat-select>
+      <mat-error> Type is <strong>required</strong> </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-select placeholder="Provider" formControlName="provider">
+        <mat-option value="VISA">VISA</mat-option>
+        <mat-option value="MasterCard"> MasterCard </mat-option>
+      </mat-select>
+      <mat-error> Provider is <strong>required</strong> </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Account Number</mat-label>
+      <input
+        matInput
+        formControlName="account_number"
+        minlength="16"
+        maxlength="16"
+        type="number"
+        placeholder="1234567890123456"
+        #accountNumber
+      />
+      <mat-hint align="end"> {{ accountNumber.value.length }} / 16</mat-hint>
+      <mat-error *ngIf="errorHandling('account_number', 'required')">
+        Account Number is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="errorHandling('account_number', 'minlength')">
+        Account Number must have <strong>16 characters</strong>
+      </mat-error>
+      <mat-error *ngIf="errorHandling('account_number', 'maxlength')">
+        Account Number must have <strong>16 characters</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- expiration_date form field -->
+    <mat-form-field class="w-100">
+      <mat-label>Expiration Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="expiration_date"
+        placeholder="Choose a date"
+        [min]="getNextMonthFirstDay()"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="errorHandling('expiration_date', 'required')">
+        Expiration Date is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="d-flex justify-content-end px-4">
+    <button mat-raised-button color="accent" type="submit">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+      <mat-icon>close</mat-icon>
+      Close
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,67 +10,21 @@ export class LocationService {
 
   // https://web.archive.org/web/20230330004601/https://programando.paginasweb.cr/2016/04/29/lista-de-provincias-cantones-y-distritos-de-costa-rica-en-formato-json/
 
-  getProvinces(): Promise<any> {
+  // Los observables son una colección de valores que pueden ser emitidos de forma asíncrona.
+  // Son mejores que las promesas porque permiten operadores como map, filter, reduce, etc.
+
+  getProvinces(): Observable<any> {
     const url = 'https://ubicaciones.paginasweb.cr/provincias.json';
-    return this.http.get(url).toPromise();
+    return this.http.get<any>(url);
   }
 
-  getCantons(province: string): Promise<any> {
+  getCantons(province: string): Observable<any> {
     const url = `https://ubicaciones.paginasweb.cr/provincia/${province}/cantones.json`;
-    return this.http.get(url).toPromise();
+    return this.http.get<any>(url);
   }
 
-  getDistritos(province: string, canton: string): Promise<any> {
+  getDistricts(province: string, canton: string): Observable<any> {
     const url = `https://ubicaciones.paginasweb.cr/provincia/${province}/canton/${canton}/distritos.json`;
-    return this.http.get(url).toPromise();
+    return this.http.get<any>(url);
   }
 }
-
-// async loadProvincias() {
-//   try {
-//     const data: any = await this.locationService.getProvinces();
-//     for (const key in data) {
-//       this.provinces.push({ id: key, name: data[key] });
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-
-// async onProvinceChange() {
-//   this.cantons = [];
-//   this.districts = [];
-//   this.selectedCanton = '';
-//   this.selectedProvince = this.signupForm.value.province;
-
-//   if (this.selectedProvince) {
-//     try {
-//       const data: any = await this.locationService.getCantons(
-//         this.selectedProvince
-//       );
-//       for (const key in data) {
-//         this.cantons.push({ id: key, name: data[key] });
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   }
-// }
-
-// async onCantonChange() {
-//   this.districts = [];
-//   this.selectedCanton = this.signupForm.value.canton;
-//   if (this.selectedProvince && this.selectedCanton) {
-//     try {
-//       const data: any = await this.locationService.getDistritos(
-//         this.selectedProvince,
-//         this.selectedCanton
-//       );
-//       for (const key in data) {
-//         this.districts.push({ id: key, name: data[key] });
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   }
-// }

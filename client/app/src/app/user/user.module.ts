@@ -20,9 +20,21 @@ import { UListComponent } from './u-list/u-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UEditComponent } from './u-edit/u-edit.component';
+import { AddressFormComponent } from './address-form/address-form.component';
+import { PMethodFormComponent } from './p-method-form/p-method-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [ULoginComponent, URegisterComponent, UListComponent],
+  declarations: [
+    ULoginComponent,
+    URegisterComponent,
+    UListComponent,
+    UEditComponent,
+    AddressFormComponent,
+    PMethodFormComponent,
+  ],
   imports: [
     CommonModule,
     MatCardModule,
@@ -32,6 +44,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     LayoutModule,
     MatDividerModule,
     MatDialogModule,
@@ -41,6 +55,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     UserRoutingModule,
   ],
-  exports: [ULoginComponent, URegisterComponent, UListComponent],
+  exports: [
+    ULoginComponent,
+    URegisterComponent,
+    UListComponent,
+    UEditComponent,
+    AddressFormComponent,
+    PMethodFormComponent,
+  ],
 })
 export class UserModule {}

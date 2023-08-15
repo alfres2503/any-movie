@@ -11,4 +11,6 @@ router.get("/", paymentMethodController.get);
 
 router.get("/:id", paymentMethodController.getById);
 
+router.post("/", paymentMethodController.create);
+
 module.exports = router;

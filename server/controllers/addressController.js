@@ -16,3 +16,28 @@ module.exports.getById = async (request, response, next) => {
   response.json(address);
 };
 
+
+module.exports.create = async (request, response, next) => {
+  try {
+    const address = await prisma.address.create({
+      data: {
+        id_user: request.body.id_user,
+        province: request.body.province.name,
+        canton: request.body.canton.name,
+        district: request.body.district.name,
+        direction: request.body.direction,
+        postal_code: request.body.postal_code.toString(),
+        phone: parseInt(request.body.phone),
+      },
+    });
+
+    response.json(address);
+  } catch (error) {
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
+};
+
