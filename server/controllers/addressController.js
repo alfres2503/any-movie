@@ -16,6 +16,7 @@ module.exports.getById = async (request, response, next) => {
   response.json(address);
 };
 
+
 module.exports.create = async (request, response, next) => {
   try {
     const address = await prisma.address.create({
@@ -39,3 +40,4 @@ module.exports.create = async (request, response, next) => {
     });
   }
 };
+

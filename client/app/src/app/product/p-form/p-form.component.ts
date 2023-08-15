@@ -48,7 +48,6 @@ export class PFormComponent implements OnInit {
   constructor(
     private activeRouter: ActivatedRoute,
     private gService: GenericService,
-    private sanitizer: DomSanitizer,
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,

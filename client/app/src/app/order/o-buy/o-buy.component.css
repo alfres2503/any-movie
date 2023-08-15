@@ -1,0 +1,22 @@
+.footer-row {
+  font-weight: bold;
+}
+
+.box {
+  margin: 1rem 1rem;
+  padding: 1rem 1rem;
+}
+
+.header {
+  color: white;
+}
+
+.footer-total {
+  font-size: 1.2em;
+  font-weight: bolder;
+}
+
+.mat-mdc-card-content {
+  display: block;
+  padding: 0px;
+}

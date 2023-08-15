@@ -80,7 +80,7 @@ model transaction_header {
   total             Decimal
   created_at        DateTime
   payed             Boolean
-
+ 
   details        transaction_detail[]
   user           user                 @relation(fields: [id_user], references: [id])
   payment_method payment_method       @relation(fields: [id_payment_method], references: [id])

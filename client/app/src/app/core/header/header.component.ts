@@ -1,19 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from 'src/app/share/cart.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+
+export class HeaderComponent implements OnInit {
   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
   isAuth: boolean;
   currentUser: any;
   isAdmin:boolean;
   qtyItems: Number = 0;
+  qtyItemsSubscription: Subscription;
 
   constructor(
     private cartService: CartService,
@@ -28,6 +31,14 @@ export class HeaderComponent {
     this.isAdmin= this.authService.isAdmin;
 
     this.qtyItems = this.cartService.quantityItems();
+  }
+
+  ngOnInit(): void{
+    this.qtyItemsSubscription = this.cartService.countItems.subscribe(
+      (qtyItems) => {
+        this.qtyItems = qtyItems;
+      }
+    );
   }
 
   toggleSidebar() {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {Component} from '@angular/core';
 
 import { OrderRoutingModule } from './order-routing.module';
 import { ClientListComponent } from './client-list/client-list.component';
@@ -14,12 +15,12 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import { SellerListComponent } from './seller-list/seller-list.component';
 import { OBuyComponent } from './o-buy/o-buy.component';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card'; 
-import {MatButtonModule} from '@angular/material/button'; 
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon'; 
+import {MatIconModule} from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -49,9 +50,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
+    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent, SellerListComponent],
+  exports: [ClientListComponent, OrderDetailComponent, OrderDialogComponent, SellerListComponent, OBuyComponent,],
 })
 export class OrderModule {}
