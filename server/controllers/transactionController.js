@@ -71,17 +71,39 @@ module.exports.create = async (request, response, next) => {
         total: request.body.total,
         created_at: new Date(),
         payed: request.body.payed,
-        details: {
-          createMany: {
-            data: request.body.details,
-          },
-        },
+        // details: {
+        //   createMany: {
+        //     data: request.body.details,
+        //   },
+        // },
       },
     });
 
-    response.json(transaction);
+    for (let i = 0; i < request.body.details.length; i++) {
+      await prisma.transaction_detail.create({
+        data: {
+          id_product: request.body.details[i].id_product,
+          id_header: transaction.id,
+          quantity: request.body.details[i].quantity,
+          subtotal: request.body.details[i].subtotal,
+        },
+      });
 
+      await prisma.product.update({
+        where: {
+          id: request.body.details[i].id_product,
+        },
+        data: {
+          quantity: {
+            decrement: request.body.details[i].quantity,
+          },
+        },
+      });
+    }
+
+    response.json(transaction);
   } catch (error) {
+    console.log(error);
     response.status(500).json({
       status: false,
       message: "Error: " + error,

@@ -116,9 +116,19 @@ export class PIndexComponent {
     this.router.navigate(['/products', id]);
   }
 
-  buy(id:number){
+  buy(item:any){
+    if(item.quantity == 0){
+      this.notification.message('Order', 'Product: '+item.name+ ' is out of stock', MessageType.error);
+      return;
+    }
+
+    if(this.cartService.isInCart(item.id)){
+      this.notification.message('Order', 'Product: '+item.name+ ' is already in cart', MessageType.error);
+      return;
+    }
+
     this.gService
-    .get('products', id)
+    .get('products', item.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe((data:any)=>{
       //Adds APIs product to the cart

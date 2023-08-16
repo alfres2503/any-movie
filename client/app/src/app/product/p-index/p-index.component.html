@@ -54,7 +54,12 @@
 
         <mat-divider></mat-divider>
         <mat-card-actions style="gap: 0.5rem">
-          <button mat-raised-button color="primary" (click)="buy(item.id)" *ngIf="isClient">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="buy(item)"
+            *ngIf="isClient"
+          >
             <mat-icon>add_shopping_cart</mat-icon>
             Add to cart
           </button>

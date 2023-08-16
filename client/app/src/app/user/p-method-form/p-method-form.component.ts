@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 import { LocationService } from 'src/app/share/locations.service';
@@ -27,7 +27,8 @@ export class PMethodFormComponent {
     public formBuilder: FormBuilder,
     private gService: GenericService,
     private notification: NotificationService,
-    private location: LocationService
+    private location: LocationService,
+    private dialogRef: MatDialogRef<PMethodFormComponent>
   ) {
     this.reactiveForm();
     console.log(data);
@@ -92,6 +93,7 @@ export class PMethodFormComponent {
           'Payment method registered successfully',
           MessageType.success
         );
+        this.dialogRef.close();
       },
       (error) => {
         this.notification.message(

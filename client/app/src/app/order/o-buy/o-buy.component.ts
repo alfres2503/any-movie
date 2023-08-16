@@ -14,6 +14,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 
 @Component({
   selector: 'app-o-buy',
@@ -49,7 +52,9 @@ export class OBuyComponent {
     private noti: NotificationService,
     private formBuilder: FormBuilder,
     private gService: GenericService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.authService.isAuthenticated.subscribe(
       (valor) => (this.isAuth = valor)
@@ -83,8 +88,26 @@ export class OBuyComponent {
     });
   }
 
+  detail(id: number) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { id: id };
+
+    this.dialog.open(OrderDialogComponent, dialogConfig);
+  }
+
   // ----- CART
   updateQuantity(item: any) {
+    if (item.quantity > item.product.quantity) {
+      this.noti.message(
+        'Order',
+        `Only ${item.product.quantity} of this in stock`,
+        MessageType.error
+      );
+      item.quantity = item.product.quantity;
+      return;
+    }
     this.cartService.addToCart(item);
     this.total = this.cartService.getTotal();
   }
@@ -95,100 +118,51 @@ export class OBuyComponent {
   }
 
   registerOrder() {
-    if(this.orderForm.invalid) return;
+    if (this.orderForm.invalid) {
+      this.noti.message(
+        'Order',
+        'Please fill all the fields',
+        MessageType.warning
+      );
+    }
 
-    if (this.cartService.getItems != null && this.orderForm.value.payment_method!=null && this.orderForm.value.address!=null ) {
+    if (
+      this.cartService.getItems != null &&
+      this.orderForm.value.payment_method != null &&
+      this.orderForm.value.address != null
+    ) {
       let cart_item = this.cartService.getItems;
 
       let products = cart_item.map((x) => ({
-        // detail
-        //   id_product  Int
-        //   quantity    Int
-        //   subtotal    Decimal
         ['id_product']: x.idItem,
         ['quantity']: x.quantity,
         ['subtotal']: x.subtotal,
       }));
 
       let order_info = {
-        // header
-        //   id_user           Int
-        //   id_payment_method Int
-        //   id_address        Int
-        //   total             Decimal
-        //   created_at        DateTime
-        //   payed             Boolean
         id_user: this.idUser,
-        id_payment_method:this.orderForm.value.payment_method,
-        id_address:this.orderForm.value.address,
+        id_payment_method: this.orderForm.value.payment_method,
+        id_address: this.orderForm.value.address,
         total: this.total,
-        payed:true,
+        payed: true,
         details: products,
       };
 
-      this.gService.create('transactions', order_info).subscribe((answer: any) => {
-        this.noti.message(
-          'Order',
-          'Orden registered #' + answer.id,
-          MessageType.success
-        );
-        this.cartService.deleteCart();
-        this.total = this.cartService.getTotal();
-        console.log(answer);
-      });
+      this.gService
+        .create('transactions', order_info)
+        .subscribe((answer: any) => {
+          this.noti.message(
+            'Order',
+            'Orden registered #' + answer.id,
+            MessageType.success
+          );
+          this.cartService.deleteCart();
+          this.total = this.cartService.getTotal();
+          this.router.navigate(['/']);
+          this.detail(answer.id);
+        });
     } else {
       this.noti.message('Order', 'Add a product to buy', MessageType.warning);
     }
   }
 }
-
-// header
-//   id                Int      @id @default(autoincrement())     se manda hidden
-//   id_user           Int                                        se manda con el que está loggeado
-//   id_payment_method Int                                        sale en el html si tiene registrados y si no tiene, sale boton
-//   id_address        Int                                        sale en el html si tiene registrados y si no tiene, sale boton
-//   total             Decimal                                    se manda del ts
-//   created_at        DateTime                                   datetime.now
-//   payed             Boolean                                    se manda siempre falso
-
-// detail
-//   id          Int       @id @default(autoincrement())          se manda hidden
-//   id_header   Int                                              se manda hidden
-//   id_product  Int                                              de la lista del cart
-//   quantity    Int                                              de la lista del cart
-//   subtotal    Decimal                                          de la lista del cart
-//   arrivalDate DateTime?                                        cuando el cliente lo marca como entregado
-
-// created_at
-// :
-// Mon Aug 14 2023 00:33:47 GMT-0600 (hora estándar central) {}
-// details
-// :
-// Array(2)
-// 0
-// :
-// {id_product: 2, quantity: 1, subtotal: 99.99}
-// 1
-// :
-// {id_product: 4, quantity: 1, subtotal: 19.99}
-// length
-// :
-// 2
-// [[Prototype]]
-// :
-// Array(0)
-// id_address
-// :
-// 1
-// id_payment_method
-// :
-// 1
-// id_user
-// :
-// 118310145
-// payed
-// :
-// false
-// total
-// :
-// 119.97999999999999

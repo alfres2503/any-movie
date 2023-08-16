@@ -14,8 +14,8 @@ export class ItemCart {
   providedIn: 'root',
 })
 export class CartService {
-  private cart = new BehaviorSubject<ItemCart[]>(null); 
-  public currentDataCart$ = this.cart.asObservable(); 
+  private cart = new BehaviorSubject<ItemCart[]>(null);
+  public currentDataCart$ = this.cart.asObservable();
   public qtyItems = new Subject<number>();
 
   constructor() {
@@ -27,11 +27,16 @@ export class CartService {
 
   saveCart(): void {
     localStorage.setItem('orden', JSON.stringify(this.cart.getValue()));
-    console.log(this.cart.getValue())
+    // console.log(this.cart.getValue())
   }
 
   addToCart(producto: any) {
     producto.images = null;
+
+    // console.log(producto)
+    // if(producto.quantity > producto.product.quantity){
+    //   return;
+    // }
 
     const newItem = new ItemCart();
     newItem.idItem = producto.id | producto.idItem;
@@ -79,7 +84,7 @@ export class CartService {
     if (objIndex != -1) {
       listCart.splice(objIndex, 1);
     }
-    this.cart.next(listCart); 
+    this.cart.next(listCart);
     this.qtyItems.next(this.quantityItems());
     this.saveCart();
   }
@@ -121,8 +126,19 @@ export class CartService {
     return total;
   }
 
+  public isInCart(itemId:number) {
+    let listCart = this.cart.getValue();
+    if (listCart != null) {
+      let objIndex = listCart.findIndex((obj) => obj.idItem == itemId);
+      if (objIndex != -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public deleteCart() {
-    this.cart.next(null); 
+    this.cart.next(null);
     this.qtyItems.next(0);
     this.saveCart();
   }

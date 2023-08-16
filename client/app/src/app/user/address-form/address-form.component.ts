@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
@@ -35,7 +35,8 @@ export class AddressFormComponent {
     private gService: GenericService,
     private notification: NotificationService,
     private location: LocationService,
-    private router: Router
+    private router: Router,
+    private dialogRef: MatDialogRef<AddressFormComponent>
   ) {
     this.reactiveForm();
     this.getProvinces();
@@ -115,6 +116,7 @@ export class AddressFormComponent {
           'Address registered successfully',
           MessageType.success
         );
+        this.dialogRef.close();
       },
       (error) => {
         this.notification.message(
