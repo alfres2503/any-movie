@@ -27,4 +27,18 @@ export const payment_methods = [
     account_number: "3234567890123457",
     expiration_date: new Date("2023-12-31"),
   },
+  {
+    id_user: 712364569,
+    type: "Credit Card",
+    provider: "Visa",
+    account_number: "1236547896325874",
+    expiration_date: new Date("2026-09-03"),
+  },
+  {
+    id_user: 712364569,
+    type: "Debit Card",
+    provider: "Visa",
+    account_number: "9874563214785693",
+    expiration_date: new Date("2024-04-19"),
+  },
 ];

@@ -96,6 +96,45 @@ const main = async () => {
     },
   });
 
+  await prisma.user.create({
+    data: {
+      id: 110550380,
+      name: "Jessica Sanchez",
+      phone: 72066590,
+      email: "gesssl@hotmail.com",
+      active: true,
+      image: Buffer.from(fs.readFileSync("IMAGES/jess.jpg")).toString(
+        "base64"
+      ),
+      password: bcrypt.hashSync("123456", salt),
+      company_name: "Netflix",
+      roles: {
+        createMany: {
+          data: [{ id_role: 3 }],
+        },
+      },
+    },
+  });
+
+  await prisma.user.create({
+    data: {
+      id: 712364569,
+      name: "Antonio Ramírez",
+      phone: 86521476,
+      email: "aramirez@est.utn.ac.cr",
+      active: false,
+      image: Buffer.from(fs.readFileSync("IMAGES/tony.jpg")).toString(
+        "base64"
+      ),
+      password: bcrypt.hashSync("123456", salt),
+      roles: {
+        createMany: {
+          data: [{ id_role: 2 }],
+        },
+      },
+    },
+  });
+
   // ADDRESS
 
   await prisma.address.create({
@@ -143,6 +182,40 @@ const main = async () => {
       direction: "3rd Street, 2nd Avenue, 1st House",
       postal_code: "20501",
       phone: 71699681,
+    },
+  });
+
+  await prisma.address.create({
+    data: {
+      id_user: 110550380,
+      province: "San José",
+      canton: "Goicoechea",
+      district: "Guadalupe",
+      direction: "75m north from CCG",
+      postal_code: "10802",
+      phone: 72066590,
+    },
+  });
+  await prisma.address.create({
+    data: {
+      id_user: 712364569,
+      province: "Heredia",
+      canton: "Centro",
+      district: "Rio 2",
+      direction: "3rd Street, 2nd Avenue, 1st House",
+      postal_code: "20501",
+      phone: 86521476,
+    },
+  });
+  await prisma.address.create({
+    data: {
+      id_user: 712364569,
+      province: "Limón",
+      canton: "Centro",
+      district: "Rio 2",
+      direction: "By the beach",
+      postal_code: "20501",
+      phone: 86521476,
     },
   });
 
@@ -247,6 +320,108 @@ const main = async () => {
     },
   });
 
+  await prisma.product.create({
+    data: {
+      id_user: 208290538,
+      id_type: 1,
+      name: "Barbie as the Princess and the Pauper",
+      description:
+        "In an unnamed kingdom, a blonde princess and a brunette pauper are born at the same time. Several years later, Princess Anneliese is betrothed by her mother, Queen Genevieve, to the wealthy King Dominick to save their nearly bankrupt royal treasury; however, Anneliese is in love with her young tutor Julian.",
+      quantity: 200,
+      price: 24.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 5 }, { id_category: 7 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 208290538,
+      id_type: 2,
+      name: "The Walking Dead Collector",
+      description:
+        "With the collapse of modern civilization, these survivors must confront other human survivors who have formed groups and communities with their own sets of laws and morals, sometimes leading to open, hostile conflict between them.",
+      quantity: 50,
+      price: 89.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }, { id_category: 6 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 110550380,
+      id_type: 1,
+      name: "The Saw Collection",
+      description:
+        "Nine of the films primarily revolve around the fictional serial killer John Jigsaw Kramer, while the ninth movie revolves around a copycat killer. John Kramer was introduced briefly in Saw and developed in more detail in Saw II and the subsequent films. Rather than killing his victims outright, he traps them in life-threatening situations that he calls tests or games to test their will to survive through physical or psychological torture, believing that if they survive, they will be rehabilitated",
+      quantity: 85,
+      price: 76.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 2 }],
+        },
+      },
+    },
+  });
+  
+  await prisma.product.create({
+    data: {
+      id_user: 110550380,
+      id_type: 1,
+      name: "Grown Ups",
+      description:
+        "The death of his basketball coach during his childhood causes the meeting of some old friends, who are seen in the place where they held a championship years ago. The partners talk about their wives and children, discovering that age nonetheless goes hand in hand with maturity.",
+      quantity: 64,
+      price: 14.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 3 }, { id_category: 4 }, { id_category: 5 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 110550380,
+      id_type: 3,
+      name: "March of the Penguins",
+      description:
+        "At the end of each Antarctic summer, South Pole Emperor penguins head to their traditional breeding grounds in a fascinating mating ritual across the frozen tundra.",
+      quantity: 22,
+      price: 5.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 4 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 208290538,
+      id_type: 1,
+      name: "Luis Miguel, the series",
+      description:
+        "The true story of Luis Miguel, the greatest icon of music in Spanish. A complete and authoritative look by the artist into the intimate and professional life of this enigmatic, elusive and at the same time adored singer.",
+      quantity: 200,
+      price: 24.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }],
+        },
+      },
+    },
+  });
+
   // IMAGES
   await prisma.image.createMany({
     data: images,
@@ -256,6 +431,76 @@ const main = async () => {
     data: {
       id_product: 5,
       image: Buffer.from(fs.readFileSync("IMAGES/prod5img1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 6,
+      image: Buffer.from(fs.readFileSync("IMAGES/barbieprincessandpauper1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+  await prisma.image.create({
+    data: {
+      id_product: 6,
+      image: Buffer.from(fs.readFileSync("IMAGES/barbieprincessandpauper2.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 7,
+      image: Buffer.from(fs.readFileSync("IMAGES/twd1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 8,
+      image: Buffer.from(fs.readFileSync("IMAGES/saw1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 9,
+      image: Buffer.from(fs.readFileSync("IMAGES/Grown_Ups1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 10,
+      image: Buffer.from(fs.readFileSync("IMAGES/marchofpenguins1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+  await prisma.image.create({
+    data: {
+      id_product: 10,
+      image: Buffer.from(fs.readFileSync("IMAGES/marchofpenguins2.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 11,
+      image: Buffer.from(fs.readFileSync("IMAGES/luismi1.jpg")).toString(
         "base64"
       ),
     },
@@ -396,6 +641,24 @@ const main = async () => {
       id_user: 118710756,
       id_product: 5,
       text: "How do you have it before the cinemas?",
+      created_at: new Date(),
+    },
+  });
+
+  await prisma.comment.create({
+    data: {
+      id_user: 118710756,
+      id_product: 6,
+      text: "Wow. Very inspiring",
+      created_at: new Date(),
+    },
+  });
+
+  await prisma.comment.create({
+    data: {
+      id_user: 118310145,
+      id_product: 6,
+      text: "Really nice movie.",
       created_at: new Date(),
     },
   });

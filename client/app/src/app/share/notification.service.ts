@@ -18,6 +18,7 @@ export class NotificationService {
 
     this.options.positionClass = 'toast-top-center';
     this.options.disableTimeOut = false;
+    this.options.timeOut = 5000;
     this.options.closeButton = true;
   }
 

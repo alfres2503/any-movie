@@ -31,10 +31,4 @@ export const images = [
       "base64"
     ),
   },
-  // {
-  //   id_product: 5,
-  //   image: Buffer.from(fs.readFileSync("IMAGES/prod5img1.jpg")).toString(
-  //     "base64"
-  //   ),
-  // },
 ];
