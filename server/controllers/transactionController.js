@@ -61,6 +61,29 @@ module.exports.getBySellerId = async (request, response, next) => {
   response.json(transaction);
 };
 
+module.exports.markAsDelivered = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  try {
+    const transaction = await prisma.transaction_detail.update({
+      where: { id: id },
+      data: {
+        arrivalDate: request.body.arrivalDate,
+        seller_feedback: request.body.seller_feedback,
+        seller_rating: request.body.seller_rating,
+      },
+    });
+
+    response.json(transaction);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
+};
+
 module.exports.create = async (request, response, next) => {
   try {
     const transaction = await prisma.transaction_header.create({

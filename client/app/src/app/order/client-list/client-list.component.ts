@@ -53,6 +53,7 @@ export class ClientListComponent {
 
     dialogConfig.disableClose = false;
     dialogConfig.data = { id: id };
+    dialogConfig.width = '90vw';
 
     this.dialog.open(OrderDialogComponent, dialogConfig);
   }

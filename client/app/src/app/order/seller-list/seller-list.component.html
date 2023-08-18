@@ -56,13 +56,43 @@
     </ng-container>
 
     <ng-container matColumnDef="client_feedback">
-      <th mat-header-cell *matHeaderCellDef>Feedback</th>
+      <th mat-header-cell *matHeaderCellDef>Client's Feedback</th>
       <td mat-cell *matCellDef="let element">
         {{
           element.client_feedback != null
             ? element.client_feedback
             : "[No comment]"
         }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="client_rating">
+      <th mat-header-cell *matHeaderCellDef>Client's Rating</th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.client_rating != null">
+          <mat-icon>star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 2">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 3">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 4">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 5">star</mat-icon>
+        </ng-container>
+        <ng-container *ngIf="element.client_rating === null">
+          [No rating]
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="arrivalDate">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by arrival date"
+      >
+        Arrival's Date
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.arrivalDate | date : "MMM d, y" }}
       </td>
     </ng-container>
 
@@ -78,6 +108,16 @@
           (click)="detail(element.id_header)"
         >
           <mat-icon>info</mat-icon>
+        </button>
+        <button
+          *ngIf="element.arrivalDate === null"
+          mat-fab
+          matTooltip="Mark as done"
+          aria-label="Mark as done"
+          color="accent"
+          (click)="markAsDelivered(element.id)"
+        >
+          <mat-icon>done_all</mat-icon>
         </button>
       </td>
     </ng-container>

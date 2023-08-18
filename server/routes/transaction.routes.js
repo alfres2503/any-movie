@@ -19,4 +19,6 @@ router.get("/seller/:id", transactionController.getBySellerId);
 
 router.post("/", transactionController.create);
 
+router.put("/:id", transactionController.markAsDelivered);
+
 module.exports = router;

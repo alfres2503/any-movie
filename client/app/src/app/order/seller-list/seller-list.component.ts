@@ -9,6 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+import { MarkAsDeliveredComponent } from '../mark-as-delivered/mark-as-delivered.component';
+import {
+  MessageType,
+  NotificationService,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-seller-list',
@@ -29,6 +34,8 @@ export class SellerListComponent implements AfterViewInit {
     'product',
     'quantity',
     'client_feedback',
+    'client_rating',
+    'arrivalDate',
     'actions',
   ];
 
@@ -37,7 +44,8 @@ export class SellerListComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private gService: GenericService,
     private _liveAnnouncer: LiveAnnouncer,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notification: NotificationService
   ) {
     this.checkOrdersById();
   }
@@ -52,17 +60,35 @@ export class SellerListComponent implements AfterViewInit {
     this.destroy$.unsubscribe();
   }
 
-  // Public methods
   detail(id: number) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;
     dialogConfig.data = { id: id };
+    dialogConfig.width = '90vw';
 
     this.dialog.open(OrderDialogComponent, dialogConfig);
   }
 
-  // Private methods
+  markAsDelivered(id: number) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.data = { id: id };
+    dialogConfig.width = '90vw';
+
+    this.dialog.open(MarkAsDeliveredComponent, dialogConfig);
+
+    this.dialog.afterAllClosed.subscribe((res) => {
+      this.checkOrdersById();
+      // this.notification.message(
+      //   'Success',
+      //   'Order marked as delivered',
+      //   MessageType.success
+      // );
+    });
+  }
+
   checkOrdersById(): void {
     let id = this.route.snapshot.paramMap.get('id');
     if (!isNaN(Number(id))) this.ordersList(Number(id));
