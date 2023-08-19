@@ -39,6 +39,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <p class="mt-3">Total: {{ data.total | currency : "USD" }}</p>
     </mat-dialog-content>
 
     <mat-dialog-actions class="d-flex justify-content-end px-4">

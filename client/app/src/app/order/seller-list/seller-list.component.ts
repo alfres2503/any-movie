@@ -34,7 +34,6 @@ export class SellerListComponent implements AfterViewInit {
     'product',
     'quantity',
     'client_feedback',
-    'client_rating',
     'arrivalDate',
     'actions',
   ];
@@ -100,6 +99,8 @@ export class SellerListComponent implements AfterViewInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         this.data = apiData;
+
+        console.log(this.data);
 
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;

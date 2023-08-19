@@ -14,7 +14,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { AnswerFormComponent } from '../answer-form/answer-form.component';
 import { CartService } from 'src/app/share/cart.service';
-import { NotificationService, MessageType } from 'src/app/share/notification.service';
+import {
+  NotificationService,
+  MessageType,
+} from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-p-detail',
@@ -63,9 +66,9 @@ export class PDetailComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private cartService:CartService,
+    private cartService: CartService,
     private authService: AuthenticationService,
-    private notification: NotificationService,
+    private notification: NotificationService
   ) {
     this.reactiveForm();
 
@@ -202,19 +205,36 @@ export class PDetailComponent {
     });
   }
 
-  buy(id:number){
-    this.gService
-    .get('products', id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((data:any)=>{
-      //Adds APIs product to the cart
-      this.cartService.addToCart(data);
+  buy(item: any) {
+    if (item.quantity == 0) {
       this.notification.message(
         'Order',
-        'Product: '+data.name+ ' added to cart',
-        MessageType.success
-      )
-    });
-    
+        'Product: ' + item.name + ' is out of stock',
+        MessageType.error
+      );
+      return;
+    }
+
+    if (this.cartService.isInCart(item.id)) {
+      this.notification.message(
+        'Order',
+        'Product: ' + item.name + ' is already in cart',
+        MessageType.error
+      );
+      return;
+    }
+
+    this.gService
+      .get('products', item.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        //Adds APIs product to the cart
+        this.cartService.addToCart(data);
+        this.notification.message(
+          'Order',
+          'Product: ' + data.name + ' added to cart',
+          MessageType.success
+        );
+      });
   }
 }

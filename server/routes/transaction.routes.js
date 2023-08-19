@@ -20,5 +20,6 @@ router.get("/seller/:id", transactionController.getBySellerId);
 router.post("/", transactionController.create);
 
 router.put("/:id", transactionController.markAsDelivered);
+router.put("/review/:id", transactionController.submitReview);
 
 module.exports = router;

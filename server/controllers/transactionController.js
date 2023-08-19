@@ -21,7 +21,11 @@ module.exports.getById = async (request, response, next) => {
       address: true,
       details: {
         include: {
-          product: true,
+          product: {
+            include: {
+              user: true,
+            },
+          },
         },
       },
     },
@@ -70,6 +74,28 @@ module.exports.markAsDelivered = async (request, response, next) => {
         arrivalDate: request.body.arrivalDate,
         seller_feedback: request.body.seller_feedback,
         seller_rating: request.body.seller_rating,
+      },
+    });
+
+    response.json(transaction);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({
+      status: false,
+      message: "Error: " + error,
+      data: error,
+    });
+  }
+};
+
+module.exports.submitReview = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  try {
+    const transaction = await prisma.transaction_detail.update({
+      where: { id: id },
+      data: {
+        client_feedback: request.body.client_feedback,
+        client_rating: request.body.client_rating,
       },
     });
 

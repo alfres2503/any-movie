@@ -49,13 +49,14 @@ export class ClientListComponent {
 
   // Public methods
   detail(id: number) {
-    const dialogConfig = new MatDialogConfig();
+    // const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = false;
-    dialogConfig.data = { id: id };
-    dialogConfig.width = '90vw';
+    // dialogConfig.disableClose = false;
+    // dialogConfig.data = { id: id };
+    // dialogConfig.width = '90vw';
 
-    this.dialog.open(OrderDialogComponent, dialogConfig);
+    // this.dialog.open(OrderDialogComponent, dialogConfig);
+    this.router.navigate(['/order', id]);
   }
 
   // Private methods

@@ -15,7 +15,14 @@ export class OrderDialogComponent implements OnInit {
 
   tableDataSource = new MatTableDataSource<any>();
 
-  displayedColumns = ['name', 'quantity', 'price'];
+  displayedColumns = [
+    'name',
+    // 'seller',
+    'quantity',
+    'price',
+    //'seller_feedback',
+    //'actions',
+  ];
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -40,7 +47,7 @@ export class OrderDialogComponent implements OnInit {
       .subscribe((apiData: any) => {
         this.data = apiData;
 
-        
+        console.log(this.data);
 
         this.tableDataSource.connect();
         this.tableDataSource = new MatTableDataSource(this.data.details);

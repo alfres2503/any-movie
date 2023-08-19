@@ -27,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MarkAsDeliveredComponent } from './mark-as-delivered/mark-as-delivered.component';
+import { SubmitReviewComponent } from './submit-review/submit-review.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MarkAsDeliveredComponent } from './mark-as-delivered/mark-as-delivered.
     SellerListComponent,
     OBuyComponent,
     MarkAsDeliveredComponent,
+    SubmitReviewComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +68,7 @@ import { MarkAsDeliveredComponent } from './mark-as-delivered/mark-as-delivered.
     SellerListComponent,
     OBuyComponent,
     MarkAsDeliveredComponent,
+    SubmitReviewComponent,
   ],
 })
 export class OrderModule {}

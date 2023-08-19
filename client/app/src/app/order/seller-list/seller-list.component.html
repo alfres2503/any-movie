@@ -1,4 +1,4 @@
-<section>
+<section style="overflow-x: auto">
   <div class="head">
     <h1>My sales</h1>
   </div>
@@ -58,15 +58,25 @@
     <ng-container matColumnDef="client_feedback">
       <th mat-header-cell *matHeaderCellDef>Client's Feedback</th>
       <td mat-cell *matCellDef="let element">
-        {{
-          element.client_feedback != null
-            ? element.client_feedback
-            : "[No comment]"
-        }}
+        <ng-container *ngIf="element.client_rating != null" class="mt-2">
+          <mat-icon>star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 2">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 3">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 4">star</mat-icon>
+          <mat-icon *ngIf="element.client_rating >= 5">star</mat-icon>
+        </ng-container>
+        <br *ngIf="element.client_rating != null" />
+        <ng-container>
+          {{
+            element.client_feedback != null
+              ? element.client_feedback
+              : "[No comment]"
+          }}
+        </ng-container>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="client_rating">
+    <!-- <ng-container matColumnDef="client_rating">
       <th mat-header-cell *matHeaderCellDef>Client's Rating</th>
       <td mat-cell *matCellDef="let element">
         <ng-container *ngIf="element.client_rating != null">
@@ -80,7 +90,7 @@
           [No rating]
         </ng-container>
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="arrivalDate">
       <th
