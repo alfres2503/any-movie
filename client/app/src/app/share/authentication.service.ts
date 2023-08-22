@@ -13,7 +13,7 @@ export class AuthenticationService {
   isClient: boolean = false;
   isAdmin: boolean = false;
 
-  idUser: number
+  idUser: number;
 
   //Header para afirmar el tipo de contenido JSON
   //URL del API
@@ -34,8 +34,8 @@ export class AuthenticationService {
     //Establecer un observable para acceder a los datos del usuario
     this.currentUser = this.currentUserSubject.asObservable();
     this.currentUser.subscribe((data) => {
-      this.idUser = data.user.id
-    })
+      this.idUser = data.user.id;
+    });
     this.roles();
   }
   //Obtener el valor del usuario actual
@@ -46,7 +46,6 @@ export class AuthenticationService {
   get isAuthenticated() {
     if (this.currentUserValue != null) {
       this.authenticated.next(true);
-      
     } else {
       this.authenticated.next(false);
     }
@@ -59,6 +58,9 @@ export class AuthenticationService {
 
   //Login
   loginUser(user: any): Observable<any> {
+    this.isSeller = false;
+    this.isClient = false;
+    this.isAdmin = false;
     return this.http.post<any>(this.ServerUrl + 'users/login', user).pipe(
       map((user) => {
         // almacene los detalles del usuario y el token jwt
@@ -66,7 +68,7 @@ export class AuthenticationService {
         localStorage.setItem('currentUser', JSON.stringify(user.data));
         this.authenticated.next(true);
         this.currentUserSubject.next(user.data);
-
+        this.idUser = user.id;
         console.log(user);
         return user;
       })

@@ -9,7 +9,9 @@
             </div>
             <p class="card-category">Your Best Seller</p>
             <h3 class="card-title">{{ best_seller_name }}</h3>
-            <p class="card-category">Total Quantity: {{ best_seller_quantity }}</p>
+            <p class="card-category">
+              Total Quantity: {{ best_seller_quantity }}
+            </p>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -26,7 +28,9 @@
             </div>
             <p class="card-category">Your Best Client</p>
             <h3 class="card-title">{{ best_client_name }}</h3>
-            <p class="card-category">Total Quantity: {{ best_client_quantity }} </p>
+            <p class="card-category">
+              Total Quantity: {{ best_client_quantity }}
+            </p>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -41,29 +45,75 @@
       <div>
         <mat-card class="card">
           <div class="card-header card-header-warning">
+            <div class="card-icon">
+              <i class="material-icons">star</i>
+            </div>
             <h4 class="card-title">Stars Rating</h4>
             <p class="card-category">Given stars by other clients</p>
           </div>
           <div class="card-body table-responsive">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-              <ng-container matColumnDef="sold_product">
-                <th mat-header-cell *matHeaderCellDef>Sold Product</th>
+              <ng-container matColumnDef="prod_name">
+                <th mat-header-cell *matHeaderCellDef>Your Product</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.sold_product }}
+                  {{ element.prod_name }}
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="purchase_count">
-                <th mat-header-cell *matHeaderCellDef>Purchase Quantity</th>
+              <ng-container matColumnDef="rating_5">
+                <th mat-header-cell *matHeaderCellDef>5 Stars</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.purchase_count }}
+                  <ng-container *ngIf="element.rating_5 === '1'; else noStar">
+                    <mat-icon>star</mat-icon>
+                  </ng-container>
+                  <ng-template #noStar></ng-template>
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="purchase_total">
+              <ng-container matColumnDef="rating_4">
+                <th mat-header-cell *matHeaderCellDef>4 Stars</th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element.rating_4 === '1'; else noStar">
+                    <mat-icon>star</mat-icon>
+                  </ng-container>
+                  <ng-template #noStar></ng-template>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="rating_3">
+                <th mat-header-cell *matHeaderCellDef>3 Stars</th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element.rating_3 === '1'; else noStar">
+                    <mat-icon>star</mat-icon>
+                  </ng-container>
+                  <ng-template #noStar></ng-template>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="rating_2">
+                <th mat-header-cell *matHeaderCellDef>2 Stars</th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element.rating_2 === '1'; else noStar">
+                    <mat-icon>star</mat-icon>
+                  </ng-container>
+                  <ng-template #noStar></ng-template>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="rating_1">
+                <th mat-header-cell *matHeaderCellDef>1 Stars</th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element.rating_1 === '1'; else noStar">
+                    <mat-icon>star</mat-icon>
+                  </ng-container>
+                  <ng-template #noStar></ng-template>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="subtotal">
                 <th mat-header-cell *matHeaderCellDef>Total</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.purchase_total | currency: 'USD' }}
+                  {{ element.subtotal | currency : "USD" }}
                 </td>
               </ng-container>
 

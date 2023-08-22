@@ -71,7 +71,7 @@ module.exports.getClientWithMostSales = async (request, response, next) => {
 module.exports.getRatingBySeller = async (request, response, next) => {
   let seller_id = parseInt(request.params.seller_id);
   const result = await prisma.$queryRaw(
-    Prisma.sql`SELECT td.id_product, t.id_user AS client_id, SUM(CASE WHEN td.seller_rating = 5 THEN 1 ELSE 0 END) AS rating_5, SUM(CASE WHEN td.seller_rating = 4 THEN 1 ELSE 0 END) AS rating_4, SUM(CASE WHEN td.seller_rating = 3 THEN 1 ELSE 0 END) AS rating_3, SUM(CASE WHEN td.seller_rating = 2 THEN 1 ELSE 0 END) AS rating_2, SUM(CASE WHEN td.seller_rating = 1 THEN 1 ELSE 0 END) AS rating_1, p.id_user AS seller_id2 FROM anymovie.transaction_detail td JOIN anymovie.transaction_header t ON td.id_header = t.id JOIN anymovie.product p ON td.id_product = p.id WHERE p.id_user = ${seller_id} GROUP BY td.id_product, t.id_user;`
+    Prisma.sql`SELECT p.name AS prod_name, th.id_user AS client_id, client.name AS client_name, SUM(CASE WHEN td.seller_rating = 5 THEN 1 ELSE 0 END) AS rating_5, SUM(CASE WHEN td.seller_rating = 4 THEN 1 ELSE 0 END) AS rating_4, SUM(CASE WHEN td.seller_rating = 3 THEN 1 ELSE 0 END) AS rating_3, SUM(CASE WHEN td.seller_rating = 2 THEN 1 ELSE 0 END) AS rating_2, SUM(CASE WHEN td.seller_rating = 1 THEN 1 ELSE 0 END) AS rating_1, p.id_user AS seller_id, td.subtotal FROM anymovie.transaction_detail td JOIN anymovie.transaction_header th ON td.id_header = th.id JOIN anymovie.product p ON td.id_product = p.id JOIN anymovie.user client ON th.id_user = client.id WHERE p.id_user = ${seller_id} GROUP BY p.name;`
   );
   response.json(result);
 };

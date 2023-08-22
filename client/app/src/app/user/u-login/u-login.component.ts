@@ -94,7 +94,13 @@ export class ULoginComponent {
     console.log(this.loginForm.value);
     this.authService.loginUser(this.loginForm.value).subscribe(
       (answer: any) => {
-        window.location.href = '/';
+        if(this.authService.isAdmin){
+          window.location.href = '/reports/admin';
+        } else if(this.authService.isSeller){
+          window.location.href = '/reports/seller';
+        } else {
+          window.location.href = '/';
+        }
       },
       (error) => {
         this.notification.message(

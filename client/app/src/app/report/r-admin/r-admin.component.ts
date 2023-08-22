@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
   selector: 'app-r-admin',
@@ -46,7 +47,9 @@ export class RAdminComponent {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private gService: GenericService) {
+  
+  constructor(private gService: GenericService,
+    private authService: AuthenticationService) {
     this.monthList();
     this.initGraphics();
     this.soldProducts();
@@ -136,40 +139,6 @@ export class RAdminComponent {
     });
   }
 
-  graphicBrowserWorstProducts(): void {
-    this.canvasWorstProducts = this.canvas_graphic_worst_products.nativeElement;
-    this.ctxWorstProducts = this.canvasWorstProducts.getContext('2d');
-    if (this.graphicWorstProducts) {
-      this.graphicBestProducts.destroy();
-    }
-    this.graphicWorstProducts = new Chart(this.ctxWorstProducts, {
-      type: 'bar',
-      data: {
-        labels: this.dataWorstProducts.map((x) => x.product_name),
-        datasets: [
-          {
-            label: 'Worst Rating',
-            borderColor: 'rgba(0, 0, 0, 0.2)',
-            backgroundColor: [
-              'rgba(197, 152, 255, 0.4)',
-              'rgba(148, 108, 178, 0.4)',
-              'rgba(126, 25, 255, 0.4)',
-              'rgba(94, 40, 137, 0.4)',
-              'rgba(56, 17, 98, 0.4)',
-              'rgba(140, 50, 255, 0.4)',
-            ],
-
-            data: this.dataWorstProducts.map((x) => x.avg_product_rating),
-          },
-        ],
-      },
-      options: {
-        responsive: false,
-        maintainAspectRatio: false,
-      },
-    });
-  }
-
   graphicBrowserBestSeller(): void {
     this.canvasBestSellers = this.canvas_graphic_best_sellers.nativeElement;
     this.ctxBestSellers = this.canvasBestSellers.getContext('2d');
@@ -193,6 +162,40 @@ export class RAdminComponent {
               'rgba(140, 50, 255, 0.4)',
             ],
             data: this.dataBestSellers.map((x) => x.average_seller_rating),
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
+  graphicBrowserWorstProducts(): void {
+    this.canvasWorstProducts = this.canvas_graphic_worst_products.nativeElement;
+    this.ctxWorstProducts = this.canvasWorstProducts.getContext('2d');
+    if (this.graphicWorstProducts) {
+      this.graphicBestProducts.destroy();
+    }
+    this.graphicWorstProducts = new Chart(this.ctxWorstProducts, {
+      type: 'line',
+      data: {
+        labels: this.dataWorstProducts.map((x) => x.product_name),
+        datasets: [
+          {
+            label: 'Worst Rating',
+            borderColor: 'rgba(0, 0, 0, 0.2)',
+            backgroundColor: [
+              'rgba(197, 152, 255, 0.4)',
+              'rgba(148, 108, 178, 0.4)',
+              'rgba(126, 25, 255, 0.4)',
+              'rgba(94, 40, 137, 0.4)',
+              'rgba(56, 17, 98, 0.4)',
+              'rgba(140, 50, 255, 0.4)',
+            ],
+
+            data: this.dataWorstProducts.map((x) => x.avg_product_rating),
           },
         ],
       },

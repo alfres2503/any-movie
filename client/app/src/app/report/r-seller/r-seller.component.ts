@@ -22,7 +22,7 @@ export class RSellerComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataTable: any;
-  displayedColumns = ['sold_product', 'purchase_count', 'purchase_total'];
+  displayedColumns = ['prod_name', 'rating_5', 'rating_4', 'rating_3', 'rating_2', 'rating_1', 'subtotal'];
   dataSource = new MatTableDataSource<any>();
   today: Date;
 
@@ -32,8 +32,8 @@ export class RSellerComponent {
     private gService: GenericService,
     private authService: AuthenticationService
   ) {
-    //this.id_user = this.authService.idUser;
-    this.id_user = 118310145;
+
+    this.id_user = this.authService.idUser;
 
     this.best_seller();
     this.best_client();
@@ -46,7 +46,6 @@ export class RSellerComponent {
       .get('reports/seller/mostSoldProduct', this.id_user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        console.log(apiData);
         this.best_seller_name = apiData.map((x) => x.prod_name)
         this.best_seller_quantity = apiData.map((x) => x.total_quantity)
       });
@@ -57,7 +56,6 @@ export class RSellerComponent {
       .get('reports/seller/clientWithMostSales', this.id_user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        console.log(apiData);
         this.best_client_name = apiData.map((x) => x.name)
         this.best_client_quantity = apiData.map((x) => x.total_quantity)
       });
@@ -66,12 +64,11 @@ export class RSellerComponent {
   // TABLE
   rating() {
     this.gService
-      .list('reports/admin/salesPerDay')
+      .get('reports/seller/ratingBySeller', this.id_user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         this.dataTable = apiData;
         this.dataSource = new MatTableDataSource(this.dataTable);
-        console.log(apiData);
         this.dataSource.paginator = this.paginator;
       });
   }

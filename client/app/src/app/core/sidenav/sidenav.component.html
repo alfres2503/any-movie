@@ -5,9 +5,29 @@
 
   <mat-divider></mat-divider>
 
-  <a mat-list-item routerLink="/home" routerLinkActive="list-item-active">
+  <a mat-list-item routerLink="/home" routerLinkActive="list-item-active" *ngIf="isAuth && (isClient)">
     <mat-icon>home</mat-icon>
     Home
+  </a>
+
+  <a
+    mat-list-item
+    routerLink="/reports/admin"
+    routerLinkActive="list-item-active"
+    *ngIf="isAuth && (isAdmin)"
+  >
+    <mat-icon>home</mat-icon>
+    Reports
+  </a>
+
+  <a
+    mat-list-item
+    routerLink="/reports/seller"
+    routerLinkActive="list-item-active"
+    *ngIf="isAuth && (isSeller)"
+  >
+    <mat-icon>import_contacts</mat-icon>
+    Reports
   </a>
 
   <a
@@ -40,16 +60,7 @@
     Users
   </a>
 
-  <a
-    mat-list-item
-    routerLink=""
-    routerLinkActive="list-item-active"
-    [matMenuTriggerFor]="menuR"
-    *ngIf="isAuth && (isAdmin || isSeller)"
-  >
-    <mat-icon>import_contacts</mat-icon>
-    Reports
-  </a>
+  
 
   <mat-menu #menuM="matMenu">
     <button mat-menu-item routerLink="/products">
@@ -77,40 +88,4 @@
     </button>
   </mat-menu>
 
-  <mat-menu #menuR="matMenu">
-    <!-- Admin -->
-    <div *ngIf="isAdmin">
-      <button mat-menu-item>
-        <mat-icon>timeline</mat-icon>
-        Sells by day
-      </button>
-      <button mat-menu-item>
-        <mat-icon>bar_chart</mat-icon>
-        Top 5 Products per month
-      </button>
-      <button mat-menu-item>
-        <mat-icon>people_alt</mat-icon>
-        Top 5 Sellers
-      </button>
-      <button mat-menu-item>
-        <mat-icon>thumb_down_alt</mat-icon>
-        Top 3 Worst Sellers
-      </button>
-    </div>
-    <!-- Seller -->
-    <div *ngIf="isSeller">
-      <button mat-menu-item>
-        <mat-icon>shopping_cart</mat-icon>
-        Most sold product
-      </button>
-      <button mat-menu-item>
-        <mat-icon>person</mat-icon>
-        Best Client
-      </button>
-      <button mat-menu-item>
-        <mat-icon>star</mat-icon>
-        Ratings Report
-      </button>
-    </div>
-  </mat-menu>
 </mat-list>
