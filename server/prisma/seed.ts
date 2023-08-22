@@ -135,6 +135,57 @@ const main = async () => {
     },
   });
 
+  await prisma.user.create({
+    data: {
+      id: 118780233,
+      name: "Armando Mendoza",
+      phone: 70121694,
+      email: "amendoza@email.com",
+      active: true,
+      password: bcrypt.hashSync("123456", salt),
+      company_name: "Space",
+      roles: {
+        createMany: {
+          data: [{ id_role: 3 }],
+        },
+      },
+    },
+  });
+
+  await prisma.user.create({
+    data: {
+      id: 325417896,
+      name: "Beatriz Pinzón Solano",
+      phone: 85236974,
+      email: "bpinzon@email.com",
+      active: true,
+      password: bcrypt.hashSync("123456", salt),
+      company_name: "Amazon",
+      roles: {
+        createMany: {
+          data: [{ id_role: 3 }],
+        },
+      },
+    },
+  });
+  
+  await prisma.user.create({
+    data: {
+      id: 500230145,
+      name: "Alberto Perez",
+      phone: 85336974,
+      email: "aperez@email.com",
+      active: true,
+      password: bcrypt.hashSync("123456", salt),
+      company_name: "Netflix",
+      roles: {
+        createMany: {
+          data: [{ id_role: 2 },{ id_role: 3 }],
+        },
+      },
+    },
+  });
+
   // ADDRESS
 
   await prisma.address.create({
@@ -422,6 +473,91 @@ const main = async () => {
     },
   });
 
+  // id: 118780233,
+  await prisma.product.create({
+    data: {
+      id_user: 118780233,
+      id_type: 1,
+      name: "The Godfather",
+      description:
+        "Don Vito Corleone is the respected and feared boss of one of the five mafia families in New York in the 40s. The man has four children: Connie, Sonny, Fredo and Michael, who wants nothing to do with Corleone's dirty business. his father. When another capo, Sollozzo, tries to assassinate Corleone, a bloody fight between the different clans begins.",
+      quantity: 193,
+      price: 44.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }],
+        },
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      id_user: 118780233,
+      id_type: 1,
+      name: "Taxi Driver",
+      description:
+        "To cope with the chronic insomnia he has suffered since his return from Vietnam, Travis Bickle works as a night taxi driver in New York.",
+      quantity: 95,
+      price: 16.99,
+      categories: {
+        createMany: {
+          data: [{ id_category: 1 }, { id_category: 3 }],
+        },
+      },
+    },
+  });
+  // id: 325417896,
+  await prisma.product.create({
+    data: {
+      id_user: 325417896,
+      id_type: 2,
+      name: "The Office",
+      description:
+        "It's a parody of a real but fictional documentary about the 9-to-5 work shenanigans of employees at a branch of a Pennsylvania-based paper company, where there isn't much real work, but is full of characters. colorful.",
+      quantity: 60,
+      price: 20.50,
+      categories: {
+        createMany: {
+          data: [{ id_category: 3 }, { id_category: 4 }, { id_category: 5 }],
+        },
+      },
+    },
+  });
+  // id: 500230145,
+  await prisma.product.create({
+    data: {
+      id_user: 500230145,
+      id_type: 2,
+      name: "Black Mirror",
+      description:
+        "Black Mirror is a British production developed by Charlie Brooker ('Dead set: Death Live'), A series of episodes independent of each other and, with a totally different cast and plots, whose only common point is the power of new technologies to move the world.",
+      quantity: 48,
+      price: 15.93,
+      categories: {
+        createMany: {
+          data: [{ id_category: 2 }, { id_category: 3 }, { id_category: 5 }, { id_category: 6 }],
+        },
+      },
+    },
+  });
+  await prisma.product.create({
+    data: {
+      id_user: 500230145,
+      id_type: 3,
+      name: "Ancient Aliens",
+      description:
+        "Researchers scour the world for evidence, their goal is to determine if life on Earth began in space and if aliens influenced the human race in ancient times. Could it be that aliens began to visit Earth and share information about technology and influence the religions of humans, and even more importantly, if aliens visited the planet before, could they return? Alien theories claim that the answers to those two questions are a resounding yes.",
+      quantity: 26,
+      price: 5,
+      categories: {
+        createMany: {
+          data: [{ id_category: 2 }, { id_category: 6 }],
+        },
+      },
+    },
+  });
+
   // IMAGES
   await prisma.image.createMany({
     data: images,
@@ -506,40 +642,357 @@ const main = async () => {
     },
   });
 
-  // TRANSACTION HEADER
-  await prisma.transaction_header.create({
+  await prisma.image.create({
     data: {
-      id_user: 604780838,
-      id_payment_method: 2,
-      id_address: 2,
-      total: 1017,
-      created_at: new Date("2023-03-01 11:00:00"),
-      payed: true,
+      id_product: 12,
+      image: Buffer.from(fs.readFileSync("IMAGES/gf1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+  await prisma.image.create({
+    data: {
+      id_product: 12,
+      image: Buffer.from(fs.readFileSync("IMAGES/gf2.jpg")).toString(
+        "base64"
+      ),
     },
   });
 
+  await prisma.image.create({
+    data: {
+      id_product: 13,
+      image: Buffer.from(fs.readFileSync("IMAGES/td1.jfif")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 14,
+      image: Buffer.from(fs.readFileSync("IMAGES/The-Office-1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 15,
+      image: Buffer.from(fs.readFileSync("IMAGES/blackmirror1.jpeg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+  await prisma.image.create({
+    data: {
+      id_product: 16,
+      image: Buffer.from(fs.readFileSync("IMAGES/ancient-aliens-1.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+  await prisma.image.create({
+    data: {
+      id_product: 16,
+      image: Buffer.from(fs.readFileSync("IMAGES/ancient-aliens-2.jpg")).toString(
+        "base64"
+      ),
+    },
+  });
+
+
+  // TRANSACTION HEADER
+  //1
   await prisma.transaction_header.create({
     data: {
       id_user: 118310145,
       id_payment_method: 1,
       id_address: 1,
-      total: 159.5,
-      created_at: new Date("2023-02-01 11:00:00"),
-      payed: false,
+      total: 176.98,
+      created_at: new Date("2023-01-01 11:00:00"),
+      payed: true,
     },
   });
 
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 1,
+      id_product: 2,
+      quantity: 1,
+      subtotal: 99.99,
+      arrivalDate: new Date("2023-03-03 11:00:00"),
+      client_rating: 5,
+      client_feedback: "Excelent service",
+      seller_rating: 4,
+      seller_feedback: "Good service",
+    },
+  });
+
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 1,
+      id_product: 8,
+      quantity: 1,
+      subtotal: 76.99,
+      arrivalDate: new Date("2023-03-01 11:00:00"),
+      client_rating: 3,
+      seller_rating: 4,
+      seller_feedback: "Good service",
+    },
+  });
+
+  //2
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 604780838,
+      id_payment_method: 2,
+      id_address: 2,
+      total: 92.93,
+      created_at: new Date("2023-01-01 11:00:00"),
+      payed: true,
+    },
+  });
+
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 2,
+      id_product: 8,
+      quantity: 1,
+      subtotal: 76.99,
+      arrivalDate: new Date("2023-03-01 11:00:00"),
+      client_rating: 3,
+      seller_rating: 4,
+      seller_feedback: "Good service",
+    },
+  });
+
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 2,
+      id_product: 15,
+      quantity: 1,
+      subtotal: 15.94,
+      arrivalDate: new Date("2023-03-03 11:00:00"),
+      client_rating: 5,
+      seller_rating: 3,
+      seller_feedback: "Excelent service",
+    },
+  });
+
+  //3
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 118310145,
+      id_payment_method: 1,
+      id_address: 1,
+      total: 102.97,
+      created_at: new Date("2023-02-02 11:00:00"),
+      payed: true,
+    },
+  });
+
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 3,
+      id_product: 8,
+      quantity: 1,
+      subtotal: 76.99,
+      arrivalDate: new Date("2023-04-01 11:00:00"),
+      client_rating: 4,
+      seller_rating: 5,
+      seller_feedback: "Good service",
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 3,
+      id_product: 4,
+      quantity: 1,
+      subtotal: 19.99,
+      arrivalDate: new Date("2023-04-07 11:00:00"),
+      client_rating: 4,
+      seller_rating: 1,
+      seller_feedback: "Good service",
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 3,
+      id_product: 10,
+      quantity: 1,
+      subtotal: 5.99,
+      arrivalDate: new Date("2023-04-13 11:00:00"),
+      client_rating: 3,
+      seller_rating: 2,
+      seller_feedback: "Bad service",
+    },
+  });
+  
+  //4
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 604780838,
+      id_payment_method: 2,
+      id_address: 3,
+      total: 21.93,
+      created_at: new Date("2023-02-13 11:00:00"),
+      payed: true,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 4,
+      id_product: 10,
+      quantity: 1,
+      subtotal: 5.99,
+      arrivalDate: new Date("2023-04-13 11:00:00"),
+      client_rating: 3,
+      seller_rating: 5,
+      seller_feedback: "Great service",
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 4,
+      id_product: 15,
+      quantity: 1,
+      subtotal: 15.94,
+      arrivalDate: new Date("2023-04-21 11:00:00"),
+      client_rating: 3,
+      seller_rating: 4,
+      seller_feedback: "Good service",
+    },
+  });
+
+  //5
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 712364569,
+      id_payment_method: 5,
+      id_address: 6,
+      total: 64.97,
+      created_at: new Date("2023-03-06 11:00:00"),
+      payed: true,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 5,
+      id_product: 9,
+      quantity: 1,
+      subtotal: 14.99,
+      arrivalDate: new Date("2023-05-17 11:00:00"),
+      client_rating: 4,
+      seller_rating: 5,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 5,
+      id_product: 6,
+      quantity: 1,
+      subtotal: 24.99,
+      arrivalDate: new Date("2023-05-06 11:00:00"),
+      client_rating: 2,
+      seller_rating: 5,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 5,
+      id_product: 11,
+      quantity: 1,
+      subtotal: 24.99,
+      arrivalDate: new Date("2023-04-23 11:00:00"),
+      client_rating: 4,
+      seller_rating: 3,
+    },
+  });
+
+  //6
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 118310145,
+      id_payment_method: 1,
+      id_address: 1,
+      total: 102.5,
+      created_at: new Date("2023-03-22 11:00:00"),
+      payed: true,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 6,
+      id_product: 14,
+      quantity: 5,
+      subtotal: 102.5,
+      arrivalDate: new Date("2023-04-23 11:00:00"),
+      client_rating: 3,
+      seller_rating: 5,
+    },
+  });
+
+  //7
   await prisma.transaction_header.create({
     data: {
       id_user: 604780838,
       id_payment_method: 3,
       id_address: 3,
-      total: 1130,
-      created_at: new Date("2023-03-13 11:00:00"),
+      total: 84.95,
+      created_at: new Date("2023-03-15 11:00:00"),
       payed: true,
     },
   });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 7,
+      id_product: 4,
+      quantity: 2,
+      subtotal: 39.98,
+      arrivalDate: new Date("2023-05-06 11:00:00"),
+      client_rating: 5,
+      seller_rating: 3,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 7,
+      id_product: 1,
+      quantity: 3,
+      subtotal: 44.97,
+      arrivalDate: new Date("2023-04-30 11:00:00"),
+      client_rating: 5,
+      seller_rating: 3,
+    },
+  });
 
+  //8
+  await prisma.transaction_header.create({
+    data: {
+      id_user: 118310145,
+      id_payment_method: 1,
+      id_address: 1,
+      total: 19.99,
+      created_at: new Date("2023-04-06 11:00:00"),
+      payed: true,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 8,
+      id_product: 4,
+      quantity: 1,
+      subtotal: 19.99,
+      arrivalDate: new Date("2023-04-30 11:00:00"),
+      client_rating: 5,
+      seller_rating: 2,
+    },
+  });
+
+  //9
   await prisma.transaction_header.create({
     data: {
       id_user: 604780838,
@@ -550,61 +1003,56 @@ const main = async () => {
       payed: true,
     },
   });
-
-  // TRANSACTION DETAIL
   await prisma.transaction_detail.create({
     data: {
-      id_header: 1,
-      id_product: 2,
+      id_header: 9,
+      id_product: 6,
       quantity: 1,
-      subtotal: 900,
-      arrivalDate: new Date(),
-      client_rating: 5,
-      client_feedback: "Excelent service",
+      subtotal: 24.99,
+    },
+  });
+  await prisma.transaction_detail.create({
+    data: {
+      id_header: 9,
+      id_product: 16,
+      quantity: 1,
+      subtotal: 5,
     },
   });
 
-  await prisma.transaction_detail.create({
+  //10
+  await prisma.transaction_header.create({
     data: {
-      id_header: 2,
-      id_product: 1,
-      quantity: 1,
-      subtotal: 150,
+      id_user: 712364569,
+      id_payment_method: 5,
+      id_address: 6,
+      total: 59.97,
+      created_at: new Date(),
+      payed: true,
     },
   });
-
   await prisma.transaction_detail.create({
     data: {
-      id_header: 3,
-      id_product: 1,
+      id_header: 10,
+      id_product: 16,
       quantity: 1,
-      subtotal: 150,
+      subtotal: 5,
     },
   });
-
   await prisma.transaction_detail.create({
     data: {
-      id_header: 3,
-      id_product: 3,
-      quantity: 1,
-      subtotal: 850,
-      client_rating: 4,
-      client_feedback: "Good service, but the product was a little bit late",
-      seller_rating: 5,
-      seller_feedback: "Excellent client, we hope to see you soon",
+      id_header: 10,
+      id_product: 4,
+      quantity: 2,
+      subtotal: 39.98,
     },
   });
-
   await prisma.transaction_detail.create({
     data: {
-      id_header: 4,
-      id_product: 5,
+      id_header: 10,
+      id_product: 9,
       quantity: 1,
-      subtotal: 29.99,
-      client_rating: 3,
-      client_feedback: "Good service, but the product quality is bad",
-      seller_rating: 5,
-      seller_feedback: "Excellent client",
+      subtotal: 14.99,
     },
   });
 

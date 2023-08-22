@@ -1,0 +1,84 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <mat-card class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">theaters</i>
+            </div>
+            <p class="card-category">Your Best Seller</p>
+            <h3 class="card-title">{{ best_seller_name }}</h3>
+            <p class="card-category">Total Quantity: {{ best_seller_quantity }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> All Times
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <mat-card class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">face</i>
+            </div>
+            <p class="card-category">Your Best Client</p>
+            <h3 class="card-title">{{ best_client_name }}</h3>
+            <p class="card-category">Total Quantity: {{ best_client_quantity }} </p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> All times
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <mat-card class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title">Stars Rating</h4>
+            <p class="card-category">Given stars by other clients</p>
+          </div>
+          <div class="card-body table-responsive">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              <ng-container matColumnDef="sold_product">
+                <th mat-header-cell *matHeaderCellDef>Sold Product</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.sold_product }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="purchase_count">
+                <th mat-header-cell *matHeaderCellDef>Purchase Quantity</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.purchase_count }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="purchase_total">
+                <th mat-header-cell *matHeaderCellDef>Total</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.purchase_total | currency: 'USD' }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 15]"
+              showFirstLastButtons
+              *ngIf="dataSource.data.length > 0"
+              color="accent"
+            ></mat-paginator>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
-import { LocationService } from 'src/app/share/locations.service';
 import {
   MessageType,
   NotificationService,
@@ -57,7 +55,7 @@ export class UEditComponent implements OnInit {
       (valor) => (this.isAuth = valor)
     );
 
-    this.idUser = this.authService.idUser;
+    this.idUser = this.authService.idUser; 
 
     if (this.idUser != undefined) {
       this.gService

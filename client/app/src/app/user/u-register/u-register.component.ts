@@ -68,22 +68,6 @@ export class URegisterComponent {
       ],
       password: ['', Validators.required],
       company_name: [null],
-      // province: ['', Validators.required],
-      // canton: ['', Validators.required],
-      // district: ['', Validators.required],
-      // direction: ['', Validators.required],
-      // postal_code: ['', Validators.required],
-      // address: this.fb.group({
-      //   province: ['', Validators.required],
-      //   canton: ['', Validators.required],
-      //   district: ['', Validators.required],
-      //   direction: ['', Validators.required],
-      //   postal_code: ['', Validators.required],
-      //   phone: [
-      //     null,
-      //     Validators.compose([Validators.required, Validators.minLength(8)]),
-      //   ],
-      // }),
       roles: [null, Validators.required],
     });
   }

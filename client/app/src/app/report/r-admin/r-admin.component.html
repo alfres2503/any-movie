@@ -1,0 +1,130 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <mat-card class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">trending_up</i>
+            </div>
+            <p class="card-category">Products</p>
+            <h3 class="card-title">Top 5 Best Products By Month</h3>
+            <mat-form-field>
+              <mat-label>Select a month</mat-label>
+              <mat-select
+                placeholder="Month"
+                (selectionChange)="initGraphicBestProducts($event.value)"
+              >
+                <mat-option *ngFor="let m of month_list" [value]="m.Value">
+                  {{ m.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-card-content>
+              <canvas
+                id="graphsPie"
+                #canvas_graphic_best_products
+                class="chart"
+              ></canvas>
+            </mat-card-content>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> Month {{ filter }}
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <mat-card class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">face</i>
+            </div>
+            <p class="card-category">Sellers</p>
+            <h3 class="card-title">Top 5 Best Sellers</h3>
+            <mat-card-content>
+              <canvas
+                id="graphs"
+                #canvas_graphic_best_sellers
+                class="chart"
+              ></canvas>
+            </mat-card-content>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> All times
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <mat-card class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">trending_down</i>
+            </div>
+            <p class="card-category">Products</p>
+            <h3 class="card-title">Top 3 Worst Products</h3>
+            <mat-card-content>
+              <canvas
+                id="graphs"
+                #canvas_graphic_worst_products
+                class="chart"
+              ></canvas>
+            </mat-card-content>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">date_range</i> All times
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <mat-card class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title">Sold Products Today</h4>
+            <p class="card-category">Date: {{ today | date : "MMM d, y" }}</p>
+          </div>
+          <div class="card-body table-responsive">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              <ng-container matColumnDef="sold_product">
+                <th mat-header-cell *matHeaderCellDef>Sold Product</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.sold_product }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="purchase_count">
+                <th mat-header-cell *matHeaderCellDef>Purchase Quantity</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.purchase_count }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="purchase_total">
+                <th mat-header-cell *matHeaderCellDef>Total</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.purchase_total | currency: 'USD' }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 15]"
+              showFirstLastButtons
+              *ngIf="dataSource.data.length > 0"
+              color="accent"
+            ></mat-paginator>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

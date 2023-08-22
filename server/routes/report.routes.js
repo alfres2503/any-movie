@@ -8,9 +8,9 @@ const reportController = require("../controllers/reportController");
 //locahost:3000/reports/
 
 //REPORTS FOR ADMIN
-router.get("/admin/salesPerDay/:date", reportController.getSalesPerDay);
+router.get("/admin/salesPerDay", reportController.getSalesPerDay);
 
-router.get("/admin/top5Products/:month/:year", reportController.getTop5BestProductsByMonth);
+router.get("/admin/top5Products/:month", reportController.getTop5BestProductsByMonth);
 
 router.get("/admin/top5Seller", reportController.getTop5BestSellers);
 

@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +32,9 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     OrderModule,
     HttpClientModule,
+    ReportModule,
 
-    // AppRoutingModule tiene que estar de ultimo
+    // AppRoutingModule must be last
     AppRoutingModule,
   ],
   providers: [],
