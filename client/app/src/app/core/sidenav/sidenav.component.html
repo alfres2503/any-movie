@@ -5,7 +5,12 @@
 
   <mat-divider></mat-divider>
 
-  <a mat-list-item routerLink="/home" routerLinkActive="list-item-active" *ngIf="isAuth && (isClient)">
+  <a
+    mat-list-item
+    routerLink="/home"
+    routerLinkActive="list-item-active"
+    *ngIf="isAuth && isClient"
+  >
     <mat-icon>home</mat-icon>
     Home
   </a>
@@ -14,7 +19,7 @@
     mat-list-item
     routerLink="/reports/admin"
     routerLinkActive="list-item-active"
-    *ngIf="isAuth && (isAdmin)"
+    *ngIf="isAuth && isAdmin"
   >
     <mat-icon>home</mat-icon>
     Reports
@@ -24,7 +29,7 @@
     mat-list-item
     routerLink="/reports/seller"
     routerLinkActive="list-item-active"
-    *ngIf="isAuth && (isSeller)"
+    *ngIf="isAuth && isSeller"
   >
     <mat-icon>import_contacts</mat-icon>
     Reports
@@ -60,8 +65,6 @@
     Users
   </a>
 
-  
-
   <mat-menu #menuM="matMenu">
     <button mat-menu-item routerLink="/products">
       <mat-icon>apps</mat-icon>
@@ -87,5 +90,4 @@
       Review
     </button>
   </mat-menu>
-
 </mat-list>

@@ -229,6 +229,11 @@ export class PFormComponent implements OnInit {
       .subscribe((data: any) => {
         //get answer
         this.productAnswer = data;
+        this.notification.message(
+          'Success',
+          'Product Created Successfully',
+          MessageType.success
+        );
         this.router.navigate(['/products'], {
           queryParams: { create: 'true' },
         });
@@ -267,6 +272,11 @@ export class PFormComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         this.productAnswer = data;
+        this.notification.message(
+          'Success',
+          'Product Updated Successfully',
+          MessageType.success
+        );
         this.router.navigate(['/products'], {
           queryParams: { create: 'true' },
         });

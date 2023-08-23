@@ -148,7 +148,7 @@
               mat-stroked-button
               class="ms-3"
               (click)="answerDialog(item)"
-              *ngIf="isAuth"
+              *ngIf="isAuth && data.id_user === idUser"
             >
               Reply
             </button>

@@ -55,7 +55,7 @@ export class UEditComponent implements OnInit {
       (valor) => (this.isAuth = valor)
     );
 
-    this.idUser = this.authService.idUser; 
+    this.idUser = this.authService.idUser;
 
     if (this.idUser != undefined) {
       this.gService
@@ -63,6 +63,7 @@ export class UEditComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe((apiData: any) => {
           this.userInfo = apiData;
+          console.log(this.userInfo);
 
           this.userImage = this.userInfo.image;
           this.addresses = new MatTableDataSource(this.userInfo.address);
@@ -157,6 +158,20 @@ export class UEditComponent implements OnInit {
   }
 
   addressDialog(): void {
+    if (
+      this.userInfo.roles.some((role) => role.id_role === 3) &&
+      this.userInfo.roles.length === 1 &&
+      this.userInfo.address.length === 1
+    ) {
+      this.notification.message(
+        'Error',
+        'Sellers can only have one address',
+        MessageType.error
+      );
+
+      return;
+    }
+
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;

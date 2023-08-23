@@ -45,4 +45,9 @@ export class SidenavComponent {
   orderSeller(id: number) {
     this.router.navigate(['orders/seller', id]);
   }
+
+  navigateToAdminReport() {
+    const currentUserRoles = this.currentUser.user.roles;
+    this.router.navigate(['/reports/admin', currentUserRoles]);
+  }
 }

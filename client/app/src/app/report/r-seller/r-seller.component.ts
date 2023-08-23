@@ -5,6 +5,7 @@ import { GenericService } from 'src/app/share/generic.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+import { AuthGuard } from 'src/app/share/guards/auth.guard';
 
 @Component({
   selector: 'app-r-seller',
@@ -22,7 +23,15 @@ export class RSellerComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataTable: any;
-  displayedColumns = ['prod_name', 'rating_5', 'rating_4', 'rating_3', 'rating_2', 'rating_1', 'subtotal'];
+  displayedColumns = [
+    'prod_name',
+    'rating_5',
+    'rating_4',
+    'rating_3',
+    'rating_2',
+    'rating_1',
+    'subtotal',
+  ];
   dataSource = new MatTableDataSource<any>();
   today: Date;
 
@@ -30,9 +39,9 @@ export class RSellerComponent {
 
   constructor(
     private gService: GenericService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private authGuard: AuthGuard
   ) {
-
     this.id_user = this.authService.idUser;
 
     this.best_seller();
@@ -46,8 +55,8 @@ export class RSellerComponent {
       .get('reports/seller/mostSoldProduct', this.id_user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        this.best_seller_name = apiData.map((x) => x.prod_name)
-        this.best_seller_quantity = apiData.map((x) => x.total_quantity)
+        this.best_seller_name = apiData.map((x) => x.prod_name);
+        this.best_seller_quantity = apiData.map((x) => x.total_quantity);
       });
   }
 
@@ -56,8 +65,8 @@ export class RSellerComponent {
       .get('reports/seller/clientWithMostSales', this.id_user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
-        this.best_client_name = apiData.map((x) => x.name)
-        this.best_client_quantity = apiData.map((x) => x.total_quantity)
+        this.best_client_name = apiData.map((x) => x.name);
+        this.best_client_quantity = apiData.map((x) => x.total_quantity);
       });
   }
 

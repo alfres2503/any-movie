@@ -103,6 +103,7 @@
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.arrivalDate | date : "MMM d, y" }}
+        <span *ngIf="element.arrivalDate === null">[In progress]</span>
       </td>
     </ng-container>
 

@@ -152,6 +152,7 @@ module.exports.getById = async (request, response, next) => {
     include: {
       address: true,
       payment_methods: true,
+      roles: true,
     },
   });
   response.json(users);

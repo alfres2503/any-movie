@@ -85,6 +85,8 @@ export class PDetailComponent {
 
     this.idUser = this.authService.idUser;
     this.isClient = this.authService.isClient;
+
+    console.log(this.idUser);
   }
 
   ngOnInit(): void {}
@@ -181,6 +183,12 @@ export class PDetailComponent {
       .subscribe((data: any) => {
         //get answer
         this.productAnswer = data;
+
+        this.notification.message(
+          'Comment',
+          'Comment created successfully',
+          MessageType.success
+        );
 
         this.getComments(this.id);
         this.commentForm.reset();
