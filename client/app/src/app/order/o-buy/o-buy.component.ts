@@ -143,7 +143,7 @@ export class OBuyComponent {
         id_user: this.idUser,
         id_payment_method: this.orderForm.value.payment_method,
         id_address: this.orderForm.value.address,
-        total: this.total,
+        total: this.total * 1.13,
         payed: true,
         details: products,
       };
